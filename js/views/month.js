@@ -68,10 +68,13 @@ function setStandardCalendar() {
   gridStart.style.gridColumnStart = firstDay;
 
   // Event listeners for each Day
-  var monthDays = document.querySelectorAll(".month-day");
+  let monthDays = document.querySelectorAll(".month-day");
   monthDays.forEach((monthDay) => {
     monthDay.addEventListener(click, printDay);
   });
+
+  let navTitle = document.querySelector(".nav-title > h4");
+  navTitle.innerHTML;
 }
 
 export { printMonth, setStandardCalendar };

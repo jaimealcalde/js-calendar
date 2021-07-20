@@ -2,9 +2,9 @@ var templateMonth = `
 	<template id="month">
 		<div class="month-wrapper">
 			<nav class="month-header">
-				<h1>Mes anterior</h1>
-				<h1>Día - Mes - Año</h1>
-				<h1>Mes siguiente</h1>
+				<div id="before-button"class="nav-button">Mes anterior</div>
+				<div class="nav-title"><h4>Día - Mes - Año</h4></div>
+				<div id="next-button" class="nav-button">Mes siguiente</div>
 			</nav>
 			<div class="month-weekdays">
 				<h4>Monday</h4>
