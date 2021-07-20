@@ -76,6 +76,7 @@ function setStandardCalendar() {
   });
   */
 
+  // Transform the getMonth() into month name to use it in the title
   let monthNames = [
     "January",
     "February",
@@ -95,6 +96,26 @@ function setStandardCalendar() {
   navTitle.innerHTML = `${month.getDate()} ${
     monthNames[month.getMonth()]
   } of ${month.getFullYear()}`;
+
+  var monthButtons = document.querySelectorAll(".nav-button");
+  monthButtons.forEach((monthButton) => {
+    monthButton.addEventListener("click", changeMonth);
+  });
 }
 
-export { printMonth, setStandardCalendar };
+function changeMonth(e) {
+  if (e.target.id == "next-button") {
+    console.log("siguente");
+    month.setMonth(month.getMonth() + 1);
+    printMonth();
+    setStandardCalendar();
+  } else if (e.target.id == "before-button") {
+    month.setMonth(month.getMonth() - 1);
+    printMonth();
+    setStandardCalendar();
+
+    console.log("anterior");
+  }
+}
+
+export { printMonth, setStandardCalendar, changeMonth };
