@@ -18,47 +18,52 @@ function printMonth() {
   wrapper.appendChild(copyNode);
 }
 
-let month = new Date();
+var monthObject = { date: new Date() };
 
 function setStandardCalendar() {
   // Create a new Date with the actual month by default. Change the day of the month to the 1st day, and GET THE FIRST DAY OF THE MONTH
+  monthObject["firstDay"] = new Date(monthObject["date"]);
 
-  let firstDay = new Date(month);
-  firstDay.setDate(1);
-  firstDay = firstDay.getDay();
+  monthObject["firstDay"].setDate(1);
+  monthObject["firstDay"] = monthObject["firstDay"].getDay();
 
   // The last day of this month is equals to day 0 of the next month
-  let lastDay = new Date(month.getFullYear(), month.getMonth() + 1, 0);
-  lastDay = lastDay.getDate();
+  monthObject["lastDay"] = new Date(
+    monthObject["date"].getFullYear(),
+    monthObject["date"].getMonth() + 1,
+    0
+  );
+  monthObject["lastDay"] = monthObject["lastDay"].getDate();
 
-  if (firstDay == 0) firstDay = 7; // DAY 0 IS SUNDAY
+  if (monthObject["firstDay"] == 0) monthObject["firstDay"] = 7; // DAY 0 IS SUNDAY
+  //monthObject["firstDay"] = firstDay;
 
   // Calculate Number of weeks
-  let numberOfWeeks;
-  if (month.getMonth() == 1) {
-    if (firstDay == 1 && lastDay == 28) {
-      numberOfWeeks = 4;
+
+  if (monthObject["date"].getMonth() == 1) {
+    if (monthObject["firstDay"] == 1 && monthObject["lastDay"] == 28) {
+      monthObject["numberOfWeeks"] = 4;
     } else {
-      numberOfWeeks = 5;
+      monthObject["numberOfWeeks"] = 5;
     }
-  } else if (lastDay == 31) {
-    if (firstDay == 6 || firstDay == 7) {
-      numberOfWeeks = 6;
+  } else if (monthObject["lastDay"] == 31) {
+    if (monthObject["firstDay"] == 6 || monthObject["firstDay"] == 7) {
+      monthObject["numberOfWeeks"] = 6;
     } else {
-      numberOfWeeks = 5;
+      monthObject["numberOfWeeks"] = 5;
     }
-  } else if (lastDay == 30 && firstDay == 7) {
-    numberOfWeeks = 6;
+  } else if (monthObject["lastDay"] == 30 && monthObject["firstDay"] == 7) {
+    monthObject["numberOfWeeks"] = 6;
   } else {
-    numberOfWeeks = 5;
+    monthObject["numberOfWeeks"] = 5;
   }
 
   let grid = document.querySelector(".month-grid");
 
-  grid.style.gridTemplateRows = `repeat(${numberOfWeeks}, 6rem)`;
+  grid.style.gridTemplateRows = `repeat(${monthObject["numberOfWeeks"]}, 6rem)`;
 
   // Create days and append it to the grid
-  for (let i = 1; i <= lastDay; i++) {
+  for (let i = 1; i <= monthObject["lastDay"]; i++) {
     let newElement = document.createElement("div");
     newElement.innerHTML = `<div class="month-day"><p>${i}</p></div>`;
     grid.appendChild(newElement);
@@ -66,7 +71,7 @@ function setStandardCalendar() {
 
   // Set where starts the first element of the grid
   let gridStart = document.querySelector(".month-grid > div");
-  gridStart.style.gridColumnStart = firstDay;
+  gridStart.style.gridColumnStart = monthObject["firstDay"];
 
   // Event listeners for each Day
   /*
@@ -93,9 +98,9 @@ function setStandardCalendar() {
   ];
 
   let navTitle = document.querySelector(".nav-title > h4");
-  navTitle.innerHTML = `${month.getDate()} ${
-    monthNames[month.getMonth()]
-  } of ${month.getFullYear()}`;
+  navTitle.innerHTML = `${monthObject["date"].getDate()} ${
+    monthNames[monthObject["date"].getMonth()]
+  } of ${monthObject["date"].getFullYear()}`;
 
   var monthButtons = document.querySelectorAll(".nav-button");
   monthButtons.forEach((monthButton) => {
@@ -105,16 +110,14 @@ function setStandardCalendar() {
 
 function changeMonth(e) {
   if (e.target.id == "next-button") {
-    console.log("siguente");
-    month.setMonth(month.getMonth() + 1);
+    monthObject["date"].setMonth(monthObject["date"].getMonth() + 1);
     printMonth();
     setStandardCalendar();
   } else if (e.target.id == "before-button") {
-    month.setMonth(month.getMonth() - 1);
+    monthObject["date"].setMonth(monthObject["date"].getMonth() - 1);
     printMonth();
     setStandardCalendar();
-
-    console.log("anterior");
+    console.log(monthObject["date"]);
   }
 }
 
