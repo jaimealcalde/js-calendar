@@ -23,8 +23,9 @@ let month = new Date();
 function setStandardCalendar() {
   // Create a new Date with the actual month by default. Change the day of the month to the 1st day, and GET THE FIRST DAY OF THE MONTH
 
-  month.setDate(1);
-  let firstDay = month.getDay();
+  let firstDay = new Date(month);
+  firstDay.setDate(1);
+  firstDay = firstDay.getDay();
 
   // The last day of this month is equals to day 0 of the next month
   let lastDay = new Date(month.getFullYear(), month.getMonth() + 1, 0);
@@ -68,13 +69,32 @@ function setStandardCalendar() {
   gridStart.style.gridColumnStart = firstDay;
 
   // Event listeners for each Day
+  /*
   let monthDays = document.querySelectorAll(".month-day");
   monthDays.forEach((monthDay) => {
-    monthDay.addEventListener(click, printDay);
+    monthDay.addEventListener("click", printDay);
   });
+  */
+
+  let monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
 
   let navTitle = document.querySelector(".nav-title > h4");
-  navTitle.innerHTML;
+  navTitle.innerHTML = `${month.getDate()} ${
+    monthNames[month.getMonth()]
+  } of ${month.getFullYear()}`;
 }
 
 export { printMonth, setStandardCalendar };
