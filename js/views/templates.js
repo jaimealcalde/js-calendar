@@ -1,11 +1,11 @@
 var templateMonth = `
 	<template id="month">
 		<div class="month-wrapper">
-			<div class="month-header">
+			<nav class="month-header">
 				<h1>Mes anterior</h1>
 				<h1>Día - Mes - Año</h1>
 				<h1>Mes siguiente</h1>
-			</div>
+			</nav>
 			<div class="month-weekdays">
 				<h4>Monday</h4>
 				<h4>Tuesday</h4>
