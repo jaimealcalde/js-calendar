@@ -1,0 +1,20 @@
+---------------------------------------------------------- GIT ----------------------------------------------------------
+
+DEVELOPERS
+- Work in separate branch of the feature and NEVER use main branch.
+- NEVER push testing files, delete it before pushing the personal branch.
+- HOW TO DELIVER WORK: Upload feature branch and say it to the leader.
+- HOW TO UPDATE: Pull the main branch and merge the main from the feature branch.
+
+    
+
+TEAM LEAD
+- HOW TO UPDATE THE DEVELOPERS WORK: Pull the feature branch in the test branch. Solve issues. Test the changes with liveserver. Merge main from test branch. Test the changes with liveserver. Push the main
+
+
+
+EXAMPLE to submit a new feature:
+Developer has worked in the "feature_name" local branch, he push it in the "feature_name" remote branch. Leader pull the "feature_name" in his "test" branch (being in "test" branch git pull origin "feature_name"). Solve conflicts, add all and commit the changes. (Push the test branch if you want to). Go to the main branch and merge the "test" branch. Then PUSH the main. Every developer can pull the main to have the updated features. When they want to work on a new feature with the updated project, open the new branch and git merge from main.
+
+
+
