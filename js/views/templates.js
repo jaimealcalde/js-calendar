@@ -16,8 +16,6 @@ var templateMonth = `
 				<h4>Sunday</h4>
 			</div>
 			<div class="month-grid">
-				
-
 			</div>
 		</div>
 	</template>

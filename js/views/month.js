@@ -18,4 +18,60 @@ function printMonth() {
   wrapper.appendChild(copyNode);
 }
 
-export { printMonth };
+let month = new Date();
+
+function setStandardCalendar() {
+  // Create a new Date with the actual month by default. Change the day of the month to the 1st day, and GET THE FIRST DAY OF THE MONTH
+
+  month.setDate(1);
+  let firstDay = month.getDay();
+
+  // The last day of this month is equals to day 0 of the next month
+  let lastDay = new Date(month.getFullYear(), month.getMonth() + 1, 0);
+  lastDay = lastDay.getDate();
+
+  if (firstDay == 0) firstDay = 7; // DAY 0 IS SUNDAY
+
+  // Calculate Number of weeks
+  let numberOfWeeks;
+  if (month.getMonth() == 1) {
+    if (firstDay == 1 && lastDay == 28) {
+      numberOfWeeks = 4;
+    } else {
+      numberOfWeeks = 5;
+    }
+  } else if (lastDay == 31) {
+    if (firstDay == 6 || firstDay == 7) {
+      numberOfWeeks = 6;
+    } else {
+      numberOfWeeks = 5;
+    }
+  } else if (lastDay == 30 && firstDay == 7) {
+    numberOfWeeks = 6;
+  } else {
+    numberOfWeeks = 5;
+  }
+
+  let grid = document.querySelector(".month-grid");
+
+  grid.style.gridTemplateRows = `repeat(${numberOfWeeks}, 6rem)`;
+
+  // Create days and append it to the grid
+  for (let i = 1; i <= lastDay; i++) {
+    let newElement = document.createElement("div");
+    newElement.innerHTML = `<div class="month-day"><p>${i}</p></div>`;
+    grid.appendChild(newElement);
+  }
+
+  // Set where starts the first element of the grid
+  let gridStart = document.querySelector(".month-grid > div");
+  gridStart.style.gridColumnStart = firstDay;
+
+  // Event listeners for each Day
+  var monthDays = document.querySelectorAll(".month-day");
+  monthDays.forEach((monthDay) => {
+    monthDay.addEventListener(click, printDay);
+  });
+}
+
+export { printMonth, setStandardCalendar };
