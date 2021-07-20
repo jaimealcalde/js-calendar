@@ -1,0 +1,27 @@
+.month-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+.month-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.month-weekdays {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.month-weekdays h4 {
+  width: 100%;
+  text-align: center;
+  background-color: grey;
+  border: 1px solid black;
+}
+
+.month-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+}
