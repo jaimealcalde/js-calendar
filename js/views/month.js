@@ -108,15 +108,16 @@ function setStandardCalendar() {
   ];
 
   let navTitle = document.querySelector(".nav-title > h4");
-  navTitle.innerHTML = `${monthObject["date"].getDate()} ${
+  navTitle.innerHTML = `${
     monthNames[monthObject["date"].getMonth()]
-  } of ${monthObject["date"].getFullYear()}`;
+  }  ${monthObject["date"].getFullYear()}`;
 
   var monthButtons = document.querySelectorAll(".nav-button");
   monthButtons.forEach((monthButton) => {
     monthButton.addEventListener("click", changeMonth);
   });
 
+  // Hide the month before arrow by default
   if (
     monthObject.date.getMonth() == monthObject.limitMonth &&
     monthObject.date.getFullYear() == monthObject.limitYearBefore
@@ -127,6 +128,7 @@ function setStandardCalendar() {
   }
 }
 
+// Hide the navigation arrows in each case to limit the user's navigation
 function hiddenMonthButtons() {
   if (monthObject.date.getMonth() == monthObject.limitMonth) {
     if (monthObject.date.getFullYear() == monthObject.limitYearAfter) {
