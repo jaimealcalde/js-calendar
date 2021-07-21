@@ -1,6 +1,7 @@
 import { wrapper } from "../main.js";
 import { templateMonth } from "./templates.js";
 import { printHeader } from "./header.js";
+import { events } from "../events.js";
 
 function printMonth() {
   //TODO borar contendio y borrar event listener
@@ -75,9 +76,9 @@ function setStandardCalendar() {
     let newElement = document.createElement("div");
 
     newElement.classList.add("monthday");
-    newElement.dataset.action = `day${i}`;
+    newElement.dataset.action = `${i}`;
 
-    newElement.innerHTML = `<div class="monthday--header"><div class="monthday--header__num">${i}</div><div class="monthday--header__plus">+</div></div><div data-action="event1">Event1</div><div data-action="event2">Event2</div><div data-action="event3">Event3</div>`;
+    newElement.innerHTML = `<div class="monthday--header"><div class="monthday--header__num">${i}</div><div class="monthday--header__plus">+</div></div><div class="month-event" data-action="event1"></div><div class="month-event" data-action="event2"></div><div class="month-event" data-action="event3"></div>`;
 
     grid.appendChild(newElement);
   }
@@ -131,6 +132,30 @@ function setStandardCalendar() {
   }
 }
 
+function chargeMonthEvents() {
+  let eventArray = [];
+  let cellsArray = [];
+
+  for (let i = 0; i < events.length; i++) {
+    if (events[i].initial_date.getMonth() == monthObject.date.getMonth()) {
+      var eventCells = document.querySelectorAll(
+        `[data-action="${events[i].initial_date.getDate()}"] > .month-event`
+      );
+      eventArray.push(events[i]);
+    }
+  }
+  eventCells.forEach((eventCell) => {
+    if (eventCell.textContent == "") {
+      cellsArray.push(eventCell);
+    }
+  });
+  console.log(eventArray);
+  console.log(cellsArray);
+  for (let i = 0; i < cellsArray.length; i++) {
+    cellsArray[i].textContent = eventArray[i].title;
+  }
+}
+
 // Hide the navigation arrows in each case to limit the user's navigation
 function hiddenMonthButtons() {
   if (monthObject.date.getMonth() == monthObject.limitMonth) {
@@ -175,6 +200,7 @@ function monthDisplay() {
   printMonth();
   setLimitDates();
   setStandardCalendar();
+  chargeMonthEvents();
   hiddenMonthButtons();
 }
 
