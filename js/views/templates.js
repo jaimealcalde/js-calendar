@@ -26,7 +26,7 @@ var day = ``;
 var header = `<template id="header">
 <div class="header__container" id="ButtonAddEvent">
 <div><h1>Calendar Name</h1></div>
-<div><button class="button__header--newEvent button__green">Add Event</button></div>
+<div><button id="open-modal" class="button__header--newEvent button__green">Add Event</button></div>
 </div>
 <div class="separator__header"></div>
 </template>

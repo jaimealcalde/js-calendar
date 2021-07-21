@@ -1,21 +1,11 @@
-import {
-  printMonth,
-  setLimitDates,
-  setStandardCalendar,
-  hiddenMonthButtons,
-} from "./views/month.js";
-//import { printDay } from "./views/day.js";
-import { printHeader } from "./views/header.js";
+import { monthDisplay } from "./views/month.js";
 
 function navigate() {
-  if (location.hash == "") {
-    printMonth();
-    setLimitDates();
-    setStandardCalendar();
-    hiddenMonthButtons();
-  } else if (location.hash == "day") {
-    //printDay();
-  }
+	if (location.hash == "") {
+		monthDisplay();
+	} else if (location.hash == "day") {
+		//printDay();
+	}
 }
 
 export { navigate };

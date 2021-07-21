@@ -1,8 +1,8 @@
 import { wrapper } from "../main.js";
 import { header } from "./templates.js";
+import { openModal } from "../modal.js";
 
 function printHeader() {
-
 	//insert the template HTML in the main.html div calendar
 	let templateHeader = header;
 	wrapper.insertAdjacentHTML("beforeend", templateHeader);
@@ -15,6 +15,9 @@ function printHeader() {
 	wrapper.innerHTML = "";
 
 	wrapper.appendChild(copyNode);
+
+	//button open modal
+	document.getElementById("open-modal").addEventListener("click", openModal);
 }
 
 export { printHeader };
