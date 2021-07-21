@@ -1,0 +1,10 @@
+.header__container{
+    display: flex;
+    justify-content: space-around;
+}
+
+.separator__header{
+    border-top: 1px solid;
+    height: 2px;
+    margin: 20px auto 0 auto;
+}

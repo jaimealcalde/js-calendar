@@ -8,4 +8,13 @@ var templateMonth = `
 
 var day = ``;
 
-export { templateMonth, day };
+var header = `<template id="header">
+<div class="header__container" id="ButtonAddEvent">
+<div><h1>Calendar Name</h1></div>
+<div><button class="button__header--newEvent button__green">Add Event</button></div>
+</div>
+<div class="separator__header"></div>
+</template>
+`;
+
+export { templateMonth, day, header };
