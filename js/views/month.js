@@ -20,6 +20,17 @@ function printMonth() {
 
 var monthObject = { date: new Date() };
 
+//monthObject["firstYear"] = monthObject.date.setFullYear(
+//  monthObject.date.getFullYear() - 1
+//);
+
+function setLimitDates() {
+  monthObject["limitYearBefore"] = monthObject.date.getFullYear();
+  monthObject["limitYearAfter"] = monthObject.date.getFullYear() + 1;
+  monthObject["limitMonth"] = monthObject.date.getMonth();
+  console.log(monthObject);
+}
+
 function setStandardCalendar() {
   // Create a new Date with the actual month by default. Change the day of the month to the 1st day, and GET THE FIRST DAY OF THE MONTH
   monthObject["firstDay"] = new Date(monthObject["date"]);
@@ -36,10 +47,8 @@ function setStandardCalendar() {
   monthObject["lastDay"] = monthObject["lastDay"].getDate();
 
   if (monthObject["firstDay"] == 0) monthObject["firstDay"] = 7; // DAY 0 IS SUNDAY
-  //monthObject["firstDay"] = firstDay;
 
   // Calculate Number of weeks
-
   if (monthObject["date"].getMonth() == 1) {
     if (monthObject["firstDay"] == 1 && monthObject["lastDay"] == 28) {
       monthObject["numberOfWeeks"] = 4;
@@ -59,13 +68,12 @@ function setStandardCalendar() {
   }
 
   let grid = document.querySelector(".month-grid");
-
   grid.style.gridTemplateRows = `repeat(${monthObject["numberOfWeeks"]}, 6rem)`;
 
   // Create days and append it to the grid
   for (let i = 1; i <= monthObject["lastDay"]; i++) {
     let newElement = document.createElement("div");
-    newElement.innerHTML = `<div class="month-day"><p>${i}</p></div>`;
+    newElement.innerHTML = `<div class="month-day"><div>${i}<span>HOLA</span></div><div>Event1</div><div>Event2</div><div>Event3</div></div>`;
     grid.appendChild(newElement);
   }
 
@@ -109,16 +117,28 @@ function setStandardCalendar() {
 }
 
 function changeMonth(e) {
-  if (e.target.id == "next-button") {
-    monthObject["date"].setMonth(monthObject["date"].getMonth() + 1);
-    printMonth();
-    setStandardCalendar();
-  } else if (e.target.id == "before-button") {
-    monthObject["date"].setMonth(monthObject["date"].getMonth() - 1);
-    printMonth();
-    setStandardCalendar();
-    console.log(monthObject["date"]);
+  if (e.target.dataset.action == "next-button") {
+    if (
+      monthObject.date.getFullYear() >= monthObject.limitYearAfter &&
+      monthObject.date.getMonth() >= monthObject.limitMonth
+    ) {
+    } else {
+      monthObject["date"].setMonth(monthObject["date"].getMonth() + 1);
+      printMonth();
+      setStandardCalendar();
+    }
+  } else if (e.target.dataset.action == "before-button") {
+    if (
+      monthObject.date.getFullYear() <= monthObject.limitYearBefore &&
+      monthObject.date.getMonth() <= monthObject.limitMonth
+    ) {
+    } else {
+      monthObject["date"].setMonth(monthObject["date"].getMonth() - 1);
+      printMonth();
+      setStandardCalendar();
+    }
   }
+  console.log(monthObject);
 }
 
-export { printMonth, setStandardCalendar, changeMonth };
+export { printMonth, setStandardCalendar, changeMonth, setLimitDates };

@@ -25,5 +25,16 @@
 .month-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  text-align: center;
+}
+.month-day {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+.month-day span {
+  font-weight: bold;
+  position: absolute;
+  margin-left: 2.5%;
 }
