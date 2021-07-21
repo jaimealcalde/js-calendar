@@ -15,16 +15,13 @@ function printMonth() {
 	let copyNode = document.importNode(monthNode, true);
 
 	//delete de template from the html
+
 	wrapper.lastChild.remove();
 
 	wrapper.appendChild(copyNode);
 }
 
 var monthObject = { date: new Date() };
-
-//monthObject["firstYear"] = monthObject.date.setFullYear(
-//  monthObject.date.getFullYear() - 1
-//);
 
 function setLimitDates() {
 	monthObject["limitYearBefore"] = monthObject.date.getFullYear();
@@ -33,7 +30,9 @@ function setLimitDates() {
 }
 
 function setStandardCalendar() {
-	// Create a new Date with the actual month by default. Change the day of the month to the 1st day, and GET THE FIRST DAY OF THE MONTH
+	// Create a new Date with the actual month by default. Change the day of the month to the 1st day,
+	//and GET THE FIRST DAY OF THE MONTH
+
 	monthObject["firstDay"] = new Date(monthObject["date"]);
 
 	monthObject["firstDay"].setDate(1);

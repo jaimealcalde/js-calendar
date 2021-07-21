@@ -9,11 +9,11 @@ function printHeader() {
 
 	//clone the template of month
 	let headerNode = document.getElementById("header").content;
+	console.log(headerNode);
 	let copyNode = document.importNode(headerNode, true);
 
 	//delete de template from the html
-	wrapper.innerHTML = "";
-
+	wrapper.lastChild.remove();
 	wrapper.appendChild(copyNode);
 
 	//button open modal
