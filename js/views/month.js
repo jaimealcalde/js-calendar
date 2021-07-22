@@ -1,7 +1,7 @@
 import { wrapper } from "../main.js";
 import { templateMonth } from "./templates.js";
 import { printHeader } from "./header.js";
-import { eventsArray } from "../events.js";
+import { eventsArray, newEventsArray } from "../events.js";
 
 function printMonth() {
   //TODO borar contendio y borrar event listener
@@ -133,16 +133,33 @@ function setStandardCalendar() {
   chargeMonthEvents();
 }
 
+function getEventMonth(eventDate) {
+  console.log(newEventsArray);
+
+  console.log("OBJETO" + monthObject.date.getMonth());
+  console.log("EVENTO" + monthEvent);
+  let monthEvent = eventDate.split("-")[1];
+
+  return monthEvent;
+}
+
 function chargeMonthEvents() {
+  console.log("CHANGEMONTH");
+  console.log(newEventsArray);
   let eventArray = [];
   let cellsArray = [];
 
-  for (let i = 0; i < eventsArray.length; i++) {
-    if (eventsArray[i].initial_date.getMonth() == monthObject.date.getMonth()) {
+  for (let i = 0; i < newEventsArray.length; i++) {
+    if (
+      getEventMonth(newEventsArray[i].initial_date) ==
+      monthObject.date.getMonth()
+    ) {
       var eventCells = document.querySelectorAll(
-        `[data-action="${eventsArray[i].initial_date.getDate()}"] > .month-event`
+        `[data-action="${newEventsArray[
+          i
+        ].initial_date.getDate()}"] > .month-event`
       );
-      eventArray.push(eventsArray[i]);
+      eventArray.push(newEventsArray[i]);
     }
   }
   if (eventCells) {
@@ -218,4 +235,4 @@ function monthDisplay() {
   hiddenMonthButtons();
 }
 
-export { monthDisplay, changeMonth };
+export { monthDisplay, changeMonth, chargeMonthEvents };
