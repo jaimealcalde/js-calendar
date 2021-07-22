@@ -1,7 +1,7 @@
 import { wrapper } from "../main.js";
 import { templateMonth } from "./templates.js";
 import { printHeader } from "./header.js";
-import { eventsArray, newEventsArray } from "../events.js";
+import { newEventsArray, setNewEvents } from "../events.js";
 
 function printMonth() {
 	//TODO borar contendio y borrar event listener
@@ -138,7 +138,7 @@ function setStandardCalendar() {
 	}
 	*/
 
-	chargeMonthEvents(newEventsArray);
+	chargeMonthEvents(setNewEvents(newEventsArray));
 }
 
 function getEventMonth(eventDate) {

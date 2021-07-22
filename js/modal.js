@@ -85,9 +85,8 @@ function newEventCreate(e, idcounter, newEventsArray) {
 	let newEventsString = JSON.stringify(newEventsArray);
 	localStorage.setItem("new-event", newEventsString);
 
-	console.log("agregue un evento", newEventsArray);
+	//chargeMonthEvents(setNewEvents(newEventsArray));
 
-	chargeMonthEvents(setNewEvents(newEventsArray));
 	closeModal();
 }
 

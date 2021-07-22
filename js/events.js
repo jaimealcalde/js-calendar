@@ -48,6 +48,7 @@ function setNewEvents(newEventsArray) {
 
 	return newEventsArray;
 }
-newEventsArray = setNewEvents(newEventsArray);
+
+//newEventsArray = setNewEvents(newEventsArray);
 
 export { eventsArray, setPreSaved, newEventsArray, setNewEvents };
