@@ -130,6 +130,7 @@ function setStandardCalendar() {
       .querySelector('[data-action="before-button"]')
       .classList.add("invisible");
   }
+  chargeMonthEvents();
 }
 
 function chargeMonthEvents() {
@@ -144,14 +145,20 @@ function chargeMonthEvents() {
       eventArray.push(events[i]);
     }
   }
-  eventCells.forEach((eventCell) => {
-    if (eventCell.textContent == "") {
-      cellsArray.push(eventCell);
-    }
-  });
-  console.log(eventArray);
-  console.log(cellsArray);
-  for (let i = 0; i < cellsArray.length; i++) {
+  if (eventCells) {
+    eventCells.forEach((eventCell) => {
+      if (eventCell.textContent == "") {
+        cellsArray.push(eventCell);
+      }
+    });
+  }
+
+  function compare(a, b) {
+    return a.initial_date - b.initial_date;
+  }
+  eventArray.sort(compare);
+
+  for (let i = 0; i < cellsArray.length && eventArray[i] != undefined; i++) {
     cellsArray[i].textContent = eventArray[i].title;
   }
 }

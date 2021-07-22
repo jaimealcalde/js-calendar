@@ -12,8 +12,8 @@ var events = [
   },
   {
     id: 1,
-    title: "Soy un evento cargado por Antonio",
-    initial_date: new Date("July 25, 2021 03:15:34"),
+    title: "",
+    initial_date: "",
     final_date: 0,
     time: 0,
     alarm: true,
