@@ -17,4 +17,8 @@ function goToCreateEvent(e) {
 	location.hash = "new-event";
 }
 
-export { navigate, goToCreateEvent };
+function goToMonth() {
+	location.hash = "";
+}
+
+export { navigate, goToCreateEvent, goToMonth };

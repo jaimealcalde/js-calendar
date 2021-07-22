@@ -1,5 +1,5 @@
 import { newEventsArray, setNewEvents } from "./events.js";
-
+import { goToMonth } from "./router.js";
 import { chargeMonthEvents } from "./views/month.js";
 
 // Get the modal
@@ -18,6 +18,7 @@ document
 
 function closeModal() {
 	document.getElementById("new-event").style.display = "none";
+	goToMonth();
 }
 
 //when the modal opens
