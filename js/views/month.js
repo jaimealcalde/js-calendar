@@ -1,8 +1,7 @@
 import { wrapper } from "../main.js";
 import { templateMonth } from "./templates.js";
 import { printHeader } from "./header.js";
-import { eventsArray } from "../events.js";
-import { newEventsArray } from "../modal.js";
+import { newEventsArray } from "../events.js";
 
 function printMonth() {
   //TODO borar contendio y borrar event listener
@@ -140,17 +139,13 @@ function setStandardCalendar() {
 
 function getEventMonth(eventDate) {
   console.log(newEventsArray);
-
-  console.log("OBJETO " + monthObject.date.getMonth());
-
   let monthEvent = eventDate.split("-")[1];
-  console.log("EVENTO " + monthEvent);
-
   return monthEvent;
 }
 
 function getEventDay(eventDate) {
   let dayEvent = eventDate.split("-")[2];
+  console.log(dayEvent);
 
   return dayEvent;
 }
@@ -159,35 +154,67 @@ function chargeMonthEvents() {
   let eventArray = [];
   let cellsArray = [];
 
+  for (let i = 1; i <= monthObject.numOfDays; i++) {
+    var eventCells = document.querySelectorAll(
+      `[data-action="${getEventDay(
+        newEventsArray[i].initial_date
+      )}"] > .month-event`
+    );
+
+    if (eventCells[i].textContent == "" && i <= 2) {
+      cellsArray.push(eventCell);
+    }
+    newEventsArray.forEach((newEvent) => {
+      if (getEventDay(newEvent.initial_date) == monthObject.getMonth() + 1) {
+        eventArray.push(newEvent);
+      }
+    });
+    function compare(a, b) {
+      return a.initial_date - b.initial_date;
+    }
+    eventArray.sort(compare);
+  }
+
+  /*
   for (let i = 0; i < newEventsArray.length; i++) {
     if (
       getEventMonth(newEventsArray[i].initial_date) ==
-      monthObject.date.getMonth()
+      monthObject.date.getMonth() + 1
     ) {
       var eventCells = document.querySelectorAll(
         `[data-action="${getEventDay(
           newEventsArray[i].initial_date
         )}"] > .month-event`
       );
-      eventArray.push(newEventsArray[i]);
+      if (eventCells) {
+        eventCells.forEach((eventCell) => {
+          if (eventCell.textContent == "") {
+            cellsArray.push(eventCell);
+          }
+        });
+      }
+      if (
+        eventCells[0].parentNode.dataset.action ==
+        getEventDay(newEventsArray[i].initial_date)
+      ) {
+        eventArray.push(newEventsArray[i]);
+
+        function compare(a, b) {
+          return a.initial_date - b.initial_date;
+        }
+        eventArray.sort(compare);
+
+        for (
+          let i = 0;
+          i < cellsArray.length && eventArray[i] != undefined;
+          i++
+        ) {
+          cellsArray[i].textContent = eventArray[i].title;
+        }
+      }
     }
   }
-  if (eventCells) {
-    eventCells.forEach((eventCell) => {
-      if (eventCell.textContent == "") {
-        cellsArray.push(eventCell);
-      }
-    });
-  }
-
-  function compare(a, b) {
-    return a.initial_date - b.initial_date;
-  }
-  eventArray.sort(compare);
-
-  for (let i = 0; i < cellsArray.length && eventArray[i] != undefined; i++) {
-    cellsArray[i].textContent = eventArray[i].title;
-  }
+  */
 }
 
 // Hide the navigation arrows in each case to limit the user's navigation
