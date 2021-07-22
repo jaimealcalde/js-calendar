@@ -23,11 +23,12 @@ function printMonth() {
 }
 
 var monthObject = { date: new Date() };
+let limitDate = new Date();
 
 function setLimitDates() {
-  monthObject["limitYearBefore"] = monthObject.date.getFullYear();
-  monthObject["limitYearAfter"] = monthObject.date.getFullYear() + 1;
-  monthObject["limitMonth"] = monthObject.date.getMonth();
+  monthObject["limitYearBefore"] = limitDate.getFullYear();
+  monthObject["limitYearAfter"] = limitDate.getFullYear() + 1;
+  monthObject["limitMonth"] = limitDate.getMonth();
 }
 
 function setStandardCalendar() {
@@ -126,14 +127,16 @@ function setStandardCalendar() {
   });
 
   // Hide the month before arrow by default
-  if (
-    monthObject.date.getMonth() == monthObject.limitMonth &&
-    monthObject.date.getFullYear() == monthObject.limitYearBefore
-  ) {
-    document
-      .querySelector('[data-action="before-button"]')
-      .classList.add("invisible");
-  }
+  /*
+	if (
+		monthObject.date.getMonth() == monthObject.limitMonth &&
+		monthObject.date.getFullYear() == monthObject.limitYearBefore
+	) {
+		document
+			.querySelector('[data-action="before-button"]')
+			.classList.add("invisible");
+	}
+	*/
   chargeMonthEvents();
 }
 
@@ -152,6 +155,7 @@ function getEventDay(eventDate) {
 
 // Recorrer todos los dias del mes, voy a leer las posiciones que tengo para los eventos. Voy a buscar los eventos del dia. Ordeno de los eventos. Imprimir los eventos.
 function chargeMonthEvents() {
+  console.log(newEventsArray);
   let eventArray = [];
   let cellsArray = [];
 
@@ -271,4 +275,10 @@ function monthDisplay() {
   hiddenMonthButtons();
 }
 
-export { monthDisplay, changeMonth, chargeMonthEvents };
+function reloadMonth() {
+  console.log("estoy recargando el mes");
+  printMonth();
+  setStandardCalendar();
+}
+
+export { monthDisplay, changeMonth, chargeMonthEvents, reloadMonth };

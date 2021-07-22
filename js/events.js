@@ -25,7 +25,7 @@ let eventsArray = [
 	},
 ];
 
-function setPreSaved(eventsArra) {
+function setPreSaved(eventsArray) {
 	console.log("estoy en set pre-saved", newEventsArray);
 
 	let eventString = JSON.stringify(eventsArray);
@@ -36,10 +36,18 @@ function setPreSaved(eventsArra) {
 }
 
 let newEventsArray = [];
+
 function setNewEvents(newEventsArray) {
-	newEventsArray = JSON.parse(localStorage.getItem("new-event"));
+	let eventStringNew = JSON.stringify(newEventsArray);
+
+	if (!localStorage.getItem("new-event")) {
+		localStorage.setItem("new-event", eventStringNew);
+	} else {
+		newEventsArray = JSON.parse(localStorage.getItem("new-event"));
+	}
+
 	return newEventsArray;
 }
 newEventsArray = setNewEvents(newEventsArray);
 
-export { eventsArray, setPreSaved, newEventsArray };
+export { eventsArray, setPreSaved, newEventsArray, setNewEvents };

@@ -1,6 +1,6 @@
 import { wrapper } from "../main.js";
 import { header } from "./templates.js";
-import { openModal } from "../modal.js";
+import { goToCreateEvent } from "../router.js";
 
 function printHeader() {
 	wrapper.innerHTML = "";
@@ -18,7 +18,9 @@ function printHeader() {
 	wrapper.appendChild(copyNode);
 
 	//button open modal
-	document.getElementById("open-modal").addEventListener("click", openModal);
+	document
+		.getElementById("open-modal")
+		.addEventListener("click", goToCreateEvent);
 }
 
 export { printHeader };
