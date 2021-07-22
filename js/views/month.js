@@ -150,18 +150,17 @@ function getEventDay(eventDate) {
   return dayEvent;
 }
 
+// Recorrer todos los dias del mes, voy a leer las posiciones que tengo para los eventos. Voy a buscar los eventos del dia. Ordeno de los eventos. Imprimir los eventos.
 function chargeMonthEvents() {
   let eventArray = [];
   let cellsArray = [];
 
   for (let i = 1; i <= monthObject.numOfDays; i++) {
     var eventCells = document.querySelectorAll(
-      `[data-action="${getEventDay(
-        newEventsArray[i].initial_date
-      )}"] > .month-event`
+      `[data-action="${i}"] > .month-event`
     );
 
-    if (eventCells[i].textContent == "" && i <= 2) {
+    if (eventCells[i].textContent == "") {
       cellsArray.push(eventCell);
     }
     newEventsArray.forEach((newEvent) => {
