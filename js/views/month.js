@@ -151,6 +151,7 @@ function getEventDay(eventDate) {
 }
 
 function chargeMonthEvents() {
+	console.log(newEventsArray);
 	let eventArray = [];
 	let cellsArray = [];
 
@@ -243,10 +244,7 @@ function monthDisplay() {
 function reloadMonth() {
 	console.log("estoy recargando el mes");
 	printMonth();
-	clearNavigationEventListeners();
-	setLimitDates();
 	setStandardCalendar();
-	hiddenMonthButtons();
 }
 
 export { monthDisplay, changeMonth, chargeMonthEvents, reloadMonth };

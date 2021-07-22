@@ -36,8 +36,16 @@ function setPreSaved(eventsArray) {
 }
 
 let newEventsArray = [];
+
 function setNewEvents(newEventsArray) {
-	newEventsArray = JSON.parse(localStorage.getItem("new-event"));
+	let eventStringNew = JSON.stringify(newEventsArray);
+
+	if (!localStorage.getItem("new-event")) {
+		localStorage.setItem("new-event", eventStringNew);
+	} else {
+		newEventsArray = JSON.parse(localStorage.getItem("new-event"));
+	}
+
 	return newEventsArray;
 }
 newEventsArray = setNewEvents(newEventsArray);

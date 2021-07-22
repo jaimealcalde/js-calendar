@@ -71,8 +71,10 @@ function newEventCreate(e, idcounter, newEventsArray) {
 	console.log("agregue un evento", newEventsArray);
 
 	//salva los eventos ya creados
-	setNewEvents();
+	setNewEvents(newEventsArray);
 	closeModal();
+
+	return newEventsArray;
 }
 
 export { openModal };
