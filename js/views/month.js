@@ -240,4 +240,13 @@ function monthDisplay() {
 	hiddenMonthButtons();
 }
 
-export { monthDisplay, changeMonth, chargeMonthEvents };
+function reloadMonth() {
+	console.log("estoy recargando el mes");
+	printMonth();
+	clearNavigationEventListeners();
+	setLimitDates();
+	setStandardCalendar();
+	hiddenMonthButtons();
+}
+
+export { monthDisplay, changeMonth, chargeMonthEvents, reloadMonth };
