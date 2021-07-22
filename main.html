@@ -14,13 +14,31 @@
 
 		<div id="new-event" class="modal">
 			<span id="cross" class="close" title="Close Modal">×</span>
-			<form class="modal-content" action="">
+			<form id="modal-form" class="modal-content" action="">
 				<div class="container">
 					<h1>New Event</h1>
-					<p>Here its goingt to be the form of the event</p>
+					<p>Set the details for the event</p>
 
 					<div class="containter__vertical-form">
-						<label>Title: <input type="text" /></label>
+						<label>Title: <input id="title" type="text" /></label>
+
+						<label for="event-start"
+							>Start date:<input
+								type="date"
+								id="event-start"
+								name="event-start"
+								value="2021-06-21"
+								min="2021-06-21"
+								max="2022-07-31"
+						/></label>
+
+						<label for="event-start-time"
+							>Start time:<input
+								type="time"
+								id="event-start-time"
+								name="event-start-time"
+								value="00:00"
+						/></label>
 
 						<label for="alarm"
 							><input type="checkbox" name="alarm" id="alarm" /> Set an alarm
@@ -52,9 +70,12 @@
 						<button id="cancel-btn" type="button" class="cancelbtn">
 							Cancel
 						</button>
-						<button id="enter-btn" type="button" class="deletebtn">
-							Enter
-						</button>
+						<input
+							id="enter-btn"
+							type="submit"
+							value="Enter"
+							class="button deletebtn"
+						/>
 					</div>
 				</div>
 			</form>

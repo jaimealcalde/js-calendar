@@ -1,7 +1,7 @@
 import { wrapper } from "../main.js";
 import { templateMonth } from "./templates.js";
 import { printHeader } from "./header.js";
-import { events } from "../events.js";
+import { eventsArray } from "../events.js";
 
 function printMonth() {
   //TODO borar contendio y borrar event listener
@@ -137,12 +137,12 @@ function chargeMonthEvents() {
   let eventArray = [];
   let cellsArray = [];
 
-  for (let i = 0; i < events.length; i++) {
-    if (events[i].initial_date.getMonth() == monthObject.date.getMonth()) {
+  for (let i = 0; i < eventsArray.length; i++) {
+    if (eventsArray[i].initial_date.getMonth() == monthObject.date.getMonth()) {
       var eventCells = document.querySelectorAll(
-        `[data-action="${events[i].initial_date.getDate()}"] > .month-event`
+        `[data-action="${eventsArray[i].initial_date.getDate()}"] > .month-event`
       );
-      eventArray.push(events[i]);
+      eventArray.push(eventsArray[i]);
     }
   }
   if (eventCells) {
