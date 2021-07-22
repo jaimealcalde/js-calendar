@@ -1,4 +1,4 @@
-import { newEventsArray, setPreSaved } from "./events.js";
+import { newEventsArray, setNewEvents, setPreSaved } from "./events.js";
 import { chargeMonthEvents } from "./views/month.js";
 
 // Get the modal
@@ -68,9 +68,10 @@ function newEventCreate(e, idcounter, newEventsArray) {
 	localStorage.setItem("new-event", newEventsString);
 
 	console.log("agregue un evento", newEventsArray);
-	//salva los eventos ya creados
 
+	//salva los eventos ya creados
+	setNewEvents();
 	closeModal();
 }
 
-export { openModal, newEventsArray };
+export { openModal };
