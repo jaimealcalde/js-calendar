@@ -26,11 +26,6 @@ function openModal() {
 	document
 		.querySelector("input[name=alarm]")
 		.addEventListener("change", setAlarmTimer);
-
-	/* let pruebaJsonString = localStorage.getItem("pre-saved-events");
-	let pruebaJSobject = JSON.parse(pruebaJsonString);
-	let pruebaJson = document.createTextNode(pruebaJSobject[0].title);
-	document.getElementById("new-event").appendChild(pruebaJson); / */ //Cada vez q apreto el bton se impirme una vez mas era a slo modo de prueba
 }
 
 function setAlarmTimer() {
