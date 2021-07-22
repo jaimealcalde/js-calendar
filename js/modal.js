@@ -23,11 +23,31 @@ function closeModal() {
 //when the modal opens
 function openModal() {
 	document.getElementById("new-event").style.display = "block";
+	document
+		.querySelector("input[name=alarm]")
+		.addEventListener("change", setAlarmTimer);
 
-	let pruebaJsonString = localStorage.getItem("pre-saved-events");
+	/* let pruebaJsonString = localStorage.getItem("pre-saved-events");
 	let pruebaJSobject = JSON.parse(pruebaJsonString);
 	let pruebaJson = document.createTextNode(pruebaJSobject[0].title);
-	document.getElementById("new-event").appendChild(pruebaJson); //Cada vez q apreto el bton se impirme una vez mas era a slo modo de prueba
+	document.getElementById("new-event").appendChild(pruebaJson); / */ //Cada vez q apreto el bton se impirme una vez mas era a slo modo de prueba
+}
+
+function setAlarmTimer() {
+	if (document.querySelector("input[name=alarm]").checked) {
+		console.log("esta checked", true);
+		console.log(document.querySelector("input[name=alarm-start]"));
+		document
+			.querySelector("input[name=alarm-start]")
+			.classList.remove("label-hidden");
+		document
+			.querySelector("label[for=alarm-start]")
+			.classList.remove("label-hidden");
+	} else {
+		document
+			.querySelector("input[name=alarm-start]")
+			.classList.add("label-hidden");
+	}
 }
 
 function newEventCreate(e, idcounter, newEventsArray) {
@@ -51,6 +71,7 @@ function newEventCreate(e, idcounter, newEventsArray) {
 		initial_time: document.getElementById("event-start-time").value,
 		final_time: 0,
 		alarm: document.getElementById("alarm").checked,
+		alarm_date: "",
 		reminder: document.getElementById("expired").checked,
 		description: document.getElementById("notes").value,
 		type: "holiday",
