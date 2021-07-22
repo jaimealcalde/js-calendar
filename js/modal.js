@@ -1,5 +1,5 @@
-import { newEventsArray, setNewEvents, setPreSaved } from "./events.js";
-import { chargeMonthEvents } from "./views/month.js";
+import { newEventsArray, setNewEvents } from "./events.js";
+import { goToMonth } from "./router.js";
 
 // Get the modal
 let modal = document.getElementById("new-event");
@@ -17,6 +17,7 @@ document
 
 function closeModal() {
 	document.getElementById("new-event").style.display = "none";
+	goToMonth();
 }
 
 //when the modal opens
@@ -49,9 +50,9 @@ function newEventCreate(e, idcounter, newEventsArray) {
 		final_date: 0,
 		initial_time: document.getElementById("event-start-time").value,
 		final_time: 0,
-		alarm: true,
-		reminder: true,
-		description: "",
+		alarm: document.getElementById("alarm").checked,
+		reminder: document.getElementById("expired").checked,
+		description: document.getElementById("notes").value,
 		type: "holiday",
 	};
 
