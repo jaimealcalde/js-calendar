@@ -255,4 +255,4 @@ function monthDisplay() {
 	hiddenMonthButtons();
 }
 
-export { monthDisplay, changeMonth, chargeMonthEvents, reloadMonth };
+export { monthDisplay, changeMonth, chargeMonthEvents };

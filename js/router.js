@@ -1,4 +1,4 @@
-import { monthDisplay, reloadMonth } from "./views/month.js";
+import { monthDisplay } from "./views/month.js";
 import { openModal } from "./modal.js";
 
 function navigate() {
