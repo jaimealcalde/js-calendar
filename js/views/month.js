@@ -137,20 +137,24 @@ function setStandardCalendar() {
 			.classList.add("invisible");
 	}
 	*/
+
   chargeMonthEvents();
 }
 
 function getEventMonth(eventDate) {
-  //console.log(newEventsArray);
   let monthEvent = eventDate.split("-")[1];
   return monthEvent;
 }
 
 function getEventDay(eventDate) {
   let dayEvent = eventDate.split("-")[2];
-  //console.log(dayEvent);
 
   return dayEvent;
+}
+
+function getEventYear(eventDate) {
+  let yearEvent = eventDate.split("-")[0];
+  return yearEvent;
 }
 
 // Recorrer todos los dias del mes, voy a leer las posiciones que tengo para los eventos. Voy a buscar los eventos del dia. Ordeno de los eventos. Imprimir los eventos.
@@ -164,10 +168,11 @@ function chargeMonthEvents() {
     newEventsArray.forEach((newEvent) => {
       if (
         getEventDay(newEvent.initial_date) == i &&
-        getEventMonth(newEvent.initial_date) - 1 == monthObject.date.getMonth()
+        getEventMonth(newEvent.initial_date) - 1 ==
+          monthObject.date.getMonth() &&
+        getEventYear(newEvent.initial_date) == monthObject.date.getFullYear()
       ) {
         eventArray.push(newEvent);
-        console.log(eventArray);
 
         function compare(a, b) {
           return a.initial_date - b.initial_date;
@@ -177,8 +182,6 @@ function chargeMonthEvents() {
     });
     for (let i = 0; i < 3; i++) {
       if (eventArray[i] != undefined) {
-        console.log(eventCells[i].textContent);
-
         if (eventCells[i].textContent == "")
           eventCells[i].textContent = eventArray[i].title;
       }
