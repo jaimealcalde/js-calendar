@@ -136,8 +136,8 @@ function setStandardCalendar() {
 			.querySelector('[data-action="before-button"]')
 			.classList.add("invisible");
 	}
-	chargeMonthEvents();
 	*/
+  chargeMonthEvents();
 }
 
 function getEventMonth(eventDate) {
