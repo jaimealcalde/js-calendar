@@ -1,7 +1,7 @@
 import { wrapper } from "../main.js";
 import { templateMonth } from "./templates.js";
 import { printHeader } from "./header.js";
-import { newEventsArray } from "../events.js";
+import { eventsArray, newEventsArray } from "../events.js";
 
 function printMonth() {
   //TODO borar contendio y borrar event listener
@@ -141,51 +141,48 @@ function setStandardCalendar() {
 }
 
 function getEventMonth(eventDate) {
-  console.log(newEventsArray);
+  //console.log(newEventsArray);
   let monthEvent = eventDate.split("-")[1];
   return monthEvent;
 }
 
 function getEventDay(eventDate) {
   let dayEvent = eventDate.split("-")[2];
-  console.log(dayEvent);
+  //console.log(dayEvent);
 
   return dayEvent;
 }
 
-function chargeMonthEvents() {
-  console.log(newEventsArray);
-  let eventArray = [];
-  let cellsArray = [];
+// Recorrer todos los dias del mes, voy a leer las posiciones que tengo para los eventos. Voy a buscar los eventos del dia. Ordeno de los eventos. Imprimir los eventos.
 
-  for (let i = 0; i < newEventsArray.length; i++) {
-    if (
-      getEventMonth(newEventsArray[i].initial_date) ==
-      monthObject.date.getMonth()
-    ) {
-      var eventCells = document.querySelectorAll(
-        `[data-action="${getEventDay(
-          newEventsArray[i].initial_date
-        )}"] > .month-event`
-      );
-      eventArray.push(newEventsArray[i]);
-    }
-  }
-  if (eventCells) {
-    eventCells.forEach((eventCell) => {
-      if (eventCell.textContent == "") {
-        cellsArray.push(eventCell);
+function chargeMonthEvents() {
+  for (let i = 1; i <= monthObject.numOfDays; i++) {
+    var eventArray = [];
+    var eventCells = document.querySelectorAll(
+      `[data-action="${i}"] > .month-event`
+    );
+    newEventsArray.forEach((newEvent) => {
+      if (
+        getEventDay(newEvent.initial_date) == i &&
+        getEventMonth(newEvent.initial_date) - 1 == monthObject.date.getMonth()
+      ) {
+        eventArray.push(newEvent);
+        console.log(eventArray);
+
+        function compare(a, b) {
+          return a.initial_date - b.initial_date;
+        }
+        eventArray.sort(compare);
       }
     });
-  }
+    for (let i = 0; i < 3; i++) {
+      if (eventArray[i] != undefined) {
+        console.log(eventCells[i].textContent);
 
-  function compare(a, b) {
-    return a.initial_date - b.initial_date;
-  }
-  eventArray.sort(compare);
-
-  for (let i = 0; i < cellsArray.length && eventArray[i] != undefined; i++) {
-    cellsArray[i].textContent = eventArray[i].title;
+        if (eventCells[i].textContent == "")
+          eventCells[i].textContent = eventArray[i].title;
+      }
+    }
   }
 }
 
