@@ -1,12 +1,11 @@
-import { monthDisplay, reloadMonth } from "./views/month.js";
+import { monthDisplay } from "./views/month.js";
 import { openModal } from "./modal.js";
 
 function navigate() {
-	if (location.hash == "") {
+	console.log(location.hash);
+	if (location.hash == "" || location.hash == "#") {
 		monthDisplay();
-	} else if (location.hash == "#") {
-		reloadMonth();
-	} else if (location.hash == "day") {
+	} else if (location.hash == "#day") {
 		//printDay();
 	} else if (location.hash == "#new-event") {
 		openModal();

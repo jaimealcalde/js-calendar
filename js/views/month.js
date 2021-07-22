@@ -1,7 +1,7 @@
 import { wrapper } from "../main.js";
 import { templateMonth } from "./templates.js";
 import { printHeader } from "./header.js";
-import { newEventsArray } from "../events.js";
+import { newEventsArray, setNewEvents } from "../events.js";
 
 function printMonth() {
   //TODO borar contendio y borrar event listener
@@ -137,87 +137,67 @@ function setStandardCalendar() {
 			.classList.add("invisible");
 	}
 	*/
-  chargeMonthEvents();
+
+  chargeMonthEvents(setNewEvents(newEventsArray));
 }
 
 function getEventMonth(eventDate) {
-  console.log(newEventsArray);
   let monthEvent = eventDate.split("-")[1];
   return monthEvent;
 }
 
 function getEventDay(eventDate) {
   let dayEvent = eventDate.split("-")[2];
-  console.log(dayEvent);
 
   return dayEvent;
 }
 
-// Recorrer todos los dias del mes, voy a leer las posiciones que tengo para los eventos. Voy a buscar los eventos del dia. Ordeno de los eventos. Imprimir los eventos.
-function chargeMonthEvents() {
-  console.log(newEventsArray);
-  let eventArray = [];
-  let cellsArray = [];
+function getEventYear(eventDate) {
+  let yearEvent = eventDate.split("-")[0];
+  return yearEvent;
+}
 
+// Recorrer todos los dias del mes, voy a leer las posiciones que tengo para los eventos. Voy a buscar los eventos del dia. Ordeno de los eventos. Imprimir los eventos.
+
+function chargeMonthEvents(newEventsArray) {
+  console.log("estoy cargando eventos");
+  console.log(newEventsArray);
+
+  //Recorre todas las celdas y selecciona los contenedores de los eventos
   for (let i = 1; i <= monthObject.numOfDays; i++) {
+    var eventArray = [];
+
+    //array de 3 div para publicar eventos
     var eventCells = document.querySelectorAll(
       `[data-action="${i}"] > .month-event`
     );
 
-    if (eventCells[i].textContent == "") {
-      cellsArray.push(eventCell);
-    }
+    //los que coincida el mes con el mes corriente
+    //y os pongo dentro del evento array
     newEventsArray.forEach((newEvent) => {
-      if (getEventDay(newEvent.initial_date) == monthObject.getMonth() + 1) {
-        eventArray.push(newEvent);
-      }
-    });
-    function compare(a, b) {
-      return a.initial_date - b.initial_date;
-    }
-    eventArray.sort(compare);
-  }
-
-  /*
-  for (let i = 0; i < newEventsArray.length; i++) {
-    if (
-      getEventMonth(newEventsArray[i].initial_date) ==
-      monthObject.date.getMonth() + 1
-    ) {
-      var eventCells = document.querySelectorAll(
-        `[data-action="${getEventDay(
-          newEventsArray[i].initial_date
-        )}"] > .month-event`
-      );
-      if (eventCells) {
-        eventCells.forEach((eventCell) => {
-          if (eventCell.textContent == "") {
-            cellsArray.push(eventCell);
-          }
-        });
-      }
       if (
-        eventCells[0].parentNode.dataset.action ==
-        getEventDay(newEventsArray[i].initial_date)
+        getEventDay(newEvent.initial_date) == i &&
+        getEventMonth(newEvent.initial_date) - 1 ==
+          monthObject.date.getMonth() &&
+        getEventYear(newEvent.initial_date) == monthObject.date.getFullYear()
       ) {
-        eventArray.push(newEventsArray[i]);
+        eventArray.push(newEvent);
 
         function compare(a, b) {
           return a.initial_date - b.initial_date;
         }
         eventArray.sort(compare);
+      }
+    });
 
-        for (
-          let i = 0;
-          i < cellsArray.length && eventArray[i] != undefined;
-          i++
-        ) {
-          cellsArray[i].textContent = eventArray[i].title;
-        }
+    // 0 1 2 recorro los div, inserto los titulo.
+    for (let i = 0; i < 3; i++) {
+      if (eventArray[i] != undefined) {
+        if (eventCells[i].textContent == "")
+          eventCells[i].textContent = eventArray[i].title;
       }
     }
   }
-  */
 }
 
 // Hide the navigation arrows in each case to limit the user's navigation
@@ -275,10 +255,4 @@ function monthDisplay() {
   hiddenMonthButtons();
 }
 
-function reloadMonth() {
-  console.log("estoy recargando el mes");
-  printMonth();
-  setStandardCalendar();
-}
-
-export { monthDisplay, changeMonth, chargeMonthEvents, reloadMonth };
+export { monthDisplay, changeMonth, chargeMonthEvents };
