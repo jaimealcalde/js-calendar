@@ -1,6 +1,8 @@
 import { wrapper } from "../main.js";
 import { templateMonth } from "./templates.js";
 import { printHeader } from "./header.js";
+import { eventsArray } from "../events.js";
+import { newEventsArray } from "../modal.js";
 
 function printMonth() {
 	//TODO borar contendio y borrar event listener
@@ -15,16 +17,13 @@ function printMonth() {
 	let copyNode = document.importNode(monthNode, true);
 
 	//delete de template from the html
+
 	wrapper.lastChild.remove();
 
 	wrapper.appendChild(copyNode);
 }
 
 var monthObject = { date: new Date() };
-
-//monthObject["firstYear"] = monthObject.date.setFullYear(
-//  monthObject.date.getFullYear() - 1
-//);
 
 function setLimitDates() {
 	monthObject["limitYearBefore"] = monthObject.date.getFullYear();
@@ -33,7 +32,9 @@ function setLimitDates() {
 }
 
 function setStandardCalendar() {
-	// Create a new Date with the actual month by default. Change the day of the month to the 1st day, and GET THE FIRST DAY OF THE MONTH
+	// Create a new Date with the actual month by default. Change the day of the month to the 1st day,
+	//and GET THE FIRST DAY OF THE MONTH
+
 	monthObject["firstDay"] = new Date(monthObject["date"]);
 
 	monthObject["firstDay"].setDate(1);
@@ -76,8 +77,10 @@ function setStandardCalendar() {
 		let newElement = document.createElement("div");
 
 		newElement.classList.add("monthday");
+		newElement.dataset.action = `${i}`;
 
-		newElement.innerHTML = `<div class="monthday--header"><div class="monthday--header__num">${i}</div><div class="monthday--header__plus">+</div></div><div>Event1</div><div>Event2</div><div>Event3</div>`;
+		newElement.innerHTML = `<div class="monthday--header"><div class="monthday--header__num">${i}</div><div class="monthday--header__plus">+</div></div><div class="month-event" data-action="event1"></div><div class="month-event" data-action="event2"></div><div class="month-event" data-action="event3"></div>`;
+
 		grid.appendChild(newElement);
 	}
 
@@ -128,6 +131,59 @@ function setStandardCalendar() {
 			.querySelector('[data-action="before-button"]')
 			.classList.add("invisible");
 	}
+	chargeMonthEvents();
+}
+
+function getEventMonth(eventDate) {
+	console.log(newEventsArray);
+
+	console.log("OBJETO " + monthObject.date.getMonth());
+
+	let monthEvent = eventDate.split("-")[1];
+	console.log("EVENTO " + monthEvent);
+
+	return monthEvent;
+}
+
+function getEventDay(eventDate) {
+	let dayEvent = eventDate.split("-")[2];
+
+	return dayEvent;
+}
+
+function chargeMonthEvents() {
+	let eventArray = [];
+	let cellsArray = [];
+
+	for (let i = 0; i < newEventsArray.length; i++) {
+		if (
+			getEventMonth(newEventsArray[i].initial_date) ==
+			monthObject.date.getMonth()
+		) {
+			var eventCells = document.querySelectorAll(
+				`[data-action="${getEventDay(
+					newEventsArray[i].initial_date
+				)}"] > .month-event`
+			);
+			eventArray.push(newEventsArray[i]);
+		}
+	}
+	if (eventCells) {
+		eventCells.forEach((eventCell) => {
+			if (eventCell.textContent == "") {
+				cellsArray.push(eventCell);
+			}
+		});
+	}
+
+	function compare(a, b) {
+		return a.initial_date - b.initial_date;
+	}
+	eventArray.sort(compare);
+
+	for (let i = 0; i < cellsArray.length && eventArray[i] != undefined; i++) {
+		cellsArray[i].textContent = eventArray[i].title;
+	}
 }
 
 // Hide the navigation arrows in each case to limit the user's navigation
@@ -144,6 +200,12 @@ function hiddenMonthButtons() {
 		}
 	}
 }
+function clearNavigationEventListeners() {
+	var monthButtons = document.querySelectorAll(".nav-button");
+	monthButtons.forEach((monthButton) => {
+		monthButton.removeEventListener("click", changeMonth);
+	});
+}
 
 function changeMonth(e) {
 	if (e.target.dataset.action == "next-button") {
@@ -154,6 +216,7 @@ function changeMonth(e) {
 		} else {
 			monthObject["date"].setMonth(monthObject["date"].getMonth() + 1);
 			printMonth();
+			clearNavigationEventListeners();
 			setStandardCalendar();
 			hiddenMonthButtons();
 		}
@@ -165,6 +228,7 @@ function changeMonth(e) {
 		} else {
 			monthObject["date"].setMonth(monthObject["date"].getMonth() - 1);
 			printMonth();
+			clearNavigationEventListeners();
 			setStandardCalendar();
 			hiddenMonthButtons();
 		}
@@ -177,4 +241,4 @@ function monthDisplay() {
 	hiddenMonthButtons();
 }
 
-export { monthDisplay, changeMonth };
+export { monthDisplay, changeMonth, chargeMonthEvents };

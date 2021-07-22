@@ -1,10 +1,11 @@
-var events = [
+let eventsArray = [
 	{
 		id: 0,
 		title: "Soy un evento cargado por Paola Estefania",
-		initial_date: "",
+		initial_date: new Date("July 25, 2021"),
 		final_date: 0,
-		time: 0,
+		initial_time: 0,
+		final_time: 0,
 		alarm: true,
 		reminder: true,
 		description: "",
@@ -12,10 +13,11 @@ var events = [
 	},
 	{
 		id: 1,
-		title: "",
-		initial_date: "",
+		title: "HOLAA",
+		initial_date: new Date("July 25, 2021"),
 		final_date: 0,
-		time: 0,
+		initial_time: 0,
+		final_time: 0,
 		alarm: true,
 		reminder: true,
 		description: "",
@@ -23,9 +25,21 @@ var events = [
 	},
 ];
 
-function setPreSaved(events) {
-	var eventString = JSON.stringify(events);
-	localStorage.setItem("pre-saved-events", eventString);
+function setPreSaved(eventsArra) {
+	console.log("estoy en set pre-saved", newEventsArray);
+
+	let eventString = JSON.stringify(eventsArray);
+	//salva los pre cargados
+	if (!localStorage.getItem("pre-saved-events")) {
+		localStorage.setItem("pre-saved-events", eventString);
+	}
 }
 
-export { events, setPreSaved };
+let newEventsArray = [];
+function setNewEvents(newEventsArray) {
+	newEventsArray = JSON.parse(localStorage.getItem("new-event"));
+	return newEventsArray;
+}
+newEventsArray = setNewEvents(newEventsArray);
+
+export { eventsArray, setPreSaved, newEventsArray };
