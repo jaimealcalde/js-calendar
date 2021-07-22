@@ -1,5 +1,6 @@
 import { newEventsArray, setNewEvents } from "./events.js";
-import { goToMonth } from "./router.js";
+
+import { chargeMonthEvents } from "./views/month.js";
 
 // Get the modal
 let modal = document.getElementById("new-event");
@@ -17,7 +18,6 @@ document
 
 function closeModal() {
 	document.getElementById("new-event").style.display = "none";
-	goToMonth();
 }
 
 //when the modal opens
@@ -86,11 +86,8 @@ function newEventCreate(e, idcounter, newEventsArray) {
 
 	console.log("agregue un evento", newEventsArray);
 
-	//salva los eventos ya creados
-	setNewEvents(newEventsArray);
+	chargeMonthEvents(setNewEvents(newEventsArray));
 	closeModal();
-
-	return newEventsArray;
 }
 
 export { openModal };

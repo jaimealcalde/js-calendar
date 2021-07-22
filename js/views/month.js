@@ -138,7 +138,7 @@ function setStandardCalendar() {
 	}
 	*/
 
-	chargeMonthEvents();
+	chargeMonthEvents(newEventsArray);
 }
 
 function getEventMonth(eventDate) {
@@ -159,12 +159,21 @@ function getEventYear(eventDate) {
 
 // Recorrer todos los dias del mes, voy a leer las posiciones que tengo para los eventos. Voy a buscar los eventos del dia. Ordeno de los eventos. Imprimir los eventos.
 
-function chargeMonthEvents() {
+function chargeMonthEvents(newEventsArray) {
+	console.log("estoy cargando eventos");
+	console.log(newEventsArray);
+
+	//Recorre todas las celdas y selecciona los contenedores de los eventos
 	for (let i = 1; i <= monthObject.numOfDays; i++) {
 		var eventArray = [];
+
+		//array de 3 div para publicar eventos
 		var eventCells = document.querySelectorAll(
 			`[data-action="${i}"] > .month-event`
 		);
+
+		//los que coincida el mes con el mes corriente
+		//y os pongo dentro del evento array
 		newEventsArray.forEach((newEvent) => {
 			if (
 				getEventDay(newEvent.initial_date) == i &&
@@ -180,6 +189,8 @@ function chargeMonthEvents() {
 				eventArray.sort(compare);
 			}
 		});
+
+		// 0 1 2 recorro los div, inserto los titulo.
 		for (let i = 0; i < 3; i++) {
 			if (eventArray[i] != undefined) {
 				if (eventCells[i].textContent == "")
@@ -242,12 +253,6 @@ function monthDisplay() {
 	setLimitDates();
 	setStandardCalendar();
 	hiddenMonthButtons();
-}
-
-function reloadMonth() {
-	console.log("estoy recargando el mes");
-	printMonth();
-	setStandardCalendar();
 }
 
 export { monthDisplay, changeMonth, chargeMonthEvents, reloadMonth };
