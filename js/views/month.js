@@ -1,6 +1,7 @@
 import { wrapper } from "../main.js";
 import { templateMonth } from "./templates.js";
 import { printHeader } from "./header.js";
+import { events } from "../events.js";
 
 function printMonth() {
   //TODO borar contendio y borrar event listener
@@ -75,8 +76,10 @@ function setStandardCalendar() {
     let newElement = document.createElement("div");
 
     newElement.classList.add("monthday");
+    newElement.dataset.action = `${i}`;
 
-    newElement.innerHTML = `<div class="monthday--header"><div class="monthday--header__num">${i}</div><div class="monthday--header__plus">+</div></div><div>Event1</div><div>Event2</div><div>Event3</div>`;
+    newElement.innerHTML = `<div class="monthday--header"><div class="monthday--header__num">${i}</div><div class="monthday--header__plus">+</div></div><div class="month-event" data-action="event1"></div><div class="month-event" data-action="event2"></div><div class="month-event" data-action="event3"></div>`;
+
     grid.appendChild(newElement);
   }
 
@@ -113,6 +116,11 @@ function setStandardCalendar() {
     monthNames[monthObject["date"].getMonth()]
   }  ${monthObject["date"].getFullYear()}`;
 
+  var monthButtons = document.querySelectorAll(".nav-button");
+  monthButtons.forEach((monthButton) => {
+    monthButton.addEventListener("click", changeMonth);
+  });
+
   // Hide the month before arrow by default
   if (
     monthObject.date.getMonth() == monthObject.limitMonth &&
@@ -122,10 +130,37 @@ function setStandardCalendar() {
       .querySelector('[data-action="before-button"]')
       .classList.add("invisible");
   }
-  var monthButtons = document.querySelectorAll(".nav-button");
-  monthButtons.forEach((monthButton) => {
-    monthButton.addEventListener("click", changeMonth);
-  });
+  chargeMonthEvents();
+}
+
+function chargeMonthEvents() {
+  let eventArray = [];
+  let cellsArray = [];
+
+  for (let i = 0; i < events.length; i++) {
+    if (events[i].initial_date.getMonth() == monthObject.date.getMonth()) {
+      var eventCells = document.querySelectorAll(
+        `[data-action="${events[i].initial_date.getDate()}"] > .month-event`
+      );
+      eventArray.push(events[i]);
+    }
+  }
+  if (eventCells) {
+    eventCells.forEach((eventCell) => {
+      if (eventCell.textContent == "") {
+        cellsArray.push(eventCell);
+      }
+    });
+  }
+
+  function compare(a, b) {
+    return a.initial_date - b.initial_date;
+  }
+  eventArray.sort(compare);
+
+  for (let i = 0; i < cellsArray.length && eventArray[i] != undefined; i++) {
+    cellsArray[i].textContent = eventArray[i].title;
+  }
 }
 
 // Hide the navigation arrows in each case to limit the user's navigation
