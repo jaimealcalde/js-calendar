@@ -126,7 +126,7 @@ function setStandardCalendar() {
 	monthButtons.forEach((monthButton) => {
 		monthButton.addEventListener("click", changeMonth);
 	});
-
+	chargeMonthEvents(eventsArray);
 	chargeMonthEvents(setNewEvents(newEventsArray));
 }
 
