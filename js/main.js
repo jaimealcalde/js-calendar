@@ -1,9 +1,9 @@
 import { navigate } from "./router.js";
 import {
-	eventsArray,
-	newEventsArray,
-	setNewEvents,
-	setPreSaved,
+  eventsArray,
+  newEventsArray,
+  setNewEvents,
+  setPreSaved,
 } from "./events.js";
 
 var wrapper = document.getElementById("calendar");
