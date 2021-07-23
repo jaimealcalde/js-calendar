@@ -1,20 +1,13 @@
+import { doIfChecked } from "./modal.js";
+
 //* DESPLIEGA EL TIMER DE LA ALARMA SOLO SI ESTA CHEQUEADA LA BOX DE SET ALARM
+
 function setAlarmTimer() {
-	if (document.querySelector("input[name=alarm]").checked) {
-		document
-			.querySelector("input[name=alarm-start]")
-			.classList.remove("label-hidden");
-		document
-			.querySelector("label[for=alarm-start]")
-			.classList.remove("label-hidden");
-	} else {
-		document
-			.querySelector("input[name=alarm-start]")
-			.classList.add("label-hidden");
-		document
-			.querySelector("label[for=alarm-start]")
-			.classList.add("label-hidden");
-	}
+	doIfChecked(
+		"input[name=alarm]",
+		["input[name=alarm-start]", "label[for=alarm-start]"],
+		true
+	);
 }
 
 //Se pone maximo y minimo solo cunado cambia la fecha del form

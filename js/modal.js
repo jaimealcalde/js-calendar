@@ -11,13 +11,13 @@ document
 	.addEventListener("submit", newEventCreate);
 
 function closeModal() {
-	document.getElementById("new-event").style.display = "none";
+	modal.style.display = "none";
 	goToMonth();
 }
 
-//when the modal opens
+//when the modal opens, add event listeners
 function openModal() {
-	document.getElementById("new-event").style.display = "block";
+	modal.style.display = "block";
 	document
 		.querySelector("input[name=set-all-day-event]")
 		.addEventListener("change", setDateTime);
@@ -39,84 +39,59 @@ function openModal() {
 		.addEventListener("change", setAlarmLimits);
 }
 
-function setEventEndDate() {
-	if (document.querySelector("input[name=set-event-end-date]").checked) {
-		document
-			.querySelector("input[name=event-end-date]")
-			.classList.remove("label-hidden");
-		document
-			.querySelector("label[for=event-end-date]")
-			.classList.remove("label-hidden");
-	} else {
-		document
-			.querySelector("input[name=event-end-date]")
-			.classList.add("label-hidden");
-		document
-			.querySelector("label[for=event-end-date]")
-			.classList.add("label-hidden");
+function doIfChecked(domElementCheck, elementToSHow, state) {
+	if (state == true) {
+		if (document.querySelector(domElementCheck).checked) {
+			for (const iterator of elementToSHow) {
+				document.querySelector(iterator).classList.remove("label-hidden");
+			}
+		} else {
+			for (const iterator of elementToSHow) {
+				document.querySelector(iterator).classList.add("label-hidden");
+			}
+		}
+	} else if (state == false) {
+		if (!document.querySelector(domElementCheck).checked) {
+			for (const iterator of elementToSHow) {
+				document.querySelector(iterator).classList.remove("label-hidden");
+			}
+		} else {
+			for (const iterator of elementToSHow) {
+				document.querySelector(iterator).classList.add("label-hidden");
+			}
+		}
 	}
+}
+
+function setEventEndDate() {
+	doIfChecked(
+		"input[name=set-event-end-date]",
+		["input[name=event-end-date]", "label[for=event-end-date]"],
+		true
+	);
 }
 
 function setEventEndTime() {
-	if (document.querySelector("input[name=set-event-end-time]").checked) {
-		document
-			.querySelector("input[name=event-end-time]")
-			.classList.remove("label-hidden");
-		document
-			.querySelector("label[for=event-end-time]")
-			.classList.remove("label-hidden");
-	} else {
-		document
-			.querySelector("input[name=event-end-time]")
-			.classList.add("label-hidden");
-		document
-			.querySelector("label[for=event-end-time]")
-			.classList.add("label-hidden");
-	}
+	doIfChecked(
+		"input[name=set-event-end-time]",
+		["input[name=event-end-time]", "label[for=event-end-time]"],
+		true
+	);
 }
 
 function setDateTime() {
-	//si no es evento del dia sacar las horas y eso
-
-	if (!document.getElementById("set-all-day-event").checked) {
-		document
-			.querySelector("input[name=event-start-time]")
-			.classList.remove("label-hidden");
-		document
-			.querySelector("label[for=event-start-time]")
-			.classList.remove("label-hidden");
-		document
-			.querySelector("input[name=set-event-end-date]")
-			.classList.remove("label-hidden");
-		document
-			.querySelector("label[for=set-event-end-date]")
-			.classList.remove("label-hidden");
-		document
-			.querySelector("input[name=set-event-end-time]")
-			.classList.remove("label-hidden");
-		document
-			.querySelector("label[for=set-event-end-time]")
-			.classList.remove("label-hidden");
-	} else {
-		document
-			.querySelector("input[name=event-start-time]")
-			.classList.add("label-hidden");
-		document
-			.querySelector("label[for=event-start-time]")
-			.classList.add("label-hidden");
-		document
-			.querySelector("input[name=set-event-end-date]")
-			.classList.add("label-hidden");
-		document
-			.querySelector("label[for=set-event-end-date]")
-			.classList.add("label-hidden");
-		document
-			.querySelector("input[name=set-event-end-time]")
-			.classList.add("label-hidden");
-		document
-			.querySelector("label[for=set-event-end-time]")
-			.classList.add("label-hidden");
-	}
+	doIfChecked(
+		"input[name=set-all-day-event]",
+		[
+			"input[name=event-start-time]",
+			"label[for=event-start-time]",
+			"input[name=set-event-end-date]",
+			"label[for=set-event-end-date]",
+			"input[name=set-event-end-time]",
+			"label[for=set-event-end-time]",
+		],
+		false
+	);
 }
 
 function newEventCreate(e, newEventsArray) {
@@ -184,4 +159,4 @@ function newEventCreate(e, newEventsArray) {
 	closeModal();
 }
 
-export { openModal };
+export { openModal, doIfChecked };
