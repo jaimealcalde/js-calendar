@@ -66,7 +66,6 @@ function setNewEvents(newEventsArray) {
 //Seteo contador de ids a 0
 
 function setCounter() {
-	console.log("seteando contadores");
 	if (!localStorage.getItem("idcounter")) {
 		localStorage.setItem("idcounter", "0");
 	}

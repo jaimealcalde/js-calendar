@@ -2,7 +2,6 @@ import { monthDisplay } from "./views/month.js";
 import { openModal } from "./modal.js";
 
 function navigate() {
-	console.log(location.hash);
 	if (location.hash == "" || location.hash == "#") {
 		monthDisplay();
 	} else if (location.hash == "#day") {
