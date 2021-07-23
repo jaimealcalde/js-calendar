@@ -62,7 +62,18 @@ function setAlarmLimits() {
 	document.getElementById("alarm-start").setAttribute("MIN", minAlarmTimer);
 }
 
-//TODO : coger la hora de la alarma y con eso hacer un timeout con un opopup.
+//TODO : coger la hora de la alarma y con eso hacer un timeout con un popup.
 //TODO: hacer luegodel submit del modal que se ejecute el timeout
 
-export { setAlarmTimer, setAlarmLimits };
+function alarmPopUp() {}
+
+function alarmObjectCreate() {}
+
+/*   window.addEventListener('storage', () => {
+   When local storage changes, dump the list to
+   the console.
+  console.log(JSON.parse(window.localStorage.getItem('sampleList')));
+});
+ */
+
+export { setAlarmTimer, setAlarmLimits, alarmObjectCreate };
