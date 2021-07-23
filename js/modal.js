@@ -6,7 +6,6 @@ import { chargeMonthEvents } from "./views/month.js";
 let modal = document.getElementById("new-event");
 
 //dif ids per object
-let idcounter = 0;
 
 //button click display none
 
@@ -45,11 +44,11 @@ function setAlarmTimer() {
 			.classList.add("label-hidden");
 	}
 }
+let idcounter = 0;
 
-function newEventCreate(e, idcounter, newEventsArray) {
+function newEventCreate(e, newEventsArray) {
 	//el calendario debería borrarse los eventos en algun momento
 	// final date por defecto mismo dia
-
 	if (!localStorage.getItem("new-event")) {
 		newEventsArray = [];
 	} else {
@@ -73,7 +72,6 @@ function newEventCreate(e, idcounter, newEventsArray) {
 		type: "holiday",
 	};
 
-	//date time and title required
 	// final date por defecto mismo dia
 	//  final time por defecto final del dia.
 
@@ -86,7 +84,10 @@ function newEventCreate(e, idcounter, newEventsArray) {
 	let newEventsString = JSON.stringify(newEventsArray);
 	localStorage.setItem("new-event", newEventsString);
 
+	//chargeMonthEvents(setNewEvents(newEventsArray));
+
 	closeModal();
+	console.log("ARRAY DE MODAL", newEventsArray);
 }
 
 export { openModal };
