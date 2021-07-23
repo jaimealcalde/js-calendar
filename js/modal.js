@@ -73,6 +73,7 @@ function newEventCreate(e, idcounter, newEventsArray) {
 		type: "holiday",
 	};
 
+	//date time and title required
 	// final date por defecto mismo dia
 	//  final time por defecto final del dia.
 
@@ -84,8 +85,6 @@ function newEventCreate(e, idcounter, newEventsArray) {
 	newEventsArray.push(newEventObject);
 	let newEventsString = JSON.stringify(newEventsArray);
 	localStorage.setItem("new-event", newEventsString);
-
-	//chargeMonthEvents(setNewEvents(newEventsArray));
 
 	closeModal();
 }

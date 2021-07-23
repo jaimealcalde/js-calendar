@@ -1,3 +1,5 @@
+//id de letras
+
 let eventsArray = [
 	{
 		id: 0,
@@ -26,8 +28,6 @@ let eventsArray = [
 ];
 
 function setPreSaved(eventsArray) {
-	console.log("estoy en set pre-saved", newEventsArray);
-
 	let eventString = JSON.stringify(eventsArray);
 	//salva los pre cargados
 	if (!localStorage.getItem("pre-saved-events")) {
@@ -48,7 +48,5 @@ function setNewEvents(newEventsArray) {
 
 	return newEventsArray;
 }
-
-//newEventsArray = setNewEvents(newEventsArray);
 
 export { eventsArray, setPreSaved, newEventsArray, setNewEvents };
