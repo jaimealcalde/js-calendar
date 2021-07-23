@@ -27,8 +27,8 @@
 								type="date"
 								id="event-start"
 								name="event-start"
-								value="2021-06-21"
-								min="2021-07-22"
+								value="2021-07-24"
+								min="2021-07-24"
 								max="2022-07-31"
 						/></label>
 
@@ -44,13 +44,15 @@
 							><input type="checkbox" name="alarm" id="alarm" /> Set an alarm
 							for this event</label
 						>
-						<label for="alarm-start"
+						<label for="alarm-start" class="label-hidden"
 							>Start date:
 							<input
 								class="label-hidden"
 								type="datetime-local"
 								id="alarm-start"
 								name="alarm-start"
+								max=""
+								min=""
 						/></label>
 						<label for="expired"
 							><input type="checkbox" name="expired" id="expired" /> Remind me
@@ -64,7 +66,7 @@
 							>Upload file: <input type="file" name="upload" id="file-select"
 						/></label>
 
-						<label for="city"
+						<label for="event-type"
 							>Event type:
 							<select name="event-type" id="event-type">
 								<option value="sydney">Birthday</option>

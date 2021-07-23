@@ -49,4 +49,13 @@ function setNewEvents(newEventsArray) {
 	return newEventsArray;
 }
 
-export { eventsArray, setPreSaved, newEventsArray, setNewEvents };
+//Seteo contador de ids a 0
+
+function setCounter() {
+	console.log("seteando contadores");
+	if (!localStorage.getItem("idcounter")) {
+		localStorage.setItem("idcounter", "0");
+	}
+}
+
+export { eventsArray, setPreSaved, newEventsArray, setNewEvents, setCounter };
