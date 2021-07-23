@@ -80,9 +80,9 @@ function setStandardCalendar() {
     newElement.dataset.action = `${i}`;
 
     if (i >= 10) {
-      newElement.innerHTML = `<div class="monthday--header"><div class="monthday--header__num">${i}</div><div class="monthday--header__plus">+</div></div><div class="month-event" data-action="event1"></div><div class="month-event" data-action="event2"></div><div class="month-event" data-action="event3"></div>`;
+      newElement.innerHTML = `<div class="monthday--header"><div class="monthday--header__num">${i}</div><div class="monthday--header__plus">+</div></div><div class="month-event"></div><div class="month-event"></div><div class="month-event"></div>`;
     } else {
-      newElement.innerHTML = `<div class="monthday--header"><div class="monthday--header__num">0${i}</div><div class="monthday--header__plus">+</div></div><div class="month-event" data-action="event1"></div><div class="month-event" data-action="event2"></div><div class="month-event" data-action="event3"></div>`;
+      newElement.innerHTML = `<div class="monthday--header"><div class="monthday--header__num">0${i}</div><div class="monthday--header__plus">+</div></div><div class="month-event"></div><div class="month-event"></div><div class="month-event"></div>`;
     }
 
     grid.appendChild(newElement);
@@ -116,6 +116,7 @@ function setStandardCalendar() {
     "December",
   ];
 
+  //const date = new Date(2009, 10, 10);  // 2009-11-10const month = date.toLocaleString('default', { month: 'long' });
   let navTitle = document.querySelector(".nav-title > h4");
   navTitle.innerHTML = `${
     monthNames[monthObject["date"].getMonth()]
@@ -126,21 +127,13 @@ function setStandardCalendar() {
     monthButton.addEventListener("click", changeMonth);
   });
 
-  // Hide the month before arrow by default
-  /*
-	if (
-		monthObject.date.getMonth() == monthObject.limitMonth &&
-		monthObject.date.getFullYear() == monthObject.limitYearBefore
-	) {
-		document
-			.querySelector('[data-action="before-button"]')
-			.classList.add("invisible");
-	}
-	*/
-
   chargeMonthEvents(setNewEvents(newEventsArray));
 }
 
+function getEventYear(eventDate) {
+  let yearEvent = eventDate.split("-")[0];
+  return yearEvent;
+}
 function getEventMonth(eventDate) {
   let monthEvent = eventDate.split("-")[1];
   return monthEvent;
@@ -152,9 +145,10 @@ function getEventDay(eventDate) {
   return dayEvent;
 }
 
-function getEventYear(eventDate) {
-  let yearEvent = eventDate.split("-")[0];
-  return yearEvent;
+function getEventTime(eventDate) {
+  let timeEvent = eventDate.split(":");
+  let minutes = timeEvent[0] * 60 + timeEvent[1];
+  return minutes;
 }
 
 // Recorrer todos los dias del mes, voy a leer las posiciones que tengo para los eventos. Voy a buscar los eventos del dia. Ordeno de los eventos. Imprimir los eventos.
@@ -184,17 +178,18 @@ function chargeMonthEvents(newEventsArray) {
         eventArray.push(newEvent);
 
         function compare(a, b) {
-          return a.initial_date - b.initial_date;
+          return getEventTime(a.initial_time) - getEventTime(b.initial_time);
         }
         eventArray.sort(compare);
       }
     });
 
-    // 0 1 2 recorro los div, inserto los titulo.
+    // 0 1 2 recorro los div, inserto los titulos.
     for (let i = 0; i < 3; i++) {
       if (eventArray[i] != undefined) {
         if (eventCells[i].textContent == "")
-          eventCells[i].textContent = eventArray[i].title;
+          eventCells[i].dataset.action = eventArray[i].id;
+        eventCells[i].textContent = eventArray[i].title;
       }
     }
   }
@@ -250,6 +245,7 @@ function changeMonth(e) {
 }
 function monthDisplay() {
   printMonth();
+  clearNavigationEventListeners();
   setLimitDates();
   setStandardCalendar();
   hiddenMonthButtons();
