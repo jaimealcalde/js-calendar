@@ -84,10 +84,7 @@ function newEventCreate(e, newEventsArray) {
 	let newEventsString = JSON.stringify(newEventsArray);
 	localStorage.setItem("new-event", newEventsString);
 
-	//chargeMonthEvents(setNewEvents(newEventsArray));
-
 	closeModal();
-	console.log("ARRAY DE MODAL", newEventsArray);
 }
 
 export { openModal };
