@@ -1,4 +1,6 @@
-.grid-day {
+.day-wrapper__grid {
   display: grid;
-  grid-template-columns: 1fr 4fr;
+  height: 40rem;
+  grid-template-columns: 1fr repeat(5, 2fr);
+  grid-template-rows: repeat(1440, 1fr);
 }

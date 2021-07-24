@@ -90,6 +90,12 @@ function setStandardCalendar() {
     // Event listeners for each Day
     newElement.addEventListener("click", printDay);
   }
+  /*
+  var stopChildEvents = document.querySelectorAll(".monthday div");
+  stopChildEvents.forEach((stopChildEvent) => {
+    stopChildEvent.addEventListener("click", (e) => e.stopPropagation());
+  });
+  */
 
   // Set where starts the first element of the grid
   let gridStart = document.querySelector(".month-grid > div");
@@ -243,4 +249,13 @@ function monthDisplay() {
   hiddenMonthButtons();
 }
 
-export { monthDisplay, changeMonth, chargeMonthEvents };
+export {
+  monthDisplay,
+  changeMonth,
+  chargeMonthEvents,
+  getEventDay,
+  getEventMonth,
+  getEventYear,
+  getEventTime,
+  monthObject,
+};

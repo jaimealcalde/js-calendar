@@ -21,7 +21,7 @@ var templateMonth = `<template id="month">
 
 var templateDay = `<template id="day">
 				<div class="day-wrapper">
-					<div class="grid-day"> ORTIVA </div>
+					<div class="day-wrapper__grid"></div>
 				</div>
 			</template>`;
 
