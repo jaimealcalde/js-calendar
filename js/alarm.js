@@ -60,12 +60,21 @@ function alarmPopUp() {
 		//alarmtime to go es en miliseguddos
 		let alarmTimeToGo;
 		if (element.alarm_date) {
+			element.expiredAlarm = false;
 			alarmTimeToGo =
 				new Date(element.alarm_date).getTime() - new Date(Date.now()).getTime();
 		}
 		//? Cada timeout arroja por defecto un timeout ID
-		if (!element.timeOutAlarm) {
-			element["timeoutID"] = setTimeout(modalAlarma, alarmTimeToGo);
+		if (!element.timeoutID && alarmTimeToGo > 0) {
+			console.log(
+				alarmTimeToGo,
+				"tiempo para que suene la alarma del evento con id: ",
+				element.id
+			);
+			//puse 9000 que es 9 segs por probar
+			element["timeoutID"] = setTimeout(function () {
+				modalAlarma(element.id);
+			}, alarmTimeToGo);
 		}
 	}
 	localStorage.setItem("alarm-events", JSON.stringify(alarms));
@@ -77,6 +86,10 @@ function alarmPopUp() {
 //* PROBAR ESTo
 function deleteAlarm(eventoId) {
 	//? Cada timeout arroja por defecto un timeout ID
+	console.log(
+		"borrando alarma del evento del array de alarmas porque expiro",
+		eventoId
+	);
 	let alarms = JSON.parse(localStorage.getItem("alarm-events"));
 	let indexAlarm;
 
@@ -84,15 +97,37 @@ function deleteAlarm(eventoId) {
 		if (iterator.id == eventoId) {
 			clearTimeout(iterator.timeoutID); //borro el contador del timeout
 			iterator.timeoutID = ""; //borro el id del timeout
+			iterator.alarm_date = "";
 			indexAlarm = alarms.indexOf(iterator); //calculo en donde esta ese objeto
 		}
 	}
 	alarms.splice(indexAlarm, 1); //borro la alarma de ese array
+
+	localStorage.setItem("alarm-events", JSON.stringify(alarms)); //lo guardo en localstorage
+	expiredAlarm(eventoId);
+}
+
+//*TODO --cambiar color a evento expirado con css
+function expiredAlarm(id) {
+	let eventsArray = JSON.parse(localStorage.getItem("new-event"));
+
+	for (const iterator of eventsArray) {
+		if (iterator.id == id) {
+			iterator["expired-alarm"] = true;
+		}
+	}
+
+	localStorage.setItem("new-event", JSON.stringify(eventsArray));
+
+	//EVENT LISTENER de que si algo esta expired que se ponga oscuro gris.
 }
 
 //*TODO MODAL O POPUP no se sabe aun
-function modalAlarma() {
-	console.log("Alarma sonando");
+function modalAlarma(id) {
+	//eliminar la alarma de los eventos
+
+	console.log("Alarma sonando del obejto", id);
+	deleteAlarm(id);
 }
 
 //arma el objeto en localstorage de alarmas, si elevento.alarm==true

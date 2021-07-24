@@ -72,6 +72,8 @@ function setCounter() {
 	}
 }
 
+function isExpiredEvent() {}
+
 //chequea cambio sen local stroage
 /*   window.addEventListener('storage', () => {
    When local storage changes, dump the list to
