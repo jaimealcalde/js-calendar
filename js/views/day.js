@@ -30,16 +30,19 @@ function printDay(e) {
   }
   clickedDay = clickedDay.dataset.action;
 
-  loadDayEvents(JSON.parse(localStorage.getItem("pre-saved-events")));
-  loadDayEvents(JSON.parse(localStorage.getItem("new-event")));
+  loadDayEvents(
+    JSON.parse(localStorage.getItem("pre-saved-events")),
+    clickedDay
+  );
+  loadDayEvents(JSON.parse(localStorage.getItem("new-event")), clickedDay);
   setTimeTable();
 }
 
-function loadDayEvents(newEvent) {
+function loadDayEvents(newEvent, clickedDay) {
   let eventsArray = [];
   newEvent.forEach((singleEvent) => {
     if (
-      23 == getEventDay(singleEvent.initial_date) &&
+      clickedDay == getEventDay(singleEvent.initial_date) &&
       getEventMonth(singleEvent.initial_date) - 1 ==
         monthObject.date.getMonth() &&
       getEventYear(singleEvent.initial_date) == monthObject.date.getFullYear()
@@ -70,7 +73,7 @@ function setTimeTable() {
     timeTable.appendChild(newTime);
     newTime.style.gridColumnStart = 1;
     newTime.style.gridColumnEnd = 1;
-    newTime.style.gridRowStart = i * 60;
+    newTime.style.gridRowStart = i * 6;
   }
 }
 
@@ -86,8 +89,9 @@ function insertDayEvents(dailyEvents) {
       newEvent.style.gridColumnStart = i + 2;
       newEvent.style.gridColumnEnd = i + 2;
 
-      newEvent.style.gridRowStart = getEventTime(dailyEvents[i].initial_time);
-      newEvent.style.gridRowEnd = getEventTime(dailyEvents[i].final_time);
+      newEvent.style.gridRowStart =
+        getEventTime(dailyEvents[i].initial_time) / 10;
+      newEvent.style.gridRowEnd = getEventTime(dailyEvents[i].final_time) / 10;
 
       newEvent.textContent = dailyEvents[i].title;
     }
