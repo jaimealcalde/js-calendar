@@ -1,5 +1,6 @@
 import { monthDisplay } from "./views/month.js";
 import { openModal } from "./modal.js";
+import { printDay } from "./views/day.js";
 
 function navigate() {
   console.log(location.hash);

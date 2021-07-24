@@ -1,6 +1,7 @@
 import { wrapper } from "../main.js";
 import { templateMonth } from "./templates.js";
 import { printHeader } from "./header.js";
+import { printDay } from "./day.js";
 
 function printMonth() {
   //TODO borar contendio y borrar event listener
@@ -85,19 +86,14 @@ function setStandardCalendar() {
     }
 
     grid.appendChild(newElement);
+
+    // Event listeners for each Day
+    newElement.addEventListener("click", printDay);
   }
 
   // Set where starts the first element of the grid
   let gridStart = document.querySelector(".month-grid > div");
   gridStart.style.gridColumnStart = monthObject["firstDay"];
-
-  // Event listeners for each Day
-  /*
-  let monthDays = document.querySelectorAll(".month-day");
-  monthDays.forEach((monthDay) => {
-    monthDay.addEventListener("click", printDay);
-  });
-  */
 
   // Transform the getMonth() into month name to use it in the title
   let monthNames = [

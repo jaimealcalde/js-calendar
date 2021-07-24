@@ -2,6 +2,7 @@ import { wrapper } from "../main.js";
 import { templateDay } from "./templates.js";
 
 function printDay() {
+  console.log("PRINDAY");
   var monthWrapper = document.querySelector(".month-wrapper");
 
   monthWrapper.innerHTML = "";
