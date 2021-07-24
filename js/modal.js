@@ -1,5 +1,6 @@
 import { goToMonth } from "./router.js";
 import { setAlarmTimer, setAlarmLimits, alarmObjectCreate } from "./alarm.js";
+import { doIfChecked, getFullDate } from "./tools.js";
 
 // Get the modal
 let modal = document.getElementById("new-event");
@@ -10,6 +11,7 @@ document
 	.getElementById("modal-form")
 	.addEventListener("submit", newEventCreate);
 
+//when modal closes
 function closeModal() {
 	modal.style.display = "none";
 	goToMonth();
@@ -18,6 +20,7 @@ function closeModal() {
 //when the modal opens, add event listeners
 function openModal() {
 	modal.style.display = "block";
+	setEventDateLimits();
 	document
 		.querySelector("input[name=set-all-day-event]")
 		.addEventListener("change", setDateTime);
@@ -39,28 +42,22 @@ function openModal() {
 		.addEventListener("change", setAlarmLimits);
 }
 
-function doIfChecked(domElementCheck, elementToSHow, state) {
-	if (state == true) {
-		if (document.querySelector(domElementCheck).checked) {
-			for (const iterator of elementToSHow) {
-				document.querySelector(iterator).classList.remove("label-hidden");
-			}
-		} else {
-			for (const iterator of elementToSHow) {
-				document.querySelector(iterator).classList.add("label-hidden");
-			}
-		}
-	} else if (state == false) {
-		if (!document.querySelector(domElementCheck).checked) {
-			for (const iterator of elementToSHow) {
-				document.querySelector(iterator).classList.remove("label-hidden");
-			}
-		} else {
-			for (const iterator of elementToSHow) {
-				document.querySelector(iterator).classList.add("label-hidden");
-			}
-		}
-	}
+function setEventDateLimits() {
+	//seteo el de dia tmb, limita un año
+
+	document
+		.getElementById("event-start")
+		.setAttribute("min", getFullDate(new Date(Date.now()), 0, 0, 0));
+	document
+		.getElementById("event-start")
+		.setAttribute("max", getFullDate(new Date(Date.now()), 1, 0, 0));
+
+	document.getElementById("event-start").value = getFullDate(
+		new Date(Date.now()),
+		0,
+		0,
+		0
+	);
 }
 
 function setEventEndDate() {
@@ -94,6 +91,7 @@ function setDateTime() {
 	);
 }
 
+//* CREO EL OBJETO EVENTO Y LO GUARDO EN LOCAL STORAGE
 function newEventCreate(e, newEventsArray) {
 	if (!localStorage.getItem("new-event")) {
 		newEventsArray = [];

@@ -1,4 +1,5 @@
 import { doIfChecked } from "./modal.js";
+import { doubleDigits, getFullDate } from "./tools.js";
 
 //* DESPLIEGA EL TIMER DE LA ALARMA SOLO SI ESTA CHEQUEADA LA BOX DE SET ALARM
 
@@ -9,6 +10,8 @@ function setAlarmTimer() {
 		true
 	);
 }
+
+console.log(getFullDate(new Date(Date.now()), 0, 0, 0));
 
 //Se pone maximo y minimo solo cunado cambia la fecha del form
 /** ------- SETEAR MINIMO Y MAXIMO DE ALARMA EN EL FORM */
@@ -26,17 +29,8 @@ function setAlarmLimits() {
 
 	//*MIN VALUE ---------------------------------------
 	//format type: dd/mm/yyyy | format wanted: yyyy-mm-dd
-	let minAlarmTimeBadFormat = new Date(Date.now())
-		.toLocaleString()
-		.split(",")[0]
-		.split("/");
 
-	let minAlarmTime =
-		minAlarmTimeBadFormat[2] +
-		"-" +
-		minAlarmTimeBadFormat[1] +
-		"-" +
-		minAlarmTimeBadFormat[0];
+	let minAlarmTime = getFullDate(new Date(Date.now()), 0, 0, 0);
 
 	//tenia un espacio delante la hora y se lo borroo con el .split(" ")
 	let minAlarmTimeHoursBadFormat = new Date(Date.now())
@@ -52,7 +46,7 @@ function setAlarmLimits() {
 	let minAlarmTimer = minAlarmTime + "T" + minAlarmTimeHours;
 
 	//validacion para el max value
-	document.getElementById("alarm-start").setAttribute("MIN", minAlarmTimer);
+	document.getElementById("alarm-start").setAttribute("min", minAlarmTimer);
 }
 
 //TODO : coger la hora de la alarma y con eso hacer un timeout con un popup.
