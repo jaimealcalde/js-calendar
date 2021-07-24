@@ -3,8 +3,9 @@ import {
 	setAlarmTimer,
 	setAlarmLimits,
 	arrayAlarmObjectCreate,
+	alarmPopUp,
 } from "./alarm.js";
-import { doIfChecked, getFullDate } from "./functions.js";
+import { doIfChecked, getFullDate, isExpiredEvent } from "./functions.js";
 
 // Get the modal
 let modal = document.getElementById("new-event");
@@ -15,13 +16,11 @@ document
 	.getElementById("modal-form")
 	.addEventListener("submit", newEventCreate);
 
-//when modal closes
 function closeModal() {
 	modal.style.display = "none";
 	goToMonth();
 }
 
-//when the modal opens, add event listeners
 function openModal() {
 	modal.style.display = "block";
 	setEventDateLimits();
@@ -48,7 +47,6 @@ function openModal() {
 
 function setEventDateLimits() {
 	//seteo el de dia tmb, limita un año
-
 	document
 		.getElementById("event-start")
 		.setAttribute("min", getFullDate(new Date(Date.now()), 0, 0, 0));
@@ -153,12 +151,21 @@ function newEventCreate(e, newEventsArray) {
 	idcounterNext = idcounterNext.toString();
 	localStorage.setItem("idcounter", idcounterNext);
 
-	//push the object to the array into the localstorage
-	newEventsArray.push(newEventObject);
+	//push the object with the expired property into to the array into the localstorage
+	if (document.getElementById("expired").checked) {
+		newEventsArray.push(isExpiredEvent(newEventObject));
+	} else {
+		newEventsArray.push(newEventObject);
+	}
+
 	let newEventsString = JSON.stringify(newEventsArray);
 	localStorage.setItem("new-event", newEventsString);
 
-	arrayAlarmObjectCreate();
+	if (document.getElementById("alarm").checked) {
+		arrayAlarmObjectCreate();
+		alarmPopUp(newEventObject);
+		//funcion de alarma q le pase el neweventobject
+	}
 	closeModal();
 }
 

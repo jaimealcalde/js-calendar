@@ -2,7 +2,6 @@ import { doIfChecked } from "./modal.js";
 import { getFullDate } from "./functions.js";
 
 //* DESPLIEGA EL TIMER DE LA ALARMA SOLO SI ESTA CHEQUEADA LA BOX DE SET ALARM
-
 function setAlarmTimer() {
 	doIfChecked(
 		"input[name=alarm]",
@@ -47,36 +46,89 @@ function setAlarmLimits() {
 	document.getElementById("alarm-start").setAttribute("min", minAlarmTimer);
 }
 
-//TODO : coger la hora de la alarma y con eso hacer un timeout con un popup.
-//TODO: hacer luegodel submit del modal que se ejecute el timeout
-
-function alarmPopUp() {
+function alarmPopUp(evento) {
 	//modal, set time out
-
 	let alarms = JSON.parse(localStorage.getItem("alarm-events"));
 
-	for (let index = 0; index < alarms.length; index++) {
-		const element = alarms[index];
-
-		//tratar por fecha
-		//luego por hora, psar todo a minutos y luego el timeout
-
-		let timer = new Date(Date.now()) - element.alarm_start;
-
-		let timeOutAlarm = setTimeout(modalAlarma, timer);
-		//si se elimina hay q poner el timeout a cero
-
-		//if new Date (Date.now) == objeto.date
+	//estoy recorriendo las alarmas ya presetedas
+	//pero que lo haga solo una vez no todas las veces, on change?
+	for (const element of alarms) {
+		if (element.id == evento.id) {
+			//new Date(element.alarm_date).getTime() me da el objeto de la fecha de alarma que le paso por string
+			//alarmtime to go es en miliseguddos
+			let alarmTimeToGo;
+			if (element.alarm_date) {
+				element.expiredAlarm = false;
+				alarmTimeToGo =
+					new Date(element.alarm_date).getTime() -
+					new Date(Date.now()).getTime();
+			}
+			//? Cada timeout arroja por defecto un timeout ID
+			if (!element.timeoutID && alarmTimeToGo > 0) {
+				console.log(
+					alarmTimeToGo,
+					"tiempo para que suene la alarma del evento con id: ",
+					element.id
+				);
+				//puse 9000 que es 9 segs por probar
+				element["timeoutID"] = setTimeout(function () {
+					modalAlarma(element.id);
+				}, alarmTimeToGo);
+			}
+		}
+		localStorage.setItem("alarm-events", JSON.stringify(alarms));
 	}
-
-	var a;
 }
 
-function modalAlarma() {}
+function deleteAlarm(eventoId) {
+	//? Cada timeout arroja por defecto un timeout ID
+	console.log(
+		"borrando alarma del evento del array de alarmas porque expiro",
+		eventoId
+	);
+	let alarms = JSON.parse(localStorage.getItem("alarm-events"));
+	let indexAlarm;
 
+	for (const iterator of alarms) {
+		if (iterator.id == eventoId) {
+			clearTimeout(iterator.timeoutID); //borro el contador del timeout
+			iterator.timeoutID = ""; //borro el id del timeout
+			iterator.alarm_date = "";
+			indexAlarm = alarms.indexOf(iterator); //calculo en donde esta ese objeto
+		}
+	}
+	alarms.splice(indexAlarm, 1); //borro la alarma de ese array
+
+	localStorage.setItem("alarm-events", JSON.stringify(alarms)); //lo guardo en localstorage
+	expiredAlarm(eventoId);
+}
+
+function expiredAlarm(id) {
+	let eventsArray = JSON.parse(localStorage.getItem("new-event"));
+
+	for (const iterator of eventsArray) {
+		if (iterator.id == id) {
+			iterator["expired-alarm"] = true;
+			iterator.alarm = false;
+		}
+	}
+
+	localStorage.setItem("new-event", JSON.stringify(eventsArray));
+
+	//EVENT LISTENER de que si algo esta expired que se ponga oscuro gris.
+}
+
+//*TODO MODAL O POPUP no se sabe aun
+function modalAlarma(id) {
+	//eliminar la alarma de los eventos
+
+	console.log("Alarma sonando del obejto", id);
+	deleteAlarm(id);
+}
+
+//arma el objeto en localstorage de alarmas, si elevento.alarm==true
 function arrayAlarmObjectCreate() {
 	let eventsArray = JSON.parse(localStorage.getItem("new-event"));
-	console.log(eventsArray);
 	let alarmObjectsArray = [];
 
 	for (const iterator of eventsArray) {
@@ -84,8 +136,13 @@ function arrayAlarmObjectCreate() {
 			alarmObjectsArray.push(iterator);
 		}
 	}
-
 	localStorage.setItem("alarm-events", JSON.stringify(alarmObjectsArray));
 }
 
-export { setAlarmTimer, setAlarmLimits, arrayAlarmObjectCreate, alarmPopUp };
+export {
+	setAlarmTimer,
+	setAlarmLimits,
+	arrayAlarmObjectCreate,
+	alarmPopUp,
+	deleteAlarm,
+};

@@ -1,6 +1,7 @@
 import { wrapper } from "../main.js";
 import { header } from "./templates.js";
 import { goToCreateEvent } from "../router.js";
+import { resetCalendar } from "../functions.js";
 
 function printHeader() {
 	wrapper.innerHTML = "";
@@ -21,6 +22,12 @@ function printHeader() {
 	document
 		.getElementById("open-modal")
 		.addEventListener("click", goToCreateEvent);
+
+	//button reset
+
+	document
+		.getElementById("reset-calendar")
+		.addEventListener("click", resetCalendar);
 }
 
 export { printHeader };
