@@ -25,7 +25,7 @@ let eventsArray = [
 	},
 ];
 
-function setPreSaved(eventsArra) {
+function setPreSaved(eventsArray) {
 	console.log("estoy en set pre-saved", newEventsArray);
 
 	let eventString = JSON.stringify(eventsArray);
@@ -42,4 +42,4 @@ function setNewEvents(newEventsArray) {
 }
 newEventsArray = setNewEvents(newEventsArray);
 
-export { eventsArray, setPreSaved, newEventsArray };
+export { eventsArray, setPreSaved, newEventsArray };title
