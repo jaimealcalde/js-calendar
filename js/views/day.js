@@ -29,7 +29,6 @@ function printDay(e) {
     clickedDay = clickedDay.parentElement;
   }
   clickedDay = clickedDay.dataset.action;
-  console.log(clickedDay);
 
   loadDayEvents(JSON.parse(localStorage.getItem("pre-saved-events")));
   loadDayEvents(JSON.parse(localStorage.getItem("new-event")));

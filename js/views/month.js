@@ -148,7 +148,7 @@ function getEventDay(eventDate) {
 
 function getEventTime(eventDate) {
   let timeEvent = eventDate.split(":");
-  let minutes = timeEvent[0] * 60 + timeEvent[1];
+  let minutes = parseInt(timeEvent[0]) * 60 + parseInt(timeEvent[1]);
   return minutes;
 }
 
