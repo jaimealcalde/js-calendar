@@ -54,4 +54,3 @@ function setNewEvents() {
 }
 
 export { setPreSaved, setNewEvents };
-//export { eventsArray, setPreSaved, setNewEvents };

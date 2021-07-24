@@ -15,7 +15,6 @@ function getFullDate(date, years, months, days) {
 	let thisMonth = splitDate[1];
 	let thisDay = splitDate[0];
 
-	console.log(thisDay);
 	thisYear = (parseInt(thisYear) + years).toString();
 	thisMonth = (parseInt(thisMonth) + months).toString();
 	thisDay = (parseInt(thisDay) + days).toString();
@@ -52,13 +51,13 @@ function doIfChecked(domElementCheck, elementToSHow, state) {
 
 function setEventsOnLocal(events, key) {
 	let eventString = JSON.stringify(events);
-	console.log("pint events passed", events);
+
 	if (!localStorage.getItem(key)) {
 		localStorage.setItem(key, eventString);
 	} else {
 		events = JSON.parse(localStorage.getItem(key));
 	}
-	console.log("return events", events);
+
 	return events;
 }
 
@@ -68,5 +67,13 @@ function setCounter() {
 		localStorage.setItem("idcounter", "0");
 	}
 }
+
+//chequea cambio sen local stroage
+/*   window.addEventListener('storage', () => {
+   When local storage changes, dump the list to
+   the console.
+  console.log(JSON.parse(window.localStorage.getItem('new-event')));
+});
+ */
 
 export { doubleDigits, getFullDate, doIfChecked, setEventsOnLocal, setCounter };

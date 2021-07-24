@@ -11,8 +11,6 @@ function setAlarmTimer() {
 	);
 }
 
-console.log(getFullDate(new Date(Date.now()), 0, 0, 0));
-
 //Se pone maximo y minimo solo cunado cambia la fecha del form
 /** ------- SETEAR MINIMO Y MAXIMO DE ALARMA EN EL FORM */
 function setAlarmLimits() {
@@ -56,12 +54,9 @@ function alarmPopUp() {
 	//modal, set time out
 }
 
-function alarmObjectCreate() {
-	let eventsArray = localStorage.getItem("new-events");
+function arrayAlarmObjectCreate() {
+	let eventsArray = JSON.parse(localStorage.getItem("new-event"));
 	console.log(eventsArray);
-
-	//chequear si esta siempre actualizado
-	//array of events with alarm
 	let alarmObjectsArray = [];
 
 	for (const iterator of eventsArray) {
@@ -70,23 +65,7 @@ function alarmObjectCreate() {
 		}
 	}
 
-	let alarmObject = {
-		id: "",
-		time: "",
-		audio: "",
-	};
-
-	let eventsWithAlarm = [];
-	//si el objeto tiene alarm true
-
-	//the id should be the same as the event object
+	localStorage.setItem("alarm-events", JSON.stringify(alarmObjectsArray));
 }
 
-/*   window.addEventListener('storage', () => {
-   When local storage changes, dump the list to
-   the console.
-  console.log(JSON.parse(window.localStorage.getItem('sampleList')));
-});
- */
-
-export { setAlarmTimer, setAlarmLimits, alarmObjectCreate, alarmPopUp };
+export { setAlarmTimer, setAlarmLimits, arrayAlarmObjectCreate, alarmPopUp };
