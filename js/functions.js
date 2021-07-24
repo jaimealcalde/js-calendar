@@ -8,6 +8,7 @@ function doubleDigits(someNumber) {
 	return someNumber;
 }
 
+//getFullDate format "yyyy-mm-dd"
 function getFullDate(date, years, months, days) {
 	let splitDate = date.toLocaleString().split(",")[0].split("/");
 
@@ -24,16 +25,19 @@ function getFullDate(date, years, months, days) {
 
 	return fullDate;
 }
-
+//despliega los campos solo cuando los botones estan chequeados.
+//también los hace campos required
 function doIfChecked(domElementCheck, elementToSHow, state) {
 	if (state == true) {
 		if (document.querySelector(domElementCheck).checked) {
 			for (const iterator of elementToSHow) {
 				document.querySelector(iterator).classList.remove("label-hidden");
+				document.querySelector(iterator).required = true;
 			}
 		} else {
 			for (const iterator of elementToSHow) {
 				document.querySelector(iterator).classList.add("label-hidden");
+				document.querySelector(iterator).required = false;
 			}
 		}
 	} else if (state == false) {

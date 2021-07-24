@@ -3,6 +3,7 @@ import {
 	setAlarmTimer,
 	setAlarmLimits,
 	arrayAlarmObjectCreate,
+	alarmPopUp,
 } from "./alarm.js";
 import { doIfChecked, getFullDate } from "./functions.js";
 
@@ -158,7 +159,10 @@ function newEventCreate(e, newEventsArray) {
 	let newEventsString = JSON.stringify(newEventsArray);
 	localStorage.setItem("new-event", newEventsString);
 
-	arrayAlarmObjectCreate();
+	if (document.getElementById("alarm").checked) {
+		arrayAlarmObjectCreate();
+		alarmPopUp();
+	}
 	closeModal();
 }
 
