@@ -1,5 +1,5 @@
 import { doIfChecked } from "./modal.js";
-import { doubleDigits, getFullDate } from "./functions.js";
+import { getFullDate } from "./functions.js";
 
 //* DESPLIEGA EL TIMER DE LA ALARMA SOLO SI ESTA CHEQUEADA LA BOX DE SET ALARM
 
@@ -53,15 +53,31 @@ function setAlarmLimits() {
 //TODO: hacer luegodel submit del modal que se ejecute el timeout
 
 function alarmPopUp() {
-	//modal
+	//modal, set time out
 }
 
 function alarmObjectCreate() {
+	let eventsArray = localStorage.getItem("new-events");
+	console.log(eventsArray);
+
+	//chequear si esta siempre actualizado
+	//array of events with alarm
+	let alarmObjectsArray = [];
+
+	for (const iterator of eventsArray) {
+		if (iterator.alarm) {
+			alarmObjectsArray.push(iterator);
+		}
+	}
+
 	let alarmObject = {
 		id: "",
 		time: "",
 		audio: "",
 	};
+
+	let eventsWithAlarm = [];
+	//si el objeto tiene alarm true
 
 	//the id should be the same as the event object
 }

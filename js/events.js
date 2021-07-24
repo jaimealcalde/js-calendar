@@ -1,5 +1,7 @@
 //id de letras
 
+import { setEventsOnLocal } from "./functions.js";
+
 let eventsArray = [
 	{
 		id: "a",
@@ -41,34 +43,15 @@ let eventsArray = [
 	},
 ];
 
-function setPreSaved(eventsArray) {
-	let eventString = JSON.stringify(eventsArray);
-	//salva los pre cargados
-	if (!localStorage.getItem("pre-saved-events")) {
-		localStorage.setItem("pre-saved-events", eventString);
-	}
+function setPreSaved() {
+	setEventsOnLocal(eventsArray, "pre-saved-events");
 }
 
 let newEventsArray = [];
 
-function setNewEvents(newEventsArray) {
-	let eventStringNew = JSON.stringify(newEventsArray);
-
-	if (!localStorage.getItem("new-event")) {
-		localStorage.setItem("new-event", eventStringNew);
-	} else {
-		newEventsArray = JSON.parse(localStorage.getItem("new-event"));
-	}
-
-	return newEventsArray;
+function setNewEvents() {
+	setEventsOnLocal(newEventsArray, "new-event");
 }
 
-//Seteo contador de ids a 0
-
-function setCounter() {
-	if (!localStorage.getItem("idcounter")) {
-		localStorage.setItem("idcounter", "0");
-	}
-}
-
-export { eventsArray, setPreSaved, newEventsArray, setNewEvents, setCounter };
+export { setPreSaved, setNewEvents };
+//export { eventsArray, setPreSaved, setNewEvents };

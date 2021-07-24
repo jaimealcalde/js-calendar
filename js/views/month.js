@@ -1,7 +1,6 @@
 import { wrapper } from "../main.js";
 import { templateMonth } from "./templates.js";
 import { printHeader } from "./header.js";
-import { eventsArray, newEventsArray, setNewEvents } from "../events.js";
 
 function printMonth() {
 	//TODO borar contendio y borrar event listener
@@ -126,8 +125,8 @@ function setStandardCalendar() {
 	monthButtons.forEach((monthButton) => {
 		monthButton.addEventListener("click", changeMonth);
 	});
-	chargeMonthEvents(eventsArray);
-	chargeMonthEvents(setNewEvents(newEventsArray));
+	chargeMonthEvents(JSON.parse(localStorage.getItem("pre-saved-events")));
+	chargeMonthEvents(JSON.parse(localStorage.getItem("new-event")));
 }
 
 function getEventYear(eventDate) {

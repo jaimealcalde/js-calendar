@@ -50,4 +50,23 @@ function doIfChecked(domElementCheck, elementToSHow, state) {
 	}
 }
 
-export { doubleDigits, getFullDate, doIfChecked };
+function setEventsOnLocal(events, key) {
+	let eventString = JSON.stringify(events);
+	console.log("pint events passed", events);
+	if (!localStorage.getItem(key)) {
+		localStorage.setItem(key, eventString);
+	} else {
+		events = JSON.parse(localStorage.getItem(key));
+	}
+	console.log("return events", events);
+	return events;
+}
+
+//Seteo contador de ids a 0
+function setCounter() {
+	if (!localStorage.getItem("idcounter")) {
+		localStorage.setItem("idcounter", "0");
+	}
+}
+
+export { doubleDigits, getFullDate, doIfChecked, setEventsOnLocal, setCounter };
