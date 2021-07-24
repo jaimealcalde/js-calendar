@@ -1,5 +1,5 @@
 import { doIfChecked } from "./modal.js";
-import { doubleDigits, getFullDate } from "./tools.js";
+import { doubleDigits, getFullDate } from "./functions.js";
 
 //* DESPLIEGA EL TIMER DE LA ALARMA SOLO SI ESTA CHEQUEADA LA BOX DE SET ALARM
 
@@ -27,7 +27,7 @@ function setAlarmLimits() {
 
 	//format de set alarm: 2021-07-23T22:57
 
-	//*MIN VALUE ---------------------------------------
+	//*MIN VALUE -------------------------------------------
 	//format type: dd/mm/yyyy | format wanted: yyyy-mm-dd
 
 	let minAlarmTime = getFullDate(new Date(Date.now()), 0, 0, 0);
@@ -52,9 +52,19 @@ function setAlarmLimits() {
 //TODO : coger la hora de la alarma y con eso hacer un timeout con un popup.
 //TODO: hacer luegodel submit del modal que se ejecute el timeout
 
-function alarmPopUp() {}
+function alarmPopUp() {
+	//modal
+}
 
-function alarmObjectCreate() {}
+function alarmObjectCreate() {
+	let alarmObject = {
+		id: "",
+		time: "",
+		audio: "",
+	};
+
+	//the id should be the same as the event object
+}
 
 /*   window.addEventListener('storage', () => {
    When local storage changes, dump the list to
@@ -63,4 +73,4 @@ function alarmObjectCreate() {}
 });
  */
 
-export { setAlarmTimer, setAlarmLimits, alarmObjectCreate };
+export { setAlarmTimer, setAlarmLimits, alarmObjectCreate, alarmPopUp };

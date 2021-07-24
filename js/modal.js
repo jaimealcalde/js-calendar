@@ -1,6 +1,6 @@
 import { goToMonth } from "./router.js";
 import { setAlarmTimer, setAlarmLimits, alarmObjectCreate } from "./alarm.js";
-import { doIfChecked, getFullDate } from "./tools.js";
+import { doIfChecked, getFullDate } from "./functions.js";
 
 // Get the modal
 let modal = document.getElementById("new-event");
