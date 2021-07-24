@@ -52,7 +52,27 @@ function setAlarmLimits() {
 
 function alarmPopUp() {
 	//modal, set time out
+
+	let alarms = JSON.parse(localStorage.getItem("alarm-events"));
+
+	for (let index = 0; index < alarms.length; index++) {
+		const element = alarms[index];
+
+		//tratar por fecha
+		//luego por hora, psar todo a minutos y luego el timeout
+
+		let timer = new Date(Date.now()) - element.alarm_start;
+
+		let timeOutAlarm = setTimeout(modalAlarma, timer);
+		//si se elimina hay q poner el timeout a cero
+
+		//if new Date (Date.now) == objeto.date
+	}
+
+	var a;
 }
+
+function modalAlarma() {}
 
 function arrayAlarmObjectCreate() {
 	let eventsArray = JSON.parse(localStorage.getItem("new-event"));
