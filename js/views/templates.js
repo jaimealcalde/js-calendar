@@ -23,6 +23,7 @@ var day = ``;
 
 var header = `<template id="header">
 <div class="header__container" id="ButtonAddEvent">
+<div><button id="reset-calendar" class="button__header--newEvent button__red">Reset Calendar</button></div>
 <div><h1>Calendar Name</h1></div>
 <div><button id="open-modal" class="button__header--newEvent button__green">Add Event</button></div>
 </div>

@@ -1,3 +1,7 @@
+import { start } from "./main.js";
+import { goToMonth } from "./router.js";
+import { monthDisplay } from "./views/month.js";
+
 function doubleDigits(someNumber) {
 	if (someNumber < 10) {
 		someNumber = "0" + someNumber.toString();
@@ -71,8 +75,47 @@ function setCounter() {
 		localStorage.setItem("idcounter", "0");
 	}
 }
+//retorna el evento
 
-function isExpiredEvent() {}
+function isExpiredEvent(evento) {
+	//new Date(element.alarm_date).getTime() me da el objeto de la fecha de alarma que le paso por string
+	//alarmtime to go es en miliseguddos
+
+	let fullStartDate = evento.initial_date + "T" + evento.initial_time;
+	let fullStartDateObject = new Date(fullStartDate);
+
+	console.log(fullStartDateObject, "fecha del evento completa");
+	console.log(fullStartDateObject > new Date(Date.now()));
+	let timeToGo = fullStartDateObject - new Date(Date.now()).getTime();
+
+	if (fullStartDateObject > new Date(Date.now())) {
+		evento["is_expired"] = false;
+		evento["timeoutExpiredID"] = setTimeout(function () {
+			timeIsOut(evento);
+		}, timeToGo);
+	}
+	return evento;
+}
+
+function timeIsOut(evento) {
+	let eventsArray = JSON.parse(localStorage.getItem("new-event"));
+
+	for (const iterator of eventsArray) {
+		if (iterator.id == evento.id) {
+			iterator.is_expired = true;
+			clearTimeout(iterator.timeoutExpiredID);
+			iterator.timeoutExpiredID = "";
+			//*TODO cambiar el color cuando esta expirado
+		}
+	}
+
+	localStorage.setItem("new-event", JSON.stringify(eventsArray));
+}
+
+function resetCalendar() {
+	localStorage.clear();
+	start();
+}
 
 //chequea cambio sen local stroage
 /*   window.addEventListener('storage', () => {
@@ -82,4 +125,12 @@ function isExpiredEvent() {}
 });
  */
 
-export { doubleDigits, getFullDate, doIfChecked, setEventsOnLocal, setCounter };
+export {
+	doubleDigits,
+	getFullDate,
+	doIfChecked,
+	setEventsOnLocal,
+	setCounter,
+	isExpiredEvent,
+	resetCalendar,
+};

@@ -46,44 +46,40 @@ function setAlarmLimits() {
 	document.getElementById("alarm-start").setAttribute("min", minAlarmTimer);
 }
 
-function alarmPopUp() {
+function alarmPopUp(evento) {
 	//modal, set time out
-
 	let alarms = JSON.parse(localStorage.getItem("alarm-events"));
 
 	//estoy recorriendo las alarmas ya presetedas
 	//pero que lo haga solo una vez no todas las veces, on change?
-	for (let index = 0; index < alarms.length; index++) {
-		const element = alarms[index];
-
-		//new Date(element.alarm_date).getTime() me da el objeto de la fecha de alarma que le paso por string
-		//alarmtime to go es en miliseguddos
-		let alarmTimeToGo;
-		if (element.alarm_date) {
-			element.expiredAlarm = false;
-			alarmTimeToGo =
-				new Date(element.alarm_date).getTime() - new Date(Date.now()).getTime();
+	for (const element of alarms) {
+		if (element.id == evento.id) {
+			//new Date(element.alarm_date).getTime() me da el objeto de la fecha de alarma que le paso por string
+			//alarmtime to go es en miliseguddos
+			let alarmTimeToGo;
+			if (element.alarm_date) {
+				element.expiredAlarm = false;
+				alarmTimeToGo =
+					new Date(element.alarm_date).getTime() -
+					new Date(Date.now()).getTime();
+			}
+			//? Cada timeout arroja por defecto un timeout ID
+			if (!element.timeoutID && alarmTimeToGo > 0) {
+				console.log(
+					alarmTimeToGo,
+					"tiempo para que suene la alarma del evento con id: ",
+					element.id
+				);
+				//puse 9000 que es 9 segs por probar
+				element["timeoutID"] = setTimeout(function () {
+					modalAlarma(element.id);
+				}, alarmTimeToGo);
+			}
 		}
-		//? Cada timeout arroja por defecto un timeout ID
-		if (!element.timeoutID && alarmTimeToGo > 0) {
-			console.log(
-				alarmTimeToGo,
-				"tiempo para que suene la alarma del evento con id: ",
-				element.id
-			);
-			//puse 9000 que es 9 segs por probar
-			element["timeoutID"] = setTimeout(function () {
-				modalAlarma(element.id);
-			}, alarmTimeToGo);
-		}
+		localStorage.setItem("alarm-events", JSON.stringify(alarms));
 	}
-	localStorage.setItem("alarm-events", JSON.stringify(alarms));
 }
 
-//*TODO delete arlarm
-//*TODO si se elimina hay q poner el timeout a cero, CLEARTIMEOUT (id)
-//*TODO habria q eliminar el objeto de alarm events del localstorage y tmb de los eventos
-//* PROBAR ESTo
 function deleteAlarm(eventoId) {
 	//? Cada timeout arroja por defecto un timeout ID
 	console.log(
@@ -107,13 +103,13 @@ function deleteAlarm(eventoId) {
 	expiredAlarm(eventoId);
 }
 
-//*TODO --cambiar color a evento expirado con css
 function expiredAlarm(id) {
 	let eventsArray = JSON.parse(localStorage.getItem("new-event"));
 
 	for (const iterator of eventsArray) {
 		if (iterator.id == id) {
 			iterator["expired-alarm"] = true;
+			iterator.alarm = false;
 		}
 	}
 

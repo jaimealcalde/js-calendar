@@ -4,11 +4,15 @@ import { setCounter } from "./functions.js";
 
 var wrapper = document.getElementById("calendar");
 
-setPreSaved();
-setNewEvents();
-setCounter();
-navigate();
+function start() {
+	setPreSaved();
+	setNewEvents();
+	setCounter();
+	navigate();
+}
+
+start();
 
 window.addEventListener("hashchange", navigate);
 
-export { wrapper };
+export { wrapper, start };
