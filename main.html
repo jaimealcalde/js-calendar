@@ -20,24 +20,77 @@
 					<p>Set the details for the event</p>
 
 					<div class="containter__vertical-form">
-						<label>Title: <input id="title" type="text" /></label>
+						<label>Title: <input id="title" type="text" required /></label>
 
 						<label for="event-start"
 							>Start date:<input
 								type="date"
 								id="event-start"
 								name="event-start"
-								value="2021-07-24"
-								min="2021-07-24"
-								max="2022-07-31"
+								value=""
+								min=""
+								max=""
+								required
 						/></label>
 
-						<label for="event-start-time"
+						<label for="set-all-day-event"
+							><input
+								type="checkbox"
+								name="set-all-day-event"
+								id="set-all-day-event"
+								checked
+							/>
+							Whole day event</label
+						>
+
+						<label for="event-start-time" class="label-hidden"
 							>Start time:<input
 								type="time"
+								class="label-hidden"
 								id="event-start-time"
 								name="event-start-time"
 								value="00:00"
+						/></label>
+
+						<label for="set-event-end-date" class="label-hidden"
+							><input
+								type="checkbox"
+								class="label-hidden"
+								name="set-event-end-date"
+								id="set-event-end-date"
+							/>
+							Set an end date</label
+						>
+						<label for="event-end-date" class="label-hidden"
+							>End date:
+							<input
+								class="label-hidden"
+								type="date"
+								id="event-end-date"
+								name="event-end-date"
+								max=""
+								min=""
+						/></label>
+
+						<label for="set-event-end-time" class="label-hidden"
+							><input
+								type="checkbox"
+								class="label-hidden"
+								name="set-event-end-time"
+								id="set-event-end-time"
+							/>
+							Set an end time</label
+						>
+
+						<label for="event-end-time" class="label-hidden"
+							>End time:
+							<input
+								class="label-hidden"
+								type="time"
+								id="event-end-time"
+								name="event-end-time"
+								max=""
+								min=""
 						/></label>
 
 						<label for="alarm"
@@ -47,7 +100,6 @@
 						<label for="alarm-start" class="label-hidden"
 							>Start date:
 							<input
-								class="label-hidden"
 								type="datetime-local"
 								id="alarm-start"
 								name="alarm-start"
@@ -69,9 +121,13 @@
 						<label for="event-type"
 							>Event type:
 							<select name="event-type" id="event-type">
-								<option value="sydney">Birthday</option>
-								<option value="melbourne">Holiday</option>
-								<option value="cromwell">Work</option>
+								<option value="birthday">Birthday</option>
+								<option value="holiday">Holiday</option>
+								<option value="work">Work</option>
+								<option value="to-do">To Do</option>
+								<option value="health-care">Health Care</option>
+								<option value="social-life">Social Life</option>
+								<option value="sports">Sports</option>
 							</select></label
 						>
 					</div>

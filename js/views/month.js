@@ -1,8 +1,6 @@
 import { wrapper } from "../main.js";
 import { templateMonth } from "./templates.js";
 import { printHeader } from "./header.js";
-import { newEventsArray, setNewEvents } from "../events.js";
-import { printDay } from "./day.js";
 
 function printMonth() {
   //TODO borar contendio y borrar event listener
@@ -87,14 +85,19 @@ function setStandardCalendar() {
     }
 
     grid.appendChild(newElement);
-
-    //Event listener for each day
-    newElement.addEventListener("click", printDay);
   }
 
   // Set where starts the first element of the grid
   let gridStart = document.querySelector(".month-grid > div");
   gridStart.style.gridColumnStart = monthObject["firstDay"];
+
+  // Event listeners for each Day
+  /*
+  let monthDays = document.querySelectorAll(".month-day");
+  monthDays.forEach((monthDay) => {
+    monthDay.addEventListener("click", printDay);
+  });
+  */
 
   // Transform the getMonth() into month name to use it in the title
   let monthNames = [
@@ -122,8 +125,8 @@ function setStandardCalendar() {
   monthButtons.forEach((monthButton) => {
     monthButton.addEventListener("click", changeMonth);
   });
-
-  chargeMonthEvents(setNewEvents(newEventsArray));
+  chargeMonthEvents(JSON.parse(localStorage.getItem("pre-saved-events")));
+  chargeMonthEvents(JSON.parse(localStorage.getItem("new-event")));
 }
 
 function getEventYear(eventDate) {
@@ -150,9 +153,6 @@ function getEventTime(eventDate) {
 // Recorrer todos los dias del mes, voy a leer las posiciones que tengo para los eventos. Voy a buscar los eventos del dia. Ordeno de los eventos. Imprimir los eventos.
 
 function chargeMonthEvents(newEventsArray) {
-  console.log("estoy cargando eventos");
-  console.log(newEventsArray);
-
   //Recorre todas las celdas y selecciona los contenedores de los eventos
   for (let i = 1; i <= monthObject.numOfDays; i++) {
     var eventArray = [];
