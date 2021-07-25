@@ -32,7 +32,6 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  cursor: pointer;
 }
 
 .monthday--header {
@@ -45,6 +44,7 @@
 .monthday--header__num {
   position: relative;
   left: 50%;
+  cursor: pointer;
 }
 
 .monthday--header__plus {

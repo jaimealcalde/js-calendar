@@ -88,14 +88,11 @@ function setStandardCalendar() {
     grid.appendChild(newElement);
 
     // Event listeners for each Day
-    newElement.addEventListener("click", printDay);
+    let headerNum = document.querySelector(
+      `[data-action="${i}"] .monthday--header__num`
+    );
+    headerNum.addEventListener("click", printDay);
   }
-  /*
-  var stopChildEvents = document.querySelectorAll(".monthday div");
-  stopChildEvents.forEach((stopChildEvent) => {
-    stopChildEvent.addEventListener("click", (e) => e.stopPropagation());
-  });
-  */
 
   // Set where starts the first element of the grid
   let gridStart = document.querySelector(".month-grid > div");
@@ -185,9 +182,10 @@ function chargeMonthEvents(newEventsArray) {
     // 0 1 2 recorro los div, inserto los titulos.
     for (let i = 0; i < 3; i++) {
       if (eventArray[i] != undefined) {
-        if (eventCells[i].textContent == "")
+        if (eventCells[i].textContent == "") {
           eventCells[i].dataset.action = eventArray[i].id;
-        eventCells[i].textContent = eventArray[i].title;
+          eventCells[i].textContent = eventArray[i].title;
+        }
       }
     }
   }

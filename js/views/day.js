@@ -25,9 +25,11 @@ function printDay(e) {
 
   // GETDAY from Event
   var clickedDay = e.target;
+
   while (clickedDay.classList.value != "monthday") {
     clickedDay = clickedDay.parentElement;
   }
+
   clickedDay = clickedDay.dataset.action;
 
   loadDayEvents(
@@ -80,6 +82,7 @@ function setTimeTable() {
 function insertDayEvents(dailyEvents) {
   let timeTable = document.querySelector(".day-wrapper__grid");
 
+  //Insert 5 events max
   for (let i = 0; i < dailyEvents.length || i < 5; i++) {
     if (dailyEvents[i] != undefined) {
       let newEvent = document.createElement("div");
@@ -94,6 +97,20 @@ function insertDayEvents(dailyEvents) {
       newEvent.style.gridRowEnd = getEventTime(dailyEvents[i].final_time) / 10;
 
       newEvent.textContent = dailyEvents[i].title;
+
+      newEvent.style.zIndex = i;
+
+      // Set full background color and z-index
+      let backgroundFill = document.createElement("div");
+      timeTable.appendChild(backgroundFill);
+
+      backgroundFill.style.gridColumnStart = i + 3;
+      backgroundFill.style.gridColumnEnd = 7;
+
+      backgroundFill.style.gridRowStart = newEvent.style.gridRowStart;
+      backgroundFill.style.gridRowEnd = newEvent.style.gridRowEnd;
+
+      backgroundFill.style.zIndex = i;
     }
   }
 }
