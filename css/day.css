@@ -1,0 +1,10 @@
+.day-wrapper__grid {
+  display: grid;
+  height: 45rem;
+  grid-template-columns: 1fr repeat(5, 2fr);
+  grid-template-rows: repeat(145, 1fr);
+}
+
+.automargin {
+  margin: auto;
+}

@@ -1,6 +1,8 @@
 import { wrapper } from "../main.js";
 import { templateMonth } from "./templates.js";
 import { printHeader } from "./header.js";
+import { printDay } from "./day.js";
+import { setEventsOnLocal } from "../functions.js";
 
 function printMonth() {
 	//TODO borar contendio y borrar event listener
@@ -21,16 +23,35 @@ function printMonth() {
 	wrapper.appendChild(copyNode);
 }
 
-var monthObject = { date: new Date() };
-let limitDate = new Date();
+let today = new Date();
+
+function setMonth() {
+	var monthObject = { date: new Date(Date.now()) };
+	setEventsOnLocal(monthObject, "month");
+}
+
+let monthObject = JSON.parse(localStorage.getItem("month"));
+
+function toObjectDate() {
+	if (monthObject) {
+		if (typeof monthObject.date == "string") {
+			let date = monthObject.date.split("T")[0];
+			monthObject["date"] = new Date(date);
+		}
+	}
+}
 
 function setLimitDates() {
-	monthObject["limitYearBefore"] = limitDate.getFullYear();
-	monthObject["limitYearAfter"] = limitDate.getFullYear() + 1;
-	monthObject["limitMonth"] = limitDate.getMonth();
+	console.log("estoy seteando limites");
+	monthObject["limitYearBefore"] = today.getFullYear();
+	monthObject["limitYearAfter"] = today.getFullYear() + 1;
+	monthObject["limitMonth"] = today.getMonth();
+	console.log("guardando limites en localstorage", monthObject);
+	localStorage.setItem("month", JSON.stringify(monthObject));
 }
 
 function setStandardCalendar() {
+	toObjectDate();
 	// Create a new Date with the actual month by default. Change the day of the month to the 1st day,
 	//and GET THE FIRST DAY OF THE MONTH
 
@@ -41,8 +62,8 @@ function setStandardCalendar() {
 
 	// The last day of this month is equals to day 0 of the next month
 	monthObject["numOfDays"] = new Date(
-		monthObject["date"].getFullYear(),
-		monthObject["date"].getMonth() + 1,
+		monthObject.date.getYear(),
+		monthObject.date.getMonth() + 1,
 		0
 	);
 	monthObject["numOfDays"] = monthObject["numOfDays"].getDate();
@@ -85,19 +106,17 @@ function setStandardCalendar() {
 		}
 
 		grid.appendChild(newElement);
+
+		// Event listeners for each Day
+		let headerNum = document.querySelector(
+			`[data-action="${i}"] .monthday--header__num`
+		);
+		headerNum.addEventListener("click", printDay);
 	}
 
 	// Set where starts the first element of the grid
 	let gridStart = document.querySelector(".month-grid > div");
 	gridStart.style.gridColumnStart = monthObject["firstDay"];
-
-	// Event listeners for each Day
-	/*
-  let monthDays = document.querySelectorAll(".month-day");
-  monthDays.forEach((monthDay) => {
-    monthDay.addEventListener("click", printDay);
-  });
-  */
 
 	// Transform the getMonth() into month name to use it in the title
 	let monthNames = [
@@ -125,6 +144,8 @@ function setStandardCalendar() {
 	monthButtons.forEach((monthButton) => {
 		monthButton.addEventListener("click", changeMonth);
 	});
+
+	document.getElementById("goToday").addEventListener("click", gotoDay);
 	chargeMonthEvents(JSON.parse(localStorage.getItem("pre-saved-events")));
 	chargeMonthEvents(JSON.parse(localStorage.getItem("new-event")));
 }
@@ -146,13 +167,14 @@ function getEventDay(eventDate) {
 
 function getEventTime(eventDate) {
 	let timeEvent = eventDate.split(":");
-	let minutes = timeEvent[0] * 60 + timeEvent[1];
+	let minutes = parseInt(timeEvent[0]) * 60 + parseInt(timeEvent[1]);
 	return minutes;
 }
 
 // Recorrer todos los dias del mes, voy a leer las posiciones que tengo para los eventos. Voy a buscar los eventos del dia. Ordeno de los eventos. Imprimir los eventos.
 
 function chargeMonthEvents(newEventsArray) {
+	toObjectDate();
 	//Recorre todas las celdas y selecciona los contenedores de los eventos
 	for (let i = 1; i <= monthObject.numOfDays; i++) {
 		var eventArray = [];
@@ -183,9 +205,10 @@ function chargeMonthEvents(newEventsArray) {
 		// 0 1 2 recorro los div, inserto los titulos.
 		for (let i = 0; i < 3; i++) {
 			if (eventArray[i] != undefined) {
-				if (eventCells[i].textContent == "")
+				if (eventCells[i].textContent == "") {
 					eventCells[i].dataset.action = eventArray[i].id;
-				eventCells[i].textContent = eventArray[i].title;
+					eventCells[i].textContent = eventArray[i].title;
+				}
 			}
 		}
 	}
@@ -193,6 +216,7 @@ function chargeMonthEvents(newEventsArray) {
 
 // Hide the navigation arrows in each case to limit the user's navigation
 function hiddenMonthButtons() {
+	toObjectDate();
 	if (monthObject.date.getMonth() == monthObject.limitMonth) {
 		if (monthObject.date.getFullYear() == monthObject.limitYearAfter) {
 			document
@@ -210,10 +234,12 @@ function clearNavigationEventListeners() {
 	monthButtons.forEach((monthButton) => {
 		monthButton.removeEventListener("click", changeMonth);
 	});
+	document.getElementById("goToday").addEventListener("click", gotoDay);
 }
 
 function changeMonth(e) {
 	if (e.target.dataset.action == "next-button") {
+		toObjectDate();
 		if (
 			monthObject.date.getFullYear() >= monthObject.limitYearAfter &&
 			monthObject.date.getMonth() >= monthObject.limitMonth
@@ -238,6 +264,8 @@ function changeMonth(e) {
 			hiddenMonthButtons();
 		}
 	}
+	//guardo la fecha en el obejto mes
+	localStorage.setItem("month", JSON.stringify(monthObject));
 }
 function monthDisplay() {
 	printMonth();
@@ -247,4 +275,23 @@ function monthDisplay() {
 	hiddenMonthButtons();
 }
 
-export { monthDisplay, changeMonth, chargeMonthEvents };
+function gotoDay() {
+	monthObject.date = new Date(Date.now());
+	localStorage.setItem("month", JSON.stringify(monthObject));
+	printMonth();
+	clearNavigationEventListeners();
+	setStandardCalendar();
+	hiddenMonthButtons();
+}
+
+export {
+	monthDisplay,
+	changeMonth,
+	chargeMonthEvents,
+	getEventDay,
+	getEventMonth,
+	getEventYear,
+	getEventTime,
+	monthObject,
+	setMonth,
+};

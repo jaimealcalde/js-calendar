@@ -30,10 +30,11 @@ function setAlarmLimits() {
 	let minAlarmTime = getFullDate(new Date(Date.now()), 0, 0, 0);
 
 	//tenia un espacio delante la hora y se lo borroo con el .split(" ")
+	console.log(new Date(Date.now()).toLocaleString());
 	let minAlarmTimeHoursBadFormat = new Date(Date.now())
 		.toLocaleString()
-		.split(",")[1]
-		.split(" ");
+		.split(" ")[1];
+	//.split(" ");
 
 	//Separo hora de minutos
 	minAlarmTimeHoursBadFormat = minAlarmTimeHoursBadFormat[1].split(":");
@@ -120,10 +121,9 @@ function expiredAlarm(id) {
 
 //*TODO MODAL O POPUP no se sabe aun
 function modalAlarma(id) {
-	//eliminar la alarma de los eventos
-	// ejecutar el modal con el template
-
 	console.log("Alarma sonando del obejto", id);
+
+	//audio.play();
 	deleteAlarm(id);
 }
 
