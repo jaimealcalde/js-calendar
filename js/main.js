@@ -6,11 +6,11 @@ import { setMonth } from "./views/month.js";
 var wrapper = document.getElementById("calendar");
 
 function start() {
-  setPreSaved();
-  setNewEvents();
-  setCounter();
-  setMonth();
-  navigate();
+	setPreSaved();
+	setNewEvents();
+	setCounter();
+	setMonth();
+	navigate();
 }
 
 start();

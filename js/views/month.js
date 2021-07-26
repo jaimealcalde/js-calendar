@@ -31,8 +31,16 @@ function setMonth() {
 }
 
 let monthObject = JSON.parse(localStorage.getItem("month"));
-let date = monthObject.date.split("T")[0];
-monthObject["date"] = new Date(date);
+
+function toObjectDate() {
+	if (monthObject) {
+		console.log(monthObject);
+		if (typeof monthObject.date == "string") {
+			let date = monthObject.date.split("T")[0];
+			monthObject["date"] = new Date(date);
+		}
+	}
+}
 
 function setLimitDates() {
 	monthObject["limitYearBefore"] = today.getFullYear();
@@ -43,6 +51,7 @@ function setLimitDates() {
 }
 
 function setStandardCalendar() {
+	toObjectDate();
 	// Create a new Date with the actual month by default. Change the day of the month to the 1st day,
 	//and GET THE FIRST DAY OF THE MONTH
 
@@ -163,6 +172,7 @@ function getEventTime(eventDate) {
 // Recorrer todos los dias del mes, voy a leer las posiciones que tengo para los eventos. Voy a buscar los eventos del dia. Ordeno de los eventos. Imprimir los eventos.
 
 function chargeMonthEvents(newEventsArray) {
+	toObjectDate();
 	//Recorre todas las celdas y selecciona los contenedores de los eventos
 	for (let i = 1; i <= monthObject.numOfDays; i++) {
 		var eventArray = [];
@@ -204,6 +214,7 @@ function chargeMonthEvents(newEventsArray) {
 
 // Hide the navigation arrows in each case to limit the user's navigation
 function hiddenMonthButtons() {
+	toObjectDate();
 	if (monthObject.date.getMonth() == monthObject.limitMonth) {
 		if (monthObject.date.getFullYear() == monthObject.limitYearAfter) {
 			document
@@ -225,6 +236,7 @@ function clearNavigationEventListeners() {
 
 function changeMonth(e) {
 	if (e.target.dataset.action == "next-button") {
+		toObjectDate();
 		if (
 			monthObject.date.getFullYear() >= monthObject.limitYearAfter &&
 			monthObject.date.getMonth() >= monthObject.limitMonth
