@@ -52,8 +52,6 @@ function setDay(e) {
 }
 
 function printDay() {
-	//var monthWrapper = document.querySelector(".month-wrapper");
-
 	wrapper.innerHTML = "";
 	printHeader();
 	let templateThisDay = templateDay;
