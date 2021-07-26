@@ -1,4 +1,4 @@
-import { newEventsArray } from "./../events.js";
+
 
 let add = document.getElementById("uno");
 
@@ -7,13 +7,16 @@ let Quitar = document.getElementById("dos");
 add.addEventListener("click", addModal);
 Quitar.addEventListener("click", quitarModal);
 
-function addModal() {
+function addModal(e) {
+  let objetId = e.target.dataset.id;
   let modal = document.getElementById("showEventContainer");
   modal.classList.remove("hidden");
   modal.classList.add("show");
   add.removeEventListener("click", addModal);
-
-  console.log(newEventsArray);
+  convert();
+  chooseObject();
+  console.log(preSavedEvents);
+  console.log(newEvents);
 }
 
 function quitarModal() {
@@ -23,14 +26,22 @@ function quitarModal() {
   add.addEventListener("click", addModal);
 }
 
-function chooseObject{
-  if(modal){
-    addNew(newEvents, 5);
-  } else{
-  addNew(preSavedEvents,5);
-  }
+let preSavedEvents;
+let newEventsArray;
+function convert(){
+  preSavedEvents = JSON.parse(localStorage.getItem("pre-saved-events"));
+  newEventsArray = JSON.parse(localStorage.getItem("new-event"));
 }
 
+let exp = /^[a-z]$/;
+function chooseObject() {
+  const test = exp.test(event.id);
+  if(test){
+    addNew(preSavedEvents, 5);
+  } else{
+  addNew(newEventsArray, 5);
+  }
+}
 
 function addNew(b,i) {
   let title = document.getElementById("titleEvent").textContent;
