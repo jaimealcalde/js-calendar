@@ -2,6 +2,7 @@ import { wrapper } from "../main.js";
 import { templateMonth } from "./templates.js";
 import { printHeader } from "./header.js";
 import { printDay } from "./day.js";
+import { setEventsOnLocal } from "../functions.js";
 
 function printMonth() {
   //TODO borar contendio y borrar event listener
@@ -22,13 +23,22 @@ function printMonth() {
   wrapper.appendChild(copyNode);
 }
 
-var monthObject = { date: new Date() };
-let limitDate = new Date();
+let today = new Date();
+
+let monthObject = JSON.parse(localStorage.getItem("month"));
+let date = monthObject.date.split("T")[0];
+monthObject["date"] = new Date(date);
+function setMonth() {
+  var monthObject = { date: new Date() };
+  setEventsOnLocal(monthObject, "month");
+}
 
 function setLimitDates() {
-  monthObject["limitYearBefore"] = limitDate.getFullYear();
-  monthObject["limitYearAfter"] = limitDate.getFullYear() + 1;
-  monthObject["limitMonth"] = limitDate.getMonth();
+  monthObject["limitYearBefore"] = today.getFullYear();
+  monthObject["limitYearAfter"] = today.getFullYear() + 1;
+  monthObject["limitMonth"] = today.getMonth();
+  localStorage.setItem("month", JSON.stringify(monthObject));
+  console.log(localStorage.getItem("month"));
 }
 
 function setStandardCalendar() {
@@ -42,8 +52,8 @@ function setStandardCalendar() {
 
   // The last day of this month is equals to day 0 of the next month
   monthObject["numOfDays"] = new Date(
-    monthObject["date"].getFullYear(),
-    monthObject["date"].getMonth() + 1,
+    monthObject.date.getYear(),
+    monthObject.date.getMonth() + 1,
     0
   );
   monthObject["numOfDays"] = monthObject["numOfDays"].getDate();
@@ -256,4 +266,5 @@ export {
   getEventYear,
   getEventTime,
   monthObject,
+  setMonth,
 };
