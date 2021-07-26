@@ -1,4 +1,4 @@
-import { goToMonth, goToDay } from "./router.js";
+import { goToMonth, goToDayView } from "./router.js";
 import {
 	setAlarmTimer,
 	setAlarmLimits,
@@ -18,12 +18,13 @@ document
 
 function closeModal() {
 	modal.style.display = "none";
+	//goBack();
 	if (document.getElementById("monthView")) {
-		console.log("entre aqui");
+		console.log("entre aqui cerrar e ir a mes");
 		goToMonth();
 	} else if (document.getElementById("dayView")) {
-		console.log("entre aqui");
-		goToDay();
+		console.log("entre aqui cerrar e ir a dia");
+		goToDayView();
 	}
 }
 
@@ -97,6 +98,9 @@ function setDateTime() {
 		],
 		false
 	);
+
+	setEventEndTime();
+	setEventEndDate();
 }
 
 //* CREO EL OBJETO EVENTO Y LO GUARDO EN LOCAL STORAGE

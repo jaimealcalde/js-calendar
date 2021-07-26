@@ -1,6 +1,6 @@
 import { start } from "./main.js";
-import { goToMonth } from "./router.js";
-import { monthDisplay } from "./views/month.js";
+import { goToDayView, goToMonth } from "./router.js";
+import { monthDisplay, gotoDay } from "./views/month.js";
 
 function doubleDigits(someNumber) {
 	if (someNumber < 10) {
@@ -51,6 +51,8 @@ function doIfChecked(domElementCheck, elementToSHow, state) {
 			}
 		} else {
 			for (const iterator of elementToSHow) {
+				document.querySelector(iterator).required = false;
+				document.querySelector(iterator).checked = false;
 				document.querySelector(iterator).classList.add("label-hidden");
 			}
 		}
@@ -114,6 +116,7 @@ function timeIsOut(evento) {
 function resetCalendar() {
 	localStorage.clear();
 	start();
+	gotoDay();
 }
 
 //chequea cambio sen local stroage

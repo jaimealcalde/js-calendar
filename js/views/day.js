@@ -7,9 +7,10 @@ import {
   getEventTime,
   monthObject,
 } from "./month.js";
-import { goToDay } from "../router.js";
+import { goToDayView } from "../router.js";
 
 import { setEventsOnLocal } from "../functions.js";
+import { printHeader } from "./header.js";
 
 function eventToColor(oneEvent, newEvent) {
   switch (oneEvent.type) {
@@ -47,23 +48,25 @@ function setDay(e) {
   var clickedDay = e.target.textContent;
   setEventsOnLocal(clickedDay, "day");
   localStorage.setItem("day", JSON.stringify(clickedDay));
-  goToDay();
+  goToDayView();
 }
 
 function printDay() {
-  var monthWrapper = document.querySelector(".month-wrapper");
-
-  monthWrapper.innerHTML = "";
-
+  wrapper.innerHTML = "";
+  printHeader();
   let templateThisDay = templateDay;
-  monthWrapper.insertAdjacentHTML("beforeend", templateThisDay);
+  wrapper.insertAdjacentHTML("beforeend", templateThisDay);
 
   let dayNode = document.getElementById("day").content;
   let copyNode = document.importNode(dayNode, true);
 
-  monthWrapper.lastChild.remove();
+  wrapper.lastChild.remove();
 
-  monthWrapper.appendChild(copyNode);
+  wrapper.appendChild(copyNode);
+
+  // GETDAY from Event
+
+  var clickedDay = JSON.parse(localStorage.getItem("day"));
 
   // GETDAY from Event
 
@@ -79,7 +82,6 @@ function printDay() {
   let nextDay = document.querySelector('[data-action="next-day"]');
   let beforeDay = document.querySelector('[data-action="before-day"]');
 
-  console.log("NEXTDAYYYYYYYY", nextDay);
   nextDay.addEventListener("click", goNextDay);
   beforeDay.addEventListener("click", goBeforeDay);
 }
