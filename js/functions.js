@@ -51,6 +51,8 @@ function doIfChecked(domElementCheck, elementToSHow, state) {
 			}
 		} else {
 			for (const iterator of elementToSHow) {
+				document.querySelector(iterator).required = false;
+				document.querySelector(iterator).checked = false;
 				document.querySelector(iterator).classList.add("label-hidden");
 			}
 		}

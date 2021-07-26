@@ -98,6 +98,9 @@ function setDateTime() {
 		],
 		false
 	);
+
+	setEventEndTime();
+	setEventEndDate();
 }
 
 //* CREO EL OBJETO EVENTO Y LO GUARDO EN LOCAL STORAGE
