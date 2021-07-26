@@ -120,6 +120,8 @@ function insertDayEvents(dailyEvents) {
       eventToColor(dailyEvents[i], newEvent);
 
       timeTable.appendChild(newEvent);
+      //newEvent.addEventListener("click", selectId);
+
       newEvent.classList.add(
         "event-title",
         "automargin",
@@ -143,6 +145,8 @@ function insertDayEvents(dailyEvents) {
       // Set full background color and z-index
       let backgroundFill = document.createElement("div");
       timeTable.appendChild(backgroundFill);
+      backgroundFill.dataset.id = dailyEvents[i].id;
+      //backgroundFill.addEventListener("click", selectId);
       backgroundFill.classList.add("event-background");
       eventToColor(dailyEvents[i], backgroundFill);
 
