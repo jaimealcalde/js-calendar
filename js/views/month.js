@@ -34,7 +34,6 @@ let monthObject = JSON.parse(localStorage.getItem("month"));
 
 function toObjectDate() {
   if (monthObject) {
-    console.log(monthObject);
     if (typeof monthObject.date == "string") {
       let date = monthObject.date.split("T")[0];
       monthObject["date"] = new Date(date);
@@ -43,11 +42,12 @@ function toObjectDate() {
 }
 
 function setLimitDates() {
+  console.log("estoy seteando limites");
   monthObject["limitYearBefore"] = today.getFullYear();
   monthObject["limitYearAfter"] = today.getFullYear() + 1;
   monthObject["limitMonth"] = today.getMonth();
+  console.log("guardando limites en localstorage", monthObject);
   localStorage.setItem("month", JSON.stringify(monthObject));
-  console.log(localStorage.getItem("month"));
 }
 
 function setStandardCalendar() {
@@ -144,6 +144,8 @@ function setStandardCalendar() {
   monthButtons.forEach((monthButton) => {
     monthButton.addEventListener("click", changeMonth);
   });
+
+  document.getElementById("goToday").addEventListener("click", gotoDay);
   chargeMonthEvents(JSON.parse(localStorage.getItem("pre-saved-events")));
   chargeMonthEvents(JSON.parse(localStorage.getItem("new-event")));
 }
@@ -232,6 +234,7 @@ function clearNavigationEventListeners() {
   monthButtons.forEach((monthButton) => {
     monthButton.removeEventListener("click", changeMonth);
   });
+  document.getElementById("goToday").addEventListener("click", gotoDay);
 }
 
 function changeMonth(e) {
@@ -261,11 +264,22 @@ function changeMonth(e) {
       hiddenMonthButtons();
     }
   }
+  //guardo la fecha en el obejto mes
+  localStorage.setItem("month", JSON.stringify(monthObject));
 }
 function monthDisplay() {
   printMonth();
   clearNavigationEventListeners();
   setLimitDates();
+  setStandardCalendar();
+  hiddenMonthButtons();
+}
+
+function gotoDay() {
+  monthObject.date = new Date(Date.now());
+  localStorage.setItem("month", JSON.stringify(monthObject));
+  printMonth();
+  clearNavigationEventListeners();
   setStandardCalendar();
   hiddenMonthButtons();
 }

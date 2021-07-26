@@ -1,25 +1,4 @@
-body {
-  font-family: Arial, Helvetica, sans-serif;
-}
-* {
-  box-sizing: border-box;
-}
 
-/* Set a style for all buttons */
-button {
-  background-color: #04aa6d;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-  opacity: 0.9;
-}
-
-button:hover {
-  opacity: 1;
-}
 
 /* Float cancel and delete buttons and add an equal width */
 .cancelbtn,
@@ -45,11 +24,7 @@ button:hover {
   opacity: 0.9;
 }
 
-/* Add padding and center-align text to the container */
-.container {
-  padding: 16px;
-  text-align: left;
-}
+
 
 /* The Modal (background) */
 .modal {
