@@ -10,6 +10,10 @@
   height: 4rem;
 }
 
+.month-header h4{
+  margin-bottom: 10%;
+}
+
 .month-weekdays {
   display: flex;
   flex-direction: row;
@@ -54,4 +58,9 @@
 
 .invisible {
   visibility: hidden;
+}
+
+.go-today-button{
+  text-transform: uppercase;
+  font-weight: bold;
 }
