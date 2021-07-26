@@ -249,6 +249,8 @@ function changeMonth(e) {
     ) {
     } else {
       monthObject["date"].setMonth(monthObject["date"].getMonth() + 1);
+      console.log(monthObject.date);
+
       printMonth();
       clearNavigationEventListeners();
       setStandardCalendar();
@@ -261,6 +263,8 @@ function changeMonth(e) {
     ) {
     } else {
       monthObject["date"].setMonth(monthObject["date"].getMonth() - 1);
+      console.log(monthObject.date);
+
       printMonth();
       clearNavigationEventListeners();
       setStandardCalendar();

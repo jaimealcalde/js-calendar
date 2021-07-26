@@ -14,12 +14,29 @@ import { setEventsOnLocal } from "../functions.js";
 function eventToColor(oneEvent, newEvent) {
   switch (oneEvent.type) {
     case "holiday":
-      newEvent.style.backgroundColor = "orange";
+      newEvent.classList.add("light-orange-event");
+      console.log("holiday");
       break;
     case "birthday":
-      newEvent.style.backgroundColor = "teal";
+      newEvent.classList.add("light-pink-event");
+      console.log("birthday");
       break;
-
+    case "work":
+      newEvent.classList.add("light-yellow-event");
+      console.log("work");
+      break;
+    case "to-do":
+      newEvent.classList.add("light-blue-event");
+      break;
+    case "health-care":
+      newEvent.classList.add("dark-green-event");
+      break;
+    case "social-life":
+      newEvent.classList.add("dark-orange-event");
+      break;
+    case "sports":
+      newEvent.classList.add("light-green-event");
+      break;
     default:
       console.log("Undefined type");
       break;

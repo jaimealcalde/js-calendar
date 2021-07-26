@@ -1,3 +1,13 @@
+:root {
+  --light-orange: rgb(233, 165, 109);
+  --dark-orange: rgb(247, 133, 40);
+  --light-green: rgb(204, 245, 194);
+  --dark-green: rgb(48, 109, 40);
+  --light-blue: rgb(166, 167, 255);
+  --light-yellow: rgb(248, 244, 186);
+  --light-pink: rgb(255, 203, 251);
+}
+
 .day-wrapper__grid {
   display: grid;
   height: 45rem;
@@ -31,4 +41,30 @@
   border-top: 1px solid black;
   border-right: 1px solid black;
   border-bottom: 1px solid black;
+}
+
+.light-orange-event {
+  background-color: var(--light-orange);
+}
+
+.dark-orange-event {
+  background-color: var(--dark-orange);
+}
+
+.light-green-event {
+  background-color: var(--light-green);
+}
+
+.dark-green-event {
+  background-color: var(--dark-green);
+}
+
+.light-blue-event {
+  background-color: var(--light-blue);
+}
+.light-yellow-event {
+  background-color: var(--light-yellow);
+}
+.light-pink-event {
+  background-color: var(--light-pink);
 }

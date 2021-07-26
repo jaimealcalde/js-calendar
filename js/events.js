@@ -7,7 +7,7 @@ let eventsArray = [
     id: "ny",
     allday: true,
     title: "New year",
-    initial_date: "2021-01-0",
+    initial_date: "2021-01-00",
     final_date: 0,
     initial_time: "00:00",
     final_time: "23:59",
