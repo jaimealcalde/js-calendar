@@ -3,7 +3,6 @@ import { openModal } from "./modal.js";
 import { printDay } from "./views/day.js";
 import { addModal } from "./views/modalShowEvents.js";
 
-
 function navigate() {
   console.log(location.hash);
   if (location.hash == "" || location.hash == "#") {
@@ -32,6 +31,5 @@ function goToDay() {
 function goToShowEvent() {
   location.hash = "show-event";
 }
-
 
 export { navigate, goToCreateEvent, goToMonth, goToDay };

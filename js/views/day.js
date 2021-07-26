@@ -7,6 +7,7 @@ import {
   getEventTime,
   monthObject,
 } from "./month.js";
+import { goToDay } from "../router.js";
 
 import { setEventsOnLocal } from "../functions.js";
 
@@ -29,7 +30,7 @@ function setDay(e) {
   var clickedDay = e.target.textContent;
   setEventsOnLocal(clickedDay, "day");
   localStorage.setItem("day", JSON.stringify(clickedDay));
-  printDay();
+  goToDay();
 }
 
 function printDay() {
