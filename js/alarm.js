@@ -118,11 +118,11 @@ function expiredAlarm(id) {
 
 	//EVENT LISTENER de que si algo esta expired que se ponga oscuro gris.
 }
-
+let popup = document.getElementById("cookiesPopup");
 //*TODO MODAL O POPUP no se sabe aun
 function modalAlarma(id) {
 	console.log("Alarma sonando del obejto", id);
-
+	popup.style.display = "block";
 	//audio.play();
 	deleteAlarm(id);
 }
