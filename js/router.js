@@ -21,5 +21,8 @@ function goToCreateEvent(e) {
 function goToMonth() {
   location.hash = "";
 }
+function goToDay() {
+  location.hash = "day";
+}
 
-export { navigate, goToCreateEvent, goToMonth };
+export { navigate, goToCreateEvent, goToMonth, goToDay };

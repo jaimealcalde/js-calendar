@@ -8,6 +8,8 @@ import {
   monthObject,
 } from "./month.js";
 
+import { setEventsOnLocal } from "../functions.js";
+
 function eventToColor(oneEvent, newEvent) {
   switch (oneEvent.type) {
     case "holiday":
@@ -23,7 +25,14 @@ function eventToColor(oneEvent, newEvent) {
   }
 }
 
-function printDay(e) {
+function setDay(e) {
+  var clickedDay = e.target.textContent;
+  setEventsOnLocal(clickedDay, "day");
+  localStorage.setItem("day", JSON.stringify(clickedDay));
+  printDay();
+}
+
+function printDay() {
   var monthWrapper = document.querySelector(".month-wrapper");
 
   monthWrapper.innerHTML = "";
@@ -39,13 +48,8 @@ function printDay(e) {
   monthWrapper.appendChild(copyNode);
 
   // GETDAY from Event
-  var clickedDay = e.target;
 
-  while (clickedDay.classList.value != "monthday") {
-    clickedDay = clickedDay.parentElement;
-  }
-
-  clickedDay = clickedDay.dataset.action;
+  var clickedDay = JSON.parse(localStorage.getItem("day"));
 
   loadDayEvents(
     JSON.parse(localStorage.getItem("pre-saved-events")),
@@ -112,8 +116,6 @@ function insertDayEvents(dailyEvents) {
     if (dailyEvents[i] != undefined) {
       let newEvent = document.createElement("div");
       newEvent.dataset.id = dailyEvents[i].id;
-      console.log(dailyEvents[i].type);
-      console.log(newEvent);
 
       eventToColor(dailyEvents[i], newEvent);
 
@@ -155,4 +157,4 @@ function insertDayEvents(dailyEvents) {
   }
 }
 
-export { printDay };
+export { printDay, setDay };

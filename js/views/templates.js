@@ -1,5 +1,5 @@
 var templateMonth = `<template id="month">
-		<div class="month-wrapper">
+		<div id="monthView" class="month-wrapper">
 			<nav class="month-header">
 				<div data-action="before-button"class="nav-button">Mes anterior</div>
 				<div class="nav-title"><h4>Día - Mes - Año</h4><div><button id="goToday" class="go-today-button">Today</button></div></div>
@@ -20,7 +20,7 @@ var templateMonth = `<template id="month">
 	</template>`;
 
 var templateDay = `<template id="day">
-				<div class="day-wrapper">
+				<div id="dayView" class="day-wrapper">
 					<div class="day-wrapper__grid"></div>
 				</div>
 			</template>`;
