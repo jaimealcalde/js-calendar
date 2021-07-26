@@ -10,7 +10,7 @@
   height: 4rem;
 }
 
-.month-header h4{
+.month-header h4 {
   margin-bottom: 10%;
 }
 
@@ -60,7 +60,13 @@
   visibility: hidden;
 }
 
-.go-today-button{
+.go-today-button {
   text-transform: uppercase;
   font-weight: bold;
+}
+
+.month-event {
+  width: 100%;
+  border-radius: 25px;
+  text-align: center;
 }

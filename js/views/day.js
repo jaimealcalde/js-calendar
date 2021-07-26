@@ -179,4 +179,4 @@ function insertDayEvents(dailyEvents) {
   }
 }
 
-export { printDay, setDay };
+export { printDay, setDay, eventToColor };

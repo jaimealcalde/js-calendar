@@ -1,7 +1,7 @@
 import { wrapper } from "../main.js";
 import { templateMonth } from "./templates.js";
 import { printHeader } from "./header.js";
-import { setDay } from "./day.js";
+import { setDay, eventToColor } from "./day.js";
 import { setEventsOnLocal } from "../functions.js";
 import { goToDay } from "../router.js";
 
@@ -210,9 +210,20 @@ function chargeMonthEvents(newEventsArray) {
       if (eventArray[i] != undefined) {
         if (eventCells[i].textContent == "") {
           eventCells[i].dataset.id = eventArray[i].id;
+          eventToColor(eventArray[i], eventCells[i]);
           eventCells[i].textContent = eventArray[i].title;
         }
       }
+    }
+    let plusSelector = document.querySelector(
+      `[data-action="${i}"]  .monthday--header__plus`
+    );
+    if (eventArray.length < 4) {
+      plusSelector.classList.add("invisible");
+
+      console.log("INVISIBLEEEE");
+    } else if (plusSelector.classList.contains("invisible")) {
+      plusSelector.classList.remove("invisible");
     }
   }
 }
