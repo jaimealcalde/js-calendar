@@ -1,5 +1,3 @@
-
-
 let add = document.getElementById("uno");
 
 let Quitar = document.getElementById("dos");
@@ -7,8 +5,14 @@ let Quitar = document.getElementById("dos");
 add.addEventListener("click", addModal);
 Quitar.addEventListener("click", quitarModal);
 
-function addModal(e) {
-  let objetId = e.target.dataset.id;
+function selectId(e) {
+  let objectId = e.target.dataset.id;
+  setEventsOnLocal(clickedDay, "objectId");
+  localStorage.setItem("Id", JSON.stringify(objectId));
+  addModal();
+}
+
+function addModal() {
   let modal = document.getElementById("showEventContainer");
   modal.classList.remove("hidden");
   modal.classList.add("show");
@@ -16,7 +20,7 @@ function addModal(e) {
   convert();
   chooseObject();
   console.log(preSavedEvents);
-  console.log(newEvents);
+  console.log(newEventsArray);
 }
 
 function quitarModal() {
@@ -28,22 +32,23 @@ function quitarModal() {
 
 let preSavedEvents;
 let newEventsArray;
-function convert(){
+function convert() {
   preSavedEvents = JSON.parse(localStorage.getItem("pre-saved-events"));
   newEventsArray = JSON.parse(localStorage.getItem("new-event"));
 }
 
 let exp = /^[a-z]$/;
 function chooseObject() {
-  const test = exp.test(event.id);
-  if(test){
-    addNew(preSavedEvents, 5);
-  } else{
-  addNew(newEventsArray, 5);
+  let objectId = localStorage.getItem("Id");
+  const test = exp.test(objectId);
+  if (test) {
+    addNew(preSavedEvents, 6);
+  } else {
+    addNew(newEventsArray, 6);
   }
 }
 
-function addNew(b,i) {
+function addNew(b, i) {
   let title = document.getElementById("titleEvent").textContent;
   let titleContent = b[i].title;
   document.getElementById("titleEvent").innerHTML = title + " " + titleContent;
@@ -75,3 +80,5 @@ function addNew(b,i) {
   let typeContent = newEventsArray[i].type;
   document.getElementById("typeEvent").innerHTML = type + " " + typeContent;
 }
+
+export {addModal, selectId};

@@ -159,6 +159,19 @@ let eventsArray = [
 		description: "",
 		type: "holiday",
 	},
+	{
+		id: "sh",
+		allday: true,
+		title: "Summer holidays",
+		initial_date: "2021-08-16",
+		final_date: "2021-08-31",
+		initial_time: 0,
+		final_time: 0,
+		alarm: false,
+		reminder: false,
+		description: "",
+		type: "holiday",
+	},
 ];
 
 function setPreSaved() {
