@@ -1,9 +1,9 @@
-let add = document.getElementById("uno");
+//let add = document.getElementById("uno");
 
-let Quitar = document.getElementById("dos");
+let close = document.getElementById("close");
 
-add.addEventListener("click", addModal);
-Quitar.addEventListener("click", quitarModal);
+//add.addEventListener("click", addModal);
+close.addEventListener("click", closeModal);
 
 function selectId(e) {
   let objectId = e.target.dataset.id;
@@ -23,7 +23,7 @@ function addModal() {
   console.log(newEventsArray);
 }
 
-function quitarModal() {
+function closeModal() {
   let modal = document.getElementById("showEventContainer");
   modal.classList.add("hidden");
   modal.classList.remove("show");
