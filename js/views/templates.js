@@ -19,7 +19,11 @@ var templateMonth = `<template id="month">
 		</div>
 	</template>`;
 
-var day = ``;
+var templateDay = `<template id="day">
+				<div class="day-wrapper">
+					<div class="day-wrapper__grid"></div>
+				</div>
+			</template>`;
 
 var header = `<template id="header">
 <div class="header__container" id="ButtonAddEvent">
@@ -30,4 +34,4 @@ var header = `<template id="header">
 <div class="separator__header"></div>
 </template>`;
 
-export { templateMonth, day, header };
+export { templateMonth, header, templateDay };
