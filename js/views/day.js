@@ -66,8 +66,9 @@ function setTimeTable() {
   let timeTable = document.querySelector(".day-wrapper__grid");
   for (let i = 0; i < 24; i++) {
     let newTime = document.createElement("div");
+    newTime.classList.add("automargin");
 
-    if (i <= 9) {
+    if (i < 10) {
       newTime.textContent = `0${i}:00`;
     } else {
       newTime.textContent = `${i}:00`;
@@ -75,7 +76,13 @@ function setTimeTable() {
     timeTable.appendChild(newTime);
     newTime.style.gridColumnStart = 1;
     newTime.style.gridColumnEnd = 1;
-    newTime.style.gridRowStart = i * 6;
+
+    if (i == 0) {
+      newTime.style.gridRowStart = 1;
+    } else {
+      newTime.style.gridRowStart = i * 6 + 1;
+    }
+    newTime.style.gridRowEnd = (i + 1) * 6 + 1;
   }
 }
 
@@ -88,13 +95,15 @@ function insertDayEvents(dailyEvents) {
       let newEvent = document.createElement("div");
 
       timeTable.appendChild(newEvent);
+      newEvent.classList.add("automargin");
 
       newEvent.style.gridColumnStart = i + 2;
       newEvent.style.gridColumnEnd = i + 2;
 
       newEvent.style.gridRowStart =
-        getEventTime(dailyEvents[i].initial_time) / 10;
-      newEvent.style.gridRowEnd = getEventTime(dailyEvents[i].final_time) / 10;
+        getEventTime(dailyEvents[i].initial_time) / 10 + 1;
+      newEvent.style.gridRowEnd =
+        getEventTime(dailyEvents[i].final_time) / 10 + 1;
 
       newEvent.textContent = dailyEvents[i].title;
 
