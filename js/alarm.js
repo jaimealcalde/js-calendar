@@ -121,6 +121,7 @@ function expiredAlarm(id) {
 //*TODO MODAL O POPUP no se sabe aun
 function modalAlarma(id) {
 	//eliminar la alarma de los eventos
+	// ejecutar el modal con el template
 
 	console.log("Alarma sonando del obejto", id);
 	deleteAlarm(id);
