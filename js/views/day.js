@@ -8,6 +8,21 @@ import {
   monthObject,
 } from "./month.js";
 
+function eventToColor(oneEvent, newEvent) {
+  switch (oneEvent.type) {
+    case "holiday":
+      newEvent.style.backgroundColor = "orange";
+      break;
+    case "birthday":
+      newEvent.style.backgroundColor = "teal";
+      break;
+
+    default:
+      console.log("Undefined type");
+      break;
+  }
+}
+
 function printDay(e) {
   var monthWrapper = document.querySelector(".month-wrapper");
 
@@ -50,13 +65,16 @@ function loadDayEvents(newEvent, clickedDay) {
       getEventYear(singleEvent.initial_date) == monthObject.date.getFullYear()
     ) {
       eventsArray.push(singleEvent);
-      console.log(singleEvent);
-      console.log(getEventTime(singleEvent.initial_time));
     }
   });
   function compare(a, b) {
-    return getEventTime(a.initial_time) - getEventTime(b.initial_time);
+    if (getEventTime(a.initial_time) == getEventTime(b.initial_time)) {
+      return getEventTime(a.final_time) + getEventTime(b.final_time);
+    } else {
+      return getEventTime(a.initial_time) - getEventTime(b.initial_time);
+    }
   }
+
   eventsArray.sort(compare);
 
   insertDayEvents(eventsArray);
@@ -66,7 +84,7 @@ function setTimeTable() {
   let timeTable = document.querySelector(".day-wrapper__grid");
   for (let i = 0; i < 24; i++) {
     let newTime = document.createElement("div");
-    newTime.classList.add("automargin");
+    newTime.classList.add("automargin", "width100", "heigth100");
 
     if (i < 10) {
       newTime.textContent = `0${i}:00`;
@@ -82,7 +100,7 @@ function setTimeTable() {
     } else {
       newTime.style.gridRowStart = i * 6 + 1;
     }
-    newTime.style.gridRowEnd = (i + 1) * 6 + 1;
+    newTime.style.gridRowEnd = parseInt(newTime.style.gridRowStart) + 6;
   }
 }
 
@@ -93,17 +111,28 @@ function insertDayEvents(dailyEvents) {
   for (let i = 0; i < dailyEvents.length || i < 5; i++) {
     if (dailyEvents[i] != undefined) {
       let newEvent = document.createElement("div");
+      newEvent.dataset.id = dailyEvents[i].id;
+      console.log(dailyEvents[i].type);
+      console.log(newEvent);
+
+      eventToColor(dailyEvents[i], newEvent);
 
       timeTable.appendChild(newEvent);
-      newEvent.classList.add("automargin");
+      newEvent.classList.add(
+        "event-title",
+        "automargin",
+        "width100",
+        "height100"
+      );
 
       newEvent.style.gridColumnStart = i + 2;
       newEvent.style.gridColumnEnd = i + 2;
 
       newEvent.style.gridRowStart =
         getEventTime(dailyEvents[i].initial_time) / 10 + 1;
-      newEvent.style.gridRowEnd =
-        getEventTime(dailyEvents[i].final_time) / 10 + 1;
+      newEvent.style.gridRowEnd = Math.round(
+        getEventTime(dailyEvents[i].final_time) / 10 + 1
+      );
 
       newEvent.textContent = dailyEvents[i].title;
 
@@ -112,6 +141,8 @@ function insertDayEvents(dailyEvents) {
       // Set full background color and z-index
       let backgroundFill = document.createElement("div");
       timeTable.appendChild(backgroundFill);
+      backgroundFill.classList.add("event-background");
+      eventToColor(dailyEvents[i], backgroundFill);
 
       backgroundFill.style.gridColumnStart = i + 3;
       backgroundFill.style.gridColumnEnd = 7;
