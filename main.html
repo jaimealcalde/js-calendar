@@ -98,7 +98,7 @@
 							for this event</label
 						>
 						<label for="alarm-start" class="label-hidden"
-							>Start date:
+							>Alarm date & time:
 							<input
 								type="datetime-local"
 								id="alarm-start"
@@ -152,7 +152,6 @@
 		<div id="showEventContainer" class="modal__showEvent border hidden">
 			<span id="close" class="close" title="Close Modal">×</span>
 			<div class="form__container">
-
 				<div id="title">
 					<p id="titleEvent">Title:</p>
 				</div>
@@ -175,20 +174,27 @@
 					<p id="typeEvent">Event type:</p>
 				</div>
 				<div class="buttons__down">
-				<div><button class="cancelbtn">Delete</button></div>
+					<div><button class="cancelbtn">Delete</button></div>
 
-				<div><button class="editbtn">Edit</button></div>
+					<div><button class="editbtn">Edit</button></div>
+				</div>
 			</div>
 		</div>
 
 		<!--POP UP-->
 
-		<div class="container">
-			<div class="cookiesContent" id="cookiesPopup">
-				<button class="close">✖</button>
-				<img src="https://www.flaticon.com/svg/static/icons/svg/2913/2913782.svg" alt="cookies-img" />
-				<p>We use cookies for improving user experience, analytics and marketing.</p>
+		<div id="cookiesPopup" class="pop-up-container">
+			<div class="cookiesContent">
+				<button class="close-pop-up">✖</button>
+				<img
+					src="https://www.flaticon.com/svg/static/icons/svg/2913/2913782.svg"
+					alt="cookies-img"
+				/>
+				<p class="p-pop-up">Hey!</p>
+				<p class="p-pop-up" id="alarm-message"></p>
+				<div class="pop-up-buttons">
 				<button class="accept">That's fine!</button>
+				<button id="goEvent" class="go-to-event">That's fine!</button>
 			</div>
 		</div>
 	</body>

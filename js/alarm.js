@@ -33,7 +33,10 @@ function setAlarmLimits() {
 	console.log(new Date(Date.now()).toLocaleString());
 	let minAlarmTimeHoursBadFormat = new Date(Date.now())
 		.toLocaleString()
-		.split(" ")[1];
+		.split(",")[1]
+		.split(" ");
+
+	//.split(" ")[1];
 	//.split(" ");
 
 	//Separo hora de minutos
@@ -72,6 +75,10 @@ function alarmPopUp(evento) {
 					element.id
 				);
 				//puse 9000 que es 9 segs por probar
+				/* 	element["timeoutID"] = setTimeout(function () {
+					modalAlarma(element.id);
+				}, 6000); */
+
 				element["timeoutID"] = setTimeout(function () {
 					modalAlarma(element.id);
 				}, alarmTimeToGo);
@@ -122,7 +129,23 @@ let popup = document.getElementById("cookiesPopup");
 //*TODO MODAL O POPUP no se sabe aun
 function modalAlarma(id) {
 	console.log("Alarma sonando del obejto", id);
+
 	popup.style.display = "block";
+
+	let eventsArray = JSON.parse(localStorage.getItem("new-event"));
+
+	for (const iterator of eventsArray) {
+		if (iterator.id == id) {
+			document.getElementById("alarm-message").innerHTML =
+				"Alarma del evento " +
+				iterator.title +
+				"que empieza el: " +
+				iterator.initial_date +
+				" a las: " +
+				iterator.initial_time;
+		}
+	}
+
 	//audio.play();
 	deleteAlarm(id);
 }

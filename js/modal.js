@@ -174,6 +174,7 @@ function newEventCreate(e, newEventsArray) {
 	localStorage.setItem("new-event", newEventsString);
 
 	if (document.getElementById("alarm").checked) {
+		console.log("entr aqui poorque tiene alarma");
 		arrayAlarmObjectCreate();
 		alarmPopUp(newEventObject);
 		//funcion de alarma q le pase el neweventobject
