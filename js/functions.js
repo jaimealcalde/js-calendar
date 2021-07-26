@@ -85,8 +85,6 @@ function isExpiredEvent(evento) {
 	let fullStartDate = evento.initial_date + "T" + evento.initial_time;
 	let fullStartDateObject = new Date(fullStartDate);
 
-	console.log(fullStartDateObject, "fecha del evento completa");
-	console.log(fullStartDateObject > new Date(Date.now()));
 	let timeToGo = fullStartDateObject - new Date(Date.now()).getTime();
 
 	if (fullStartDateObject > new Date(Date.now())) {

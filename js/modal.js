@@ -127,13 +127,16 @@ function newEventCreate(e, newEventsArray) {
 
 	//evento de una hora si no se setea la end time
 	let finalHour;
+	let finalMins = newEventObject.initial_time.split(":")[1];
 	if (!document.getElementById("set-event-end-time").checked) {
 		let initialHour = parseInt(newEventObject.initial_time.split(":")[0]);
 		if (initialHour == "23") {
 			finalHour = "00";
+		} else if (document.getElementById("set-all-day-event").checked) {
+			finalHour = "23";
+			finalMins = "59";
 		} else {
 			finalHour = initialHour + 1;
-
 			if (finalHour < 10) {
 				finalHour = "0" + finalHour.toString();
 			} else {
@@ -141,8 +144,7 @@ function newEventCreate(e, newEventsArray) {
 			}
 		}
 
-		newEventObject.final_time =
-			finalHour + ":" + newEventObject.initial_time.split(":")[1];
+		newEventObject.final_time = finalHour + ":" + finalMins;
 	}
 
 	//new counter number
