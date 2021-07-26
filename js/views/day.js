@@ -8,6 +8,21 @@ import {
   monthObject,
 } from "./month.js";
 
+function eventToColor(oneEvent, newEvent) {
+  switch (oneEvent.type) {
+    case "holiday":
+      newEvent.style.backgroundColor = "orange";
+      break;
+    case "birthday":
+      newEvent.style.backgroundColor = "teal";
+      break;
+
+    default:
+      console.log("Undefined type");
+      break;
+  }
+}
+
 function printDay(e) {
   var monthWrapper = document.querySelector(".month-wrapper");
 
@@ -50,8 +65,6 @@ function loadDayEvents(newEvent, clickedDay) {
       getEventYear(singleEvent.initial_date) == monthObject.date.getFullYear()
     ) {
       eventsArray.push(singleEvent);
-      console.log(singleEvent);
-      console.log(getEventTime(singleEvent.initial_time));
     }
   });
   function compare(a, b) {
@@ -93,16 +106,19 @@ function insertDayEvents(dailyEvents) {
   for (let i = 0; i < dailyEvents.length || i < 5; i++) {
     if (dailyEvents[i] != undefined) {
       let newEvent = document.createElement("div");
+      newEvent.dataset.id = dailyEvents[i].id;
+      console.log(dailyEvents[i].type);
+      console.log(newEvent);
+
+      eventToColor(dailyEvents[i], newEvent);
 
       timeTable.appendChild(newEvent);
-      newEvent.classList.add("automargin", "width100", "heigth100");
-
-      //
-      console.log(
-        (newEvent.style.gridRowEnd =
-          getEventTime(dailyEvents[i].final_time) / 10 + 1)
+      newEvent.classList.add(
+        "event-title",
+        "automargin",
+        "width100",
+        "height100"
       );
-      //
 
       newEvent.style.gridColumnStart = i + 2;
       newEvent.style.gridColumnEnd = i + 2;
@@ -120,6 +136,8 @@ function insertDayEvents(dailyEvents) {
       // Set full background color and z-index
       let backgroundFill = document.createElement("div");
       timeTable.appendChild(backgroundFill);
+      backgroundFill.classList.add("event-background");
+      eventToColor(dailyEvents[i], backgroundFill);
 
       backgroundFill.style.gridColumnStart = i + 3;
       backgroundFill.style.gridColumnEnd = 7;

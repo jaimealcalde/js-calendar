@@ -16,3 +16,19 @@
 .height100 {
   height: 100%;
 }
+
+.event-title {
+  border-top: 1px solid black;
+  border-left: 1px solid black;
+  border-bottom: 1px solid black;
+  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
+  padding: 1rem;
+  line-height: 0;
+}
+
+.event-background {
+  border-top: 1px solid black;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+}
