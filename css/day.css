@@ -8,3 +8,11 @@
 .automargin {
   margin: auto;
 }
+
+.width100 {
+  width: 100%;
+}
+
+.height100 {
+  height: 100%;
+}
