@@ -162,13 +162,13 @@ let eventsArray = [
 ];
 
 function setPreSaved() {
-	setEventsOnLocal(eventsArray, "pre-saved-events");
+  setEventsOnLocal(eventsArray, "pre-saved-events");
 }
 
 let newEventsArray = [];
 
 function setNewEvents() {
-	setEventsOnLocal(newEventsArray, "new-event");
+  setEventsOnLocal(newEventsArray, "new-event");
 }
 
 export { setPreSaved, setNewEvents };

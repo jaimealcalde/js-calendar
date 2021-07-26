@@ -1,1 +1,28 @@
-/* aca va el body y toda esas mierdas
+
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+* {
+  box-sizing: border-box;
+}
+
+/* Set a style for all buttons */
+button {
+ 
+  border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.9;
+}
+
+button:hover {
+  opacity: 1;
+}
+
+/* Add padding and center-align text to the container */
+.container {
+  padding: 16px;
+  text-align: left;
+}
+
