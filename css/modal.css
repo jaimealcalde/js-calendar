@@ -11,6 +11,8 @@
 .cancelbtn {
   background-color: #ccc;
   color: black;
+  padding: 14px 20px;
+  margin: 8px 0;
 }
 
 /* Add a color to the delete button */
