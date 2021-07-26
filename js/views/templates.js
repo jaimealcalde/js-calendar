@@ -21,6 +21,11 @@ var templateMonth = `<template id="month">
 
 var templateDay = `<template id="day">
 				<div id="dayView" class="day-wrapper">
+					<div class="day-wrapper__header">
+						<div data-action="before-day"class="nav-button">Día anterior</div>
+						<div class="nav-title"><h4>Día - Mes - Año</h4><div><button id="goToday" class="go-today-button">Today</button></div></div>
+						<div data-action="next-day" class="nav-button">Día siguiente</div>
+					</div>
 					<div class="day-wrapper__grid"></div>
 				</div>
 			</template>`;

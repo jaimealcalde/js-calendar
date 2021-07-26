@@ -75,6 +75,13 @@ function printDay() {
   );
   loadDayEvents(JSON.parse(localStorage.getItem("new-event")), clickedDay);
   setTimeTable();
+
+  let nextDay = document.querySelector('[data-action="next-day"]');
+  let beforeDay = document.querySelector('[data-action="before-day"]');
+
+  console.log("NEXTDAYYYYYYYY", nextDay);
+  nextDay.addEventListener("click", goNextDay);
+  beforeDay.addEventListener("click", goBeforeDay);
 }
 
 function loadDayEvents(newEvent, clickedDay) {
@@ -178,5 +185,15 @@ function insertDayEvents(dailyEvents) {
     }
   }
 }
+
+function goNextDay() {
+  var clickedDay = monthObject.date.getDate() + 1;
+  console.log("DATE", localStorage.getItem("month"));
+  setEventsOnLocal(clickedDay, "day");
+  localStorage.setItem("day", JSON.stringify(clickedDay));
+  goToDay();
+}
+
+function goBeforeDay() {}
 
 export { printDay, setDay, eventToColor };
