@@ -1,7 +1,7 @@
 import { wrapper } from "../main.js";
 import { templateMonth } from "./templates.js";
 import { printHeader } from "./header.js";
-import { printDay } from "./day.js";
+import { setDay } from "./day.js";
 import { setEventsOnLocal } from "../functions.js";
 
 function printMonth() {
@@ -42,11 +42,9 @@ function toObjectDate() {
 }
 
 function setLimitDates() {
-  console.log("estoy seteando limites");
   monthObject["limitYearBefore"] = today.getFullYear();
   monthObject["limitYearAfter"] = today.getFullYear() + 1;
   monthObject["limitMonth"] = today.getMonth();
-  console.log("guardando limites en localstorage", monthObject);
   localStorage.setItem("month", JSON.stringify(monthObject));
 }
 
@@ -111,7 +109,7 @@ function setStandardCalendar() {
     let headerNum = document.querySelector(
       `[data-action="${i}"] .monthday--header__num`
     );
-    headerNum.addEventListener("click", printDay);
+    headerNum.addEventListener("click", setDay);
   }
 
   // Set where starts the first element of the grid
@@ -196,7 +194,11 @@ function chargeMonthEvents(newEventsArray) {
         eventArray.push(newEvent);
 
         function compare(a, b) {
-          return getEventTime(a.initial_time) - getEventTime(b.initial_time);
+          if (getEventTime(a.initial_time) == getEventTime(b.initial_time)) {
+            return getEventTime(a.final_time) - getEventTime(b.final_time);
+          } else {
+            return getEventTime(a.initial_time) - getEventTime(b.initial_time);
+          }
         }
         eventArray.sort(compare);
       }

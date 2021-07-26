@@ -1,5 +1,3 @@
-
-
 /* Float cancel and delete buttons and add an equal width */
 .cancelbtn,
 .deletebtn {
@@ -11,6 +9,8 @@
 .cancelbtn {
   background-color: #ccc;
   color: black;
+  padding: 14px 20px;
+  margin: 8px 0;
 }
 
 /* Add a color to the delete button */
@@ -24,13 +24,11 @@
   opacity: 0.9;
 }
 
-
-
 /* The Modal (background) */
 .modal {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
+  z-index: 10; /* Sit on top */
   left: 0;
   top: 0;
   width: 100%; /* Full width */
@@ -85,28 +83,27 @@ hr {
   }
 }
 
-.containter__vertical-form{
+.containter__vertical-form {
   display: flex;
-    flex-direction: column;
-    align-items: center;
-    align-content: flex-start;
-    margin: 3rem 0rem;
+  flex-direction: column;
+  align-items: center;
+  align-content: flex-start;
+  margin: 3rem 0rem;
 }
 
-label{
+label {
   width: 100%;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    align-items: center;
-    margin: 0.4rem;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  margin: 0.4rem;
 }
 
-textarea{
+textarea {
   margin-left: 0.5rem;
 }
 
-.label-hidden{
+.label-hidden {
   display: none;
 }
-
