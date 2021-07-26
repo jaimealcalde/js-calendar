@@ -12,7 +12,7 @@ function addModal() {
   modal.classList.remove("hidden");
   modal.classList.add("show");
   add.removeEventListener("click", addModal);
-  
+
   console.log(newEventsArray);
 }
 
@@ -24,13 +24,12 @@ function quitarModal() {
 }
 
 function chooseObject{
-  if(){
+  if(modal){
     addNew(newEvents, 5);
   } else{
   addNew(preSavedEvents,5);
   }
 }
-
 
 
 function addNew(b,i) {
