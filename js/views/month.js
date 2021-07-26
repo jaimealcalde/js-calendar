@@ -3,6 +3,7 @@ import { templateMonth } from "./templates.js";
 import { printHeader } from "./header.js";
 import { setDay } from "./day.js";
 import { setEventsOnLocal } from "../functions.js";
+import { goToDay } from "../router.js";
 
 function printMonth() {
   //TODO borar contendio y borrar event listener
