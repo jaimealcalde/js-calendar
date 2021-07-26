@@ -68,8 +68,13 @@ function loadDayEvents(newEvent, clickedDay) {
     }
   });
   function compare(a, b) {
-    return getEventTime(a.initial_time) - getEventTime(b.initial_time);
+    if (getEventTime(a.initial_time) == getEventTime(b.initial_time)) {
+      return getEventTime(a.final_time) + getEventTime(b.final_time);
+    } else {
+      return getEventTime(a.initial_time) - getEventTime(b.initial_time);
+    }
   }
+
   eventsArray.sort(compare);
 
   insertDayEvents(eventsArray);
