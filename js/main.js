@@ -1,12 +1,18 @@
 import { navigate } from "./router.js";
-import { eventsArray, newEventsArray, setPreSaved } from "./events.js";
+import { setNewEvents, setPreSaved } from "./events.js";
+import { setCounter } from "./functions.js";
 
 var wrapper = document.getElementById("calendar");
 
-setPreSaved(eventsArray, newEventsArray);
+function start() {
+	setPreSaved();
+	setNewEvents();
+	setCounter();
+	navigate();
+}
 
-navigate();
+start();
 
 window.addEventListener("hashchange", navigate);
 
-export { wrapper };
+export { wrapper, start };

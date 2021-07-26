@@ -130,3 +130,8 @@ label{
 textarea{
   margin-left: 0.5rem;
 }
+
+.label-hidden{
+  display: none;
+}
+
