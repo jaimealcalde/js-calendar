@@ -68,6 +68,7 @@
   width: 100%;
   margin: auto;
   height: 100%;
+  cursor: pointer;
 }
 
 .event-background {

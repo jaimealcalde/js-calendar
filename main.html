@@ -149,37 +149,52 @@
 
 		<!------------------------ Modal to show events ------------------------>
 
-		<div id="showEventContainer" class="modal__showEvent border hidden">
-			<span id="close" class="close" title="Close Modal">×</span>
-			<div class="form__container">
+		<div id="showEventContainer" class="modal">
+			<span id="cross-show-container" class="close" title="Close Modal">×</span>
+			<div class="modal-content">
+			<div class="container">
+				<div class="show-event-header">
+				<h2>Event</h2>
+				<p>See the details for the event</p>
+			</div>
+			<section class="event-content">
 				<div id="title">
-					<p id="titleEvent">Title:</p>
+					<h4 class="new-event-h4">Title:</h4>
+					<p id="titleEvent"></p>
 				</div>
 				<div id="initialDate">
-					<p id="dateEvent">Start Date:</p>
+					<h4 class="new-event-h4">Start Date:</h4>
+					<p id="dateEvent"></p>
 				</div>
 				<div id="startTime">
-					<p id="timeEvent">Start time:</p>
+					<h4 class="new-event-h4">Start Time:</h4>
+					<p id="timeEvent"></p>
 				</div>
 				<div id="alarm">
-					<p id="alarmEvent">Alarm event:</p>
+					<h4 class="new-event-h4">Alarm:</h4>
+					<p id="alarmEvent"></p>
 				</div>
 				<div id="expires">
-					<p id="expiresEvent">Remind for expires:</p>
+					<h4 class="new-event-h4">Expiration Reminder:</h4>
+					<p id="expiresEvent"></p>
 				</div>
 				<div id="note">
-					<p id="noteEvent">Note:</p>
+					<h4 class="new-event-h4">Details:</h4>
+					<p id="noteEvent"></p>
 				</div>
 				<div id="Type">
-					<p id="typeEvent">Event type:</p>
+					<h4 class="new-event-h3">Event Type:</h4>
+					<p id="typeEvent"></p>
 				</div>
-				<div class="buttons__down">
-					<div><button class="cancelbtn">Delete</button></div>
-
-					<div><button class="editbtn">Edit</button></div>
+			</section>
+				<div class="show-event-buttons-container">
+					<button id="cancel" class="show-event-button show-event-cancel-btn">Cancel</button>
+					<button id="edit-event" class="show-event-button show-event-edit-btn">Edit</button>
+					<button id="delete-event"class="show-event-button show-event-delete-btn">Delete</button>
 				</div>
 			</div>
 		</div>
+	</div>
 
 		<!--POP UP-->
 

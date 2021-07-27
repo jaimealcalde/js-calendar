@@ -81,3 +81,33 @@
   clear: both;
   display: table;
 }
+.show-event-header{
+  margin-bottom:2vh;
+}
+.show-event-buttons-container{
+display: flex;
+flex-direction: row;
+flex-wrap: nowrap;
+}
+
+.show-event-button{
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  opacity: 0.9;
+}
+
+.show-event-cancel-btn{
+  background-color: #ccc;
+  color: black;
+}
+.show-event-edit-btn{
+  background-color: black;
+  color: white;
+}
+.show-event-delete-btn{
+  background-color:#f44336;
+  color: white;
+  
+}

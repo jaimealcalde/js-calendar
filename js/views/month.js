@@ -3,6 +3,7 @@ import { templateMonth } from "./templates.js";
 import { printHeader } from "./header.js";
 import { setDay, eventToColor } from "./day.js";
 import { setEventsOnLocal } from "../functions.js";
+import { selectId } from "./modalShowEvents.js";
 
 function printMonth() {
 	//TODO borar contendio y borrar event listener
@@ -240,6 +241,15 @@ function hiddenMonthButtons() {
 		}
 	}
 }
+
+function addEventListenerDays() {
+	//Eventlisteners para cada evento, para abrir la vista evento
+	let eventosMes = document.querySelectorAll("#event-month");
+	for (const eventos of eventosMes) {
+		eventos.addEventListener("click", selectId);
+	}
+}
+//erase navigationEventSLiteners
 function clearNavigationEventListeners() {
 	var monthButtons = document.querySelectorAll(".nav-button");
 	monthButtons.forEach((monthButton) => {
@@ -263,6 +273,7 @@ function changeMonth(e) {
 			setStandardCalendar();
 			hiddenMonthButtons();
 			todayRed();
+			addEventListenerDays();
 		}
 	} else if (e.target.dataset.action == "before-button") {
 		if (
@@ -277,6 +288,7 @@ function changeMonth(e) {
 			setStandardCalendar();
 			hiddenMonthButtons();
 			todayRed();
+			addEventListenerDays();
 		}
 	}
 }
@@ -315,6 +327,7 @@ function monthDisplay() {
 	setStandardCalendar();
 	hiddenMonthButtons();
 	todayRed();
+	addEventListenerDays();
 }
 
 function gotoDay() {
@@ -325,6 +338,7 @@ function gotoDay() {
 	setStandardCalendar();
 	hiddenMonthButtons();
 	todayRed();
+	addEventListenerDays();
 }
 
 export {
