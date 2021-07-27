@@ -199,7 +199,7 @@ function setNewEvents() {
 	setEventsOnLocal(newEventsArray, "new-event");
 }
 
-let objectId = JSON.parse(localStorage.getItem("Id"));
+let objectId = JSON.parse(localStorage.getItem("objectId"));
 function editEvent() {
 	//Carga el modal de new event con los values del objeto
 }
@@ -207,15 +207,18 @@ function editEvent() {
 let exp = /^[a-z]+$/i;
 //retorna cual array estoy trabajando
 function chooseObject() {
+	objectId = JSON.parse(localStorage.getItem("objectId"));
 	let events;
 	let key;
 	const test = exp.test(objectId);
 
 	console.log(test);
 	if (test) {
+		console.log("estoy en pre");
 		key = "pre-saved-events";
 		events = JSON.parse(localStorage.getItem(key));
 	} else {
+		console.log("estoy en new-event");
 		key = "new-event";
 		events = JSON.parse(localStorage.getItem(key));
 	}
@@ -223,22 +226,32 @@ function chooseObject() {
 }
 
 function deleteEvent() {
+	objectId = JSON.parse(localStorage.getItem("objectId"));
 	//borra el evento segun su id de la lista de eventos y sus alarmas si tiene
-	chooseObject();
+	let variables = chooseObject();
 	let indexEvent;
-	let key = chooseObject()[1];
-	let events = chooseObject()[0];
+	let key = variables[1];
+	let events = variables[0];
+
+	console.log(events);
+	console.log(key);
 
 	for (const iterator of events) {
+		console.log(iterator.id, objectId);
 		if (iterator.id == objectId) {
+			console.log("entre a borrar");
 			if (iterator.alarm) {
 				deleteAlarm(objectId);
 			}
 			indexEvent = events.indexOf(iterator); //calculo en donde esta ese objeto
+			console.log(indexEvent, "index del evento");
+			events.splice(indexEvent, 1);
+			console.log(events, "evento luego del splice");
 		}
 	}
-	events.splice(indexEvent, 1); //borro el evento de ese array
+	//borro el evento de ese array
 
+	console.log("guardando en local", events, key);
 	localStorage.setItem(key, JSON.stringify(events)); //lo guardo en localstorage
 	closeModal();
 }

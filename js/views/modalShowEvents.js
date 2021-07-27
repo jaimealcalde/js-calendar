@@ -29,7 +29,7 @@ function removeEventListenerShowEvent() {
 function selectId(e) {
 	let objectId = e.target.dataset.id;
 	setEventsOnLocal(clickedDay, "objectId");
-	localStorage.setItem("Id", JSON.stringify(objectId));
+	localStorage.setItem("objectId", JSON.stringify(objectId));
 	openEvent();
 }
 function showEvent() {
@@ -75,7 +75,7 @@ function convert() {
 
 let exp = /^[a-z]+$/i;
 function chooseObject() {
-	let objectId = JSON.parse(localStorage.getItem("Id"));
+	let objectId = JSON.parse(localStorage.getItem("objectId"));
 
 	const test = exp.test(objectId);
 
