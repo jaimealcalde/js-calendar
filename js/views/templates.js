@@ -30,7 +30,7 @@ var templateDay = `<template id="day">
 				<div id="dayView" class="day-wrapper">
 					<nav class="month-header">
 					<div data-action="before-day" class="nav-button"><img data-action="before-day" class="arrow-nav-left-img" src="img/arrow-right.icon.png" alt="arrow-right-img"></div>
-					<div class="nav-title"><h4 id="day-title"></h4><div><button id="resetDay" class="go-today-button">Today</button></div></div>
+					<div class="nav-title"><h4 id="day-title"></h4><div><button id="display-month" class="go-today-button">Month</button></div></div>
 					<div data-action="next-day" class="nav-button"><img data-action="next-day" class="arrow-nav-img" src="img/arrow-right.icon.png" alt="arrow-right-img"></div>
 					</nav>
 					<div class="day-wrapper__grid"></div>

@@ -10,7 +10,7 @@ import {
   monthNames,
   today,
 } from "./month.js";
-import { goToDayView } from "../router.js";
+import { goToDayView, goToMonth } from "../router.js";
 
 import { setEventsOnLocal } from "../functions.js";
 import { printHeader } from "./header.js";
@@ -63,6 +63,10 @@ function printTitle() {
   title.textContent = `${
     monthNames[monthObject.date.getMonth()]
   } ${monthObject.date.getDate()} ${monthObject.date.getFullYear()}`;
+
+  // Activate go to month button
+  let toMonthButton = document.getElementById("display-month");
+  toMonthButton.addEventListener("click", goToMonth);
 }
 
 function printDay() {
