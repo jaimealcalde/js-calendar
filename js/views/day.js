@@ -89,9 +89,6 @@ function printDay() {
   let arrayEventos = sumEventsArray();
 
   loadDayEvents(arrayEventos, clickedDay);
-  /*
-  loadDayEvents(JSON.parse(localStorage.getItem("new-event")), clickedDay);
- 	*/
 
   let nextDay = document.querySelector('[data-action="next-day"]');
   let beforeDay = document.querySelector('[data-action="before-day"]');
