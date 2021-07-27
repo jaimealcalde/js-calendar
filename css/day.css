@@ -69,6 +69,7 @@
   margin: auto;
   height: 100%;
   overflow: hidden;
+  cursor: pointer;
 }
 
 .event-background {

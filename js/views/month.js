@@ -7,7 +7,7 @@ import { selectId } from "./modalShowEvents.js";
 
 function printMonth() {
   //TODO borar contendio y borrar event listener
-
+  wrapper.innerHTML = "";
   printHeader();
   //insert the template HTML in the main.html div calendar
   let templateThisMonth = templateMonth;
@@ -114,9 +114,9 @@ function setStandardCalendar() {
     newElement.dataset.action = `${i}`;
 
     if (i >= 10) {
-      newElement.innerHTML = `<div class="monthday--header"><div class="monthday--header__plus">+</div><div class="monthday--header__num">${i}</div></div><div id="event-month"class="month-event"></div><div class="month-event"></div><div class="month-event"></div>`;
+      newElement.innerHTML = `<div class="monthday--header"><div class="monthday--header__plus">+</div><div class="monthday--header__num">${i}</div></div><div id="event-month"class="month-event"></div><div id="event-month" class="month-event"></div><div id="event-month" class="month-event"></div>`;
     } else {
-      newElement.innerHTML = `<div class="monthday--header"><div class="monthday--header__plus">+</div><div class="monthday--header__num">0${i}</div></div><div id="event-month"class="month-event"></div><div class="month-event"></div><div class="month-event"></div>`;
+      newElement.innerHTML = `<div class="monthday--header"><div class="monthday--header__plus">+</div><div class="monthday--header__num">0${i}</div></div><div id="event-month"class="month-event"></div><div id="event-month" class="month-event"></div><div id="event-month" class="month-event"></div>`;
     }
 
     grid.appendChild(newElement);
@@ -144,8 +144,20 @@ function setStandardCalendar() {
   });
 
   document.getElementById("goToday").addEventListener("click", gotoDay);
-  chargeMonthEvents(JSON.parse(localStorage.getItem("pre-saved-events")));
-  chargeMonthEvents(JSON.parse(localStorage.getItem("new-event")));
+
+  let arrayEventos = sumEventsArray();
+  chargeMonthEvents(arrayEventos);
+}
+
+function sumEventsArray() {
+  let arrayPreEvents = JSON.parse(localStorage.getItem("pre-saved-events"));
+  let arrayNewEvents = JSON.parse(localStorage.getItem("new-event"));
+  if (arrayNewEvents.length > 0) {
+    for (const events of arrayNewEvents) {
+      arrayPreEvents.push(events);
+    }
+  }
+  return arrayPreEvents;
 }
 
 function getEventYear(eventDate) {
@@ -179,10 +191,10 @@ function getEventTime(eventDate) {
 
 function chargeMonthEvents(newEventsArray) {
   toObjectDate();
+
   //Recorre todas las celdas y selecciona los contenedores de los eventos
   for (let i = 1; i <= monthObject.numOfDays; i++) {
     var eventArray = [];
-
     //array de 3 div para publicar eventos
     var eventCells = document.querySelectorAll(
       `[data-action="${i}"] > .month-event`
@@ -224,9 +236,11 @@ function chargeMonthEvents(newEventsArray) {
       }
     });
 
+    //eventarray es array con eventos a insertar
     // 0 1 2 recorro los div, inserto los titulos.
     for (let i = 0; i < 3; i++) {
       if (eventArray[i] != undefined) {
+        console.log(eventCells[i].textContent);
         if (eventCells[i].textContent == "") {
           eventCells[i].dataset.id = eventArray[i].id;
           eventToColor(eventArray[i], eventCells[i]);
@@ -242,6 +256,7 @@ function chargeMonthEvents(newEventsArray) {
         }
       }
     }
+
     let plusSelector = document.querySelector(
       `[data-action="${i}"]  .monthday--header__plus`
     );
@@ -271,6 +286,7 @@ function hiddenMonthButtons() {
 
 function addEventListenerDays() {
   //Eventlisteners para cada evento, para abrir la vista evento
+  console.log("agregando clikcs en los ventos del mes ");
   let eventosMes = document.querySelectorAll("#event-month");
   for (const eventos of eventosMes) {
     eventos.addEventListener("click", selectId);
@@ -279,10 +295,24 @@ function addEventListenerDays() {
 //erase navigationEventSLiteners
 function clearNavigationEventListeners() {
   var monthButtons = document.querySelectorAll(".nav-button");
-  monthButtons.forEach((monthButton) => {
-    monthButton.removeEventListener("click", changeMonth);
-  });
-  document.getElementById("goToday").addEventListener("click", gotoDay);
+  if (monthButtons) {
+    monthButtons.forEach((monthButton) => {
+      monthButton.removeEventListener("click", changeMonth);
+    });
+  }
+
+  let goToDayVar = document.getElementById("goToday");
+  if (goToDayVar) {
+    goToDayVar.removeEventListener("click", gotoDay);
+  }
+
+  let eventosMes = document.querySelectorAll("#event-month");
+  if (eventosMes) {
+    for (const eventos of eventosMes) {
+      console.log("eliminado cliks en eventos del mes");
+      eventos.removeEventListener("click", selectId);
+    }
+  }
 }
 
 function changeMonth(e) {
@@ -295,8 +325,8 @@ function changeMonth(e) {
     } else {
       monthObject["date"].setMonth(monthObject["date"].getMonth() + 1);
       localStorage.setItem("month", JSON.stringify(monthObject));
-      printMonth();
       clearNavigationEventListeners();
+      printMonth();
       setStandardCalendar();
       hiddenMonthButtons();
       todayRed();
@@ -310,8 +340,8 @@ function changeMonth(e) {
     } else {
       monthObject["date"].setMonth(monthObject["date"].getMonth() - 1);
       localStorage.setItem("month", JSON.stringify(monthObject));
-      printMonth();
       clearNavigationEventListeners();
+      printMonth();
       setStandardCalendar();
       hiddenMonthButtons();
       todayRed();
@@ -348,11 +378,11 @@ function todayRed() {
 }
 
 function monthDisplay() {
-  printMonth();
   clearNavigationEventListeners();
+  printMonth();
   setLimitDates();
-  setStandardCalendar();
   hiddenMonthButtons();
+  setStandardCalendar();
   todayRed();
   addEventListenerDays();
 }
@@ -360,8 +390,8 @@ function monthDisplay() {
 function gotoDay() {
   monthObject.date = new Date(Date.now());
   localStorage.setItem("month", JSON.stringify(monthObject));
-  printMonth();
   clearNavigationEventListeners();
+  printMonth();
   setStandardCalendar();
   hiddenMonthButtons();
   todayRed();
@@ -382,4 +412,5 @@ export {
   toObjectDate,
   monthNames,
   today,
+  sumEventsArray,
 };

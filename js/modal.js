@@ -165,7 +165,6 @@ function newEventCreate(e, newEventsArray) {
 	localStorage.setItem("new-event", newEventsString);
 
 	if (document.getElementById("alarm").checked) {
-		console.log("entre aqui porque tiene alarma");
 		arrayAlarmObjectCreate();
 		alarmTimeout(newEventObject);
 	}

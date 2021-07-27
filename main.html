@@ -20,7 +20,7 @@
 					<p>Set the details for the event</p>
 
 					<div class="containter__vertical-form">
-						<label>Title: <input id="title" type="text" required /></label>
+						<label>Title: <input id="title" type="text" value="My first Event"required /></label>
 
 						<label for="event-start"
 							>Start date:<input
@@ -170,6 +170,14 @@
 					<h4 class="new-event-h4">Start Time:</h4>
 					<p id="timeEvent"></p>
 				</div>
+				<div id="finalDate">
+					<h4 class="new-event-h4">End Date:</h4>
+					<p id="endDateEvent"></p>
+				</div>
+				<div id="finalTime">
+					<h4 class="new-event-h4">End Time:</h4>
+					<p id="endTimeEvent"></p>
+				</div>
 				<div id="alarm">
 					<h4 class="new-event-h4">Alarm:</h4>
 					<p id="alarmEvent"></p>
@@ -188,7 +196,7 @@
 				</div>
 			</section>
 				<div class="show-event-buttons-container">
-					<button id="cancel" class="show-event-button show-event-cancel-btn">Cancel</button>
+					<button id="cancel-event" class="show-event-button show-event-cancel-btn">Cancel</button>
 					<button id="edit-event" class="show-event-button show-event-edit-btn">Edit</button>
 					<button id="delete-event"class="show-event-button show-event-delete-btn">Delete</button>
 				</div>
@@ -210,12 +218,11 @@
 				<div class="pop-up-buttons">
 				<button class="accept">That's fine!</button>
 				<button id="goEvent" class="go-to-event">Go to Event!</button>
-
+			</div>
 				<audio>
 					<source src="audio/alarm1.mp3" type="audio/mpeg">
 					<source src="audio/alarm1.ogg" type="audio/ogg">
 				</audio>
-			</div>
 		</div>
 	</body>
 </html>

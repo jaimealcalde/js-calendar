@@ -23,6 +23,7 @@ function goToCreateEvent(e) {
 function goToMonth() {
 	location.hash = "";
 }
+
 function goToDayView() {
 	location.hash = "day";
 }

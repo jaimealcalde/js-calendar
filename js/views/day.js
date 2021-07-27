@@ -9,9 +9,10 @@ import {
   toObjectDate,
   monthNames,
   today,
+  sumEventsArray,
 } from "./month.js";
 import { goToDayView, goToMonth } from "../router.js";
-
+import { selectId } from "./modalShowEvents.js";
 import { setEventsOnLocal } from "../functions.js";
 import { printHeader } from "./header.js";
 
@@ -85,11 +86,9 @@ function printDay() {
   // GETDAY from Event
   var clickedDay = JSON.parse(localStorage.getItem("day"));
 
-  loadDayEvents(
-    JSON.parse(localStorage.getItem("pre-saved-events")),
-    clickedDay
-  );
-  loadDayEvents(JSON.parse(localStorage.getItem("new-event")), clickedDay);
+  let arrayEventos = sumEventsArray();
+
+  loadDayEvents(arrayEventos, clickedDay);
 
   let nextDay = document.querySelector('[data-action="next-day"]');
   let beforeDay = document.querySelector('[data-action="before-day"]');
@@ -174,7 +173,7 @@ function insertDayEvents(dailyEvents) {
       eventToColor(dailyEvents[i], newEvent);
 
       timeTable.appendChild(newEvent);
-      //newEvent.addEventListener("click", selectId);
+      newEvent.addEventListener("click", selectId);
 
       newEvent.classList.add("event-title");
 
@@ -212,7 +211,7 @@ function insertDayEvents(dailyEvents) {
       let backgroundFill = document.createElement("div");
       timeTable.appendChild(backgroundFill);
       backgroundFill.dataset.id = dailyEvents[i].id;
-      //backgroundFill.addEventListener("click", selectId);
+      backgroundFill.addEventListener("click", selectId);
       backgroundFill.classList.add("event-background");
       eventToColor(dailyEvents[i], backgroundFill);
 

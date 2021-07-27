@@ -1,6 +1,8 @@
 //id de letras
 
+import { deleteAlarm } from "./alarm.js";
 import { setEventsOnLocal } from "./functions.js";
+import { closeModal } from "./views/modalShowEvents.js";
 
 let eventsArray = [
   {
@@ -201,4 +203,48 @@ function setNewEvents() {
   setEventsOnLocal(newEventsArray, "new-event");
 }
 
-export { setPreSaved, setNewEvents };
+let objectId = JSON.parse(localStorage.getItem("Id"));
+function editEvent() {
+  //Carga el modal de new event con los values del objeto
+}
+
+let exp = /^[a-z]+$/i;
+//retorna cual array estoy trabajando
+function chooseObject() {
+  let events;
+  let key;
+  const test = exp.test(objectId);
+
+  console.log(test);
+  if (test) {
+    key = "pre-saved-events";
+    events = JSON.parse(localStorage.getItem(key));
+  } else {
+    key = "new-event";
+    events = JSON.parse(localStorage.getItem(key));
+  }
+  return [events, key];
+}
+
+function deleteEvent() {
+  //borra el evento segun su id de la lista de eventos y sus alarmas si tiene
+  chooseObject();
+  let indexEvent;
+  let key = chooseObject()[1];
+  let events = chooseObject()[0];
+
+  for (const iterator of events) {
+    if (iterator.id == objectId) {
+      if (iterator.alarm) {
+        deleteAlarm(objectId);
+      }
+      indexEvent = events.indexOf(iterator); //calculo en donde esta ese objeto
+    }
+  }
+  events.splice(indexEvent, 1); //borro el evento de ese array
+
+  localStorage.setItem(key, JSON.stringify(events)); //lo guardo en localstorage
+  closeModal();
+}
+
+export { setPreSaved, setNewEvents, editEvent, deleteEvent };

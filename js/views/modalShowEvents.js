@@ -1,27 +1,68 @@
 import { setEventsOnLocal } from "../functions.js";
-import { goBack } from "../router.js";
+import { goBack, goToShowEvent } from "../router.js";
+import { editEvent, deleteEvent } from "../events.js";
 
+//buttons
 let close = document.getElementById("cross-show-container");
+let cancelButton = document.getElementById("cancel-event");
+let editButton = document.getElementById("edit-event");
+let deleteButton = document.getElementById("delete-event");
+
 let modal = document.getElementById("showEventContainer");
 let clickedDay = JSON.parse(localStorage.getItem("day"));
-close.addEventListener("click", closeModal);
+
+function addEventListenerShowEvent() {
+	close.addEventListener("click", closeModal);
+	cancelButton.addEventListener("click", closeModal);
+	editButton.addEventListener("click", editEvent);
+	deleteButton.addEventListener("click", deleteEvent);
+}
+
+function removeEventListenerShowEvent() {
+	close.removeEventListener("click", closeModal);
+	cancelButton.removeEventListener("click", closeModal);
+	editButton.removeEventListener("click", editEvent);
+	deleteButton.removeEventListener("click", deleteEvent);
+}
 
 //el evento tanto en el mes como en el dia tienen el id
 function selectId(e) {
 	let objectId = e.target.dataset.id;
 	setEventsOnLocal(clickedDay, "objectId");
 	localStorage.setItem("Id", JSON.stringify(objectId));
-	showEvent();
+	openEvent();
 }
-
 function showEvent() {
-	modal.style.display = "block";
 	convert();
 	chooseObject();
 }
 
+function openEvent() {
+	addEventListenerShowEvent();
+	modal.style.display = "block";
+	goToShowEvent();
+}
+
+function borrarContenidoModal() {
+	document.getElementById("titleEvent").innerHTML = "";
+
+	document.getElementById("dateEvent").innerHTML = "";
+
+	document.getElementById("timeEvent").innerHTML = "";
+
+	document.getElementById("alarmEvent").innerHTML = "";
+
+	document.getElementById("expiresEvent").innerHTML = "";
+
+	document.getElementById("noteEvent").innerHTML = "";
+
+	document.getElementById("typeEvent").innerHTML = "";
+}
+
 function closeModal() {
 	modal.style.display = "none";
+	borrarContenidoModal();
+	removeEventListenerShowEvent();
 	goBack();
 }
 
@@ -38,10 +79,8 @@ function chooseObject() {
 
 	const test = exp.test(objectId);
 
-	console.log(test);
 	if (test) {
 		addNew(preSavedEvents, objectId);
-		console.log("entre aca");
 	} else {
 		addNew(newEventsArray, objectId);
 	}
@@ -67,6 +106,16 @@ function addNew(arrayObjetos, id) {
 	document.getElementById("dateEvent").innerHTML =
 		startDate + " " + startDateContent;
 
+	let endDate = document.getElementById("endDateEvent").textContent;
+	let endDateContent = eventToShow.final_date;
+	document.getElementById("endDateEvent").innerHTML =
+		endDate + " " + endDateContent;
+
+	let endTime = document.getElementById("endTimeEvent").textContent;
+	let endTimeContent = eventToShow.final_time;
+	document.getElementById("endTimeEvent").innerHTML =
+		endTime + " " + endTimeContent;
+
 	let startTime = document.getElementById("timeEvent").textContent;
 	let startTimeContent = eventToShow.initial_time;
 	document.getElementById("timeEvent").innerHTML =
@@ -90,4 +139,4 @@ function addNew(arrayObjetos, id) {
 	document.getElementById("typeEvent").innerHTML = type + " " + typeContent;
 }
 
-export { showEvent, selectId };
+export { showEvent, selectId, closeModal, openEvent };
