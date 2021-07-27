@@ -3,7 +3,6 @@ import { templateMonth } from "./templates.js";
 import { printHeader } from "./header.js";
 import { setDay, eventToColor } from "./day.js";
 import { setEventsOnLocal } from "../functions.js";
-import { goToDayView } from "../router.js";
 
 function printMonth() {
   //TODO borar contendio y borrar event listener
@@ -219,8 +218,6 @@ function chargeMonthEvents(newEventsArray) {
     );
     if (eventArray.length < 4) {
       plusSelector.classList.add("invisible");
-
-      console.log("INVISIBLEEEE");
     } else if (plusSelector.classList.contains("invisible")) {
       plusSelector.classList.remove("invisible");
     }
@@ -273,8 +270,6 @@ function changeMonth(e) {
     ) {
     } else {
       monthObject["date"].setMonth(monthObject["date"].getMonth() - 1);
-      console.log(monthObject.date);
-
       printMonth();
       clearNavigationEventListeners();
       setStandardCalendar();
@@ -284,12 +279,44 @@ function changeMonth(e) {
   //guardo la fecha en el obejto mes
   localStorage.setItem("month", JSON.stringify(monthObject));
 }
+
+function todayRed() {
+  //pone en rojo el dia de hoy
+  let elementosDia = document.querySelectorAll(".monthday");
+
+  for (let index = 0; index < elementosDia.length; index++) {
+    const days = elementosDia[index];
+
+    console.log(new Date(JSON.parse(localStorage.getItem("month")).date));
+    console.log(new Date(Date.now()));
+    //si año y mes están ok
+    if (
+      new Date(JSON.parse(localStorage.getItem("month")).date).getMonth() ==
+        new Date(Date.now()).getMonth() &&
+      new Date(JSON.parse(localStorage.getItem("month")).date).getFullYear() ==
+        new Date(Date.now()).getFullYear()
+    ) {
+      if (days.dataset.action == new Date().getDate()) {
+        console.log("entre a gotodayheader");
+        days.firstChild.classList.add("goToday-header");
+        days.firstChild.lastChild.classList.add("goToday-num");
+      } else {
+        if (days.firstChild.classList.contains("goToday-header")) {
+          days.firstChild.classList.remove("goToday-header");
+          days.firstChild.lastChild.classList.remove("goToday-num");
+        }
+      }
+    }
+  }
+}
+
 function monthDisplay() {
   printMonth();
   clearNavigationEventListeners();
   setLimitDates();
   setStandardCalendar();
   hiddenMonthButtons();
+  todayRed();
 }
 
 function gotoDay() {
@@ -299,6 +326,7 @@ function gotoDay() {
   clearNavigationEventListeners();
   setStandardCalendar();
   hiddenMonthButtons();
+  todayRed();
 }
 
 export {

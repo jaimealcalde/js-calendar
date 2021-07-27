@@ -16,7 +16,7 @@
 			<span id="cross" class="close" title="Close Modal">×</span>
 			<form id="modal-form" class="modal-content" action="">
 				<div class="container">
-					<h1>New Event</h1>
+					<h2>New Event</h2>
 					<p>Set the details for the event</p>
 
 					<div class="containter__vertical-form">
@@ -98,7 +98,7 @@
 							for this event</label
 						>
 						<label for="alarm-start" class="label-hidden"
-							>Start date:
+							>Alarm date & time:
 							<input
 								type="datetime-local"
 								id="alarm-start"
@@ -152,7 +152,6 @@
 		<div id="showEventContainer" class="modal__showEvent border hidden">
 			<span id="close" class="close" title="Close Modal">×</span>
 			<div class="form__container">
-
 				<div id="title">
 					<p id="titleEvent">Title:</p>
 				</div>
@@ -175,11 +174,33 @@
 					<p id="typeEvent">Event type:</p>
 				</div>
 				<div class="buttons__down">
-				<div><button class="cancelbtn">Delete</button></div>
+					<div><button class="cancelbtn">Delete</button></div>
 
-				<div><button class="editbtn">Edit</button></div>
+					<div><button class="editbtn">Edit</button></div>
+				</div>
 			</div>
 		</div>
 
+		<!--POP UP-->
+
+		<div id="cookiesPopup" class="pop-up-container">
+			<div class="cookiesContent">
+				<button id="close-pop-up" class="close-pop-up">✖</button>
+				<img
+					src="img/clock-icon.png"
+					alt="alarm-img"
+				/>
+				<p class="p-pop-up">Hey!</p>
+				<p class="p-pop-up" id="alarm-message"></p>
+				<div class="pop-up-buttons">
+				<button class="accept">That's fine!</button>
+				<button id="goEvent" class="go-to-event">Go to Event!</button>
+
+				<audio>
+					<source src="audio/alarm1.mp3" type="audio/mpeg">
+					<source src="audio/alarm1.ogg" type="audio/ogg">
+				</audio>
+			</div>
+		</div>
 	</body>
 </html>

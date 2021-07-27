@@ -1,6 +1,5 @@
 import { start } from "./main.js";
-import { goToDayView, goToMonth } from "./router.js";
-import { monthDisplay, gotoDay } from "./views/month.js";
+import { gotoDay } from "./views/month.js";
 
 function doubleDigits(someNumber) {
 	if (someNumber < 10) {
@@ -61,14 +60,11 @@ function doIfChecked(domElementCheck, elementToSHow, state) {
 
 function setEventsOnLocal(events, key) {
 	let eventString = JSON.stringify(events);
-	console.log("estoy guardando", events);
-
 	if (!localStorage.getItem(key)) {
 		localStorage.setItem(key, eventString);
 	} else {
 		events = JSON.parse(localStorage.getItem(key));
 	}
-
 	return events;
 }
 
@@ -118,14 +114,6 @@ function resetCalendar() {
 	start();
 	gotoDay();
 }
-
-//chequea cambio sen local stroage
-/*   window.addEventListener('storage', () => {
-   When local storage changes, dump the list to
-   the console.
-  console.log(JSON.parse(window.localStorage.getItem('new-event')));
-});
- */
 
 export {
 	doubleDigits,

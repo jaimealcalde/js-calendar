@@ -28,18 +28,16 @@ function goToDayView() {
   location.hash = "day";
 }
 
-/* function goBack (){
-  if (location.hash=) {
-    console.log("entre aqui cerrar e ir a mes");
+function goBack() {
+  if (document.getElementById("monthView")) {
     goToMonth();
   } else if (document.getElementById("dayView")) {
-    console.log("entre aqui cerrar e ir a dia");
-    goToDay();
+    goToDayView();
   }
-} */
+}
 
 function goToShowEvent() {
   location.hash = "show-event";
 }
 
-export { navigate, goToCreateEvent, goToMonth, goToDayView };
+export { navigate, goToCreateEvent, goToMonth, goToDayView, goBack };
