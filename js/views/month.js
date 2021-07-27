@@ -210,7 +210,14 @@ function chargeMonthEvents(newEventsArray) {
           eventCells[i].dataset.id = eventArray[i].id;
           eventToColor(eventArray[i], eventCells[i]);
 
-          eventCells[i].textContent = eventArray[i].title;
+          // Limit title characters for events to 13 on the month View
+          if (eventArray[i].title.length > 13) {
+            let shortTitle = eventArray[i].title.slice(0, 13);
+            shortTitle = shortTitle + "...";
+            eventCells[i].textContent = shortTitle;
+          } else {
+            eventCells[i].textContent = eventArray[i].title;
+          }
         }
       }
     }
