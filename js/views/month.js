@@ -209,6 +209,7 @@ function chargeMonthEvents(newEventsArray) {
         if (eventCells[i].textContent == "") {
           eventCells[i].dataset.id = eventArray[i].id;
           eventToColor(eventArray[i], eventCells[i]);
+
           eventCells[i].textContent = eventArray[i].title;
         }
       }

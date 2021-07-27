@@ -161,12 +161,7 @@ function insertDayEvents(dailyEvents) {
       timeTable.appendChild(newEvent);
       //newEvent.addEventListener("click", selectId);
 
-      newEvent.classList.add(
-        "event-title",
-        "automargin",
-        "width100",
-        "height100"
-      );
+      newEvent.classList.add("event-title");
 
       newEvent.style.gridColumnStart = i + 2;
       newEvent.style.gridColumnEnd = i + 2;
