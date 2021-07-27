@@ -2,12 +2,21 @@
 
 body {
   font-family: Arial, Helvetica, sans-serif;
+  width: 90%;
+  margin: 3vh auto;
 }
 * {
   box-sizing: border-box;
 }
 
-/* Set a style for all buttons */
+h1{
+  font-size: 3.5rem;
+}
+
+h2{
+  font-size: 3rem;
+}
+
 button {
  
   border: none;
@@ -20,7 +29,6 @@ button:hover {
   opacity: 1;
 }
 
-/* Add padding and center-align text to the container */
 .container {
   padding: 16px;
   text-align: left;

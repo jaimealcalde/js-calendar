@@ -3,7 +3,7 @@ import {
 	setAlarmTimer,
 	setAlarmLimits,
 	arrayAlarmObjectCreate,
-	alarmPopUp,
+	alarmTimeout,
 } from "./alarm.js";
 import { doIfChecked, getFullDate, isExpiredEvent } from "./functions.js";
 
@@ -166,7 +166,7 @@ function newEventCreate(e, newEventsArray) {
 	if (document.getElementById("alarm").checked) {
 		console.log("entre aqui porque tiene alarma");
 		arrayAlarmObjectCreate();
-		alarmPopUp(newEventObject);
+		alarmTimeout(newEventObject);
 		//funcion de alarma q le pase el neweventobject
 	}
 	closeModal();

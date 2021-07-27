@@ -37,7 +37,7 @@ function setAlarmLimits() {
 	document.getElementById("alarm-start").setAttribute("min", minAlarmTimer);
 }
 
-function alarmPopUp(evento) {
+function alarmTimeout(evento) {
 	let alarms = JSON.parse(localStorage.getItem("alarm-events"));
 
 	//estoy recorriendo las alarmas ya presetedas
@@ -71,11 +71,7 @@ function alarmPopUp(evento) {
 }
 
 function deleteAlarm(eventoId) {
-	//? Cada timeout arroja por defecto un timeout ID
-	console.log(
-		"borrando alarma del evento del array de alarmas porque expiro",
-		eventoId
-	);
+	//* Cada timeout arroja por defecto un timeout ID
 	let alarms = JSON.parse(localStorage.getItem("alarm-events"));
 	let indexAlarm;
 
@@ -104,36 +100,7 @@ function expiredAlarm(id) {
 	}
 
 	localStorage.setItem("new-event", JSON.stringify(eventsArray));
-
 	//EVENT LISTENER de que si algo esta expired que se ponga oscuro gris.
-}
-
-//let popup = document.getElementById("cookiesPopup");
-function modalAlarma2(id) {
-	console.log("Alarma sonando del obejto", id);
-
-	popup.style.display = "block";
-
-	console.log("tengo el cero", document.getElementsByTagName("audio")[0]);
-	console.log(document.getElementsByTagName("audio"));
-
-	document.getElementsByTagName("audio")[0].play();
-
-	let eventsArray = JSON.parse(localStorage.getItem("new-event"));
-
-	for (const iterator of eventsArray) {
-		if (iterator.id == id) {
-			document.getElementById("alarm-message").innerHTML =
-				"Alarma del evento " +
-				iterator.title +
-				"que empieza el: " +
-				iterator.initial_date +
-				" a las: " +
-				iterator.initial_time;
-		}
-	}
-
-	deleteAlarm(id);
 }
 
 //arma el objeto en localstorage de alarmas, si elevento.alarm==true
@@ -153,6 +120,6 @@ export {
 	setAlarmTimer,
 	setAlarmLimits,
 	arrayAlarmObjectCreate,
-	alarmPopUp,
+	alarmTimeout,
 	deleteAlarm,
 };

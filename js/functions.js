@@ -60,14 +60,11 @@ function doIfChecked(domElementCheck, elementToSHow, state) {
 
 function setEventsOnLocal(events, key) {
 	let eventString = JSON.stringify(events);
-	console.log("estoy guardando", events);
-
 	if (!localStorage.getItem(key)) {
 		localStorage.setItem(key, eventString);
 	} else {
 		events = JSON.parse(localStorage.getItem(key));
 	}
-
 	return events;
 }
 

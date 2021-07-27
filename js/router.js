@@ -29,10 +29,8 @@ function goToDayView() {
 
 function goBack() {
 	if (document.getElementById("monthView")) {
-		console.log("entre aqui cerrar e ir a mes");
 		goToMonth();
 	} else if (document.getElementById("dayView")) {
-		console.log("entre aqui cerrar e ir a dia");
 		goToDayView();
 	}
 }

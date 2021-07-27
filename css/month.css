@@ -16,26 +16,42 @@
 
 .month-weekdays {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+    flex-direction: row;
+    justify-content: space-between;
+    
 }
 .month-weekdays h4 {
   width: 100%;
   text-align: center;
-  background-color: grey;
-  border: 1px solid black;
+  background-color: black;
+  padding: 1%;
+  font-weight: 500;
+  color: white;
+  opacity: 0.9;
 }
 
 .month-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
+
 }
 .monthday {
-  height: 100%;
+  background-color: #70809024;
+  border-radius: 0.5rem;
+  margin: 0.1rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-end;
+  flex-wrap: nowrap;
+}
+
+.monday{
+  border-radius: 20rem 0rem 0rem 0rem;
+}
+
+.sunday{
+  border-radius: 0rem 20rem 0rem 0rem;
 }
 
 .monthday--header {
@@ -43,17 +59,29 @@
   flex-direction: row;
   width: 100%;
   justify-content: space-between;
+  flex-wrap: nowrap;
+  align-items: center;
+  align-content: center;
+  padding: 0.25rem 0.4rem;
 }
 
+
 .monthday--header__num {
-  position: relative;
-  left: 50%;
+  
+  cursor: pointer;
+    color: black;
+    opacity: 0.8;
   cursor: pointer;
 }
 
+.monthday--header__num:hover{
+opacity: 1;
+font-weight: bold;
+}
+
 .monthday--header__plus {
-  position: relative;
-  right: 0;
+ /*  position: relative;
+  right: 0; */
 }
 
 .invisible {
@@ -67,6 +95,17 @@
 
 .month-event {
   width: 100%;
-  border-radius: 25px;
-  text-align: center;
+    padding: 0.2rem;
+    font-size: 0.85rem;
+    text-align: center;
+}
+
+.goToday-header{
+  background-color: #ff0000de;
+    
+    opacity: 0.9;
+}
+
+.goToday-num{
+  color: floralwhite;
 }

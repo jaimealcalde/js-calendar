@@ -6,13 +6,13 @@ var templateMonth = `<template id="month">
 				<div data-action="next-button" class="nav-button">Mes siguiente</div>
 			</nav>
 			<div class="month-weekdays">
-				<h4>Monday</h4>
+				<h4 class="monday">Monday</h4>
 				<h4>Tuesday</h4>
 				<h4>Wednesday</h4>
 				<h4>Thursday</h4>
 				<h4>Friday</h4>
 				<h4>Saturday</h4>
-				<h4>Sunday</h4>
+				<h4 class="sunday">Sunday</h4>
 			</div>
 			<div class="month-grid">
 			</div>
@@ -27,9 +27,9 @@ var templateDay = `<template id="day">
 
 var header = `<template id="header">
 <div class="header__container" id="ButtonAddEvent">
-<div><button id="reset-calendar" class="button__header--newEvent button__red">Reset Calendar</button></div>
+<div><button id="reset-calendar" class="buttons-header reset-button">Reset</button></div>
 <div><h1>dev.Calendar</h1></div>
-<div><button id="open-modal" class="button__header--newEvent button__green">Add Event</button></div>
+<div><button id="open-modal" class="buttons-header new-event-button">New Event</button></div>
 </div>
 <div class="separator__header"></div>
 </template>`;
