@@ -1,4 +1,5 @@
 var templateMonth = `<template id="month">
+
 		<div id="monthView" class="month-wrapper">
 			<nav class="month-header">
 				<div data-action="before-button"class="nav-button">Mes anterior</div>
@@ -31,7 +32,7 @@ var header = `<template id="header">
 <div><h1>dev.Calendar</h1></div>
 <div><button id="open-modal" class="buttons-header new-event-button">New Event</button></div>
 </div>
-<div class="separator__header"></div>
+
 </template>`;
 
 export { templateMonth, header, templateDay };

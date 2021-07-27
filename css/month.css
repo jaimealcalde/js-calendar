@@ -6,18 +6,21 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
-  height: 4rem;
+  align-items: flex-end;
+  flex-wrap: nowrap;
+
 }
 
 .month-header h4 {
-  margin-bottom: 10%;
+  margin-bottom: 20%;
+    font-size: 1.4rem;
 }
 
 .month-weekdays {
   display: flex;
     flex-direction: row;
     justify-content: space-between;
+    margin: 1rem 0rem 1rem 0rem;
     
 }
 .month-weekdays h4 {
@@ -89,8 +92,13 @@ font-weight: bold;
 }
 
 .go-today-button {
-  text-transform: uppercase;
-  font-weight: bold;
+  background-color: #ff0000de;
+    opacity: 0.8;
+    border-radius: 2rem 2rem 0rem 2rem;
+    color: white;
+    padding: 1.2rem;
+    font-size: 1.1rem;
+    cursor: pointer;
 }
 
 .month-event {
@@ -108,4 +116,12 @@ font-weight: bold;
 
 .goToday-num{
   color: floralwhite;
+}
+
+.nav-title{
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: center;
 }

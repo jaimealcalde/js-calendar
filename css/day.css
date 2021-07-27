@@ -68,3 +68,7 @@
 .light-pink-event {
   background-color: var(--light-pink);
 }
+
+.day-wrapper{
+  margin-top: 5%;
+}

@@ -5,6 +5,10 @@
   width: 50%;
 }
 
+.container {
+  padding: 1rem;
+  text-align: left;
+}
 /* Add a color to the cancel button */
 .cancelbtn {
   background-color: #ccc;
