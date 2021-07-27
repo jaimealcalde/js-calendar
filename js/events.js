@@ -172,6 +172,19 @@ let eventsArray = [
     description: "",
     type: "holiday",
   },
+  {
+    id: "ch",
+    allday: true,
+    title: "Christmas holidays",
+    initial_date: "2021-12-24",
+    final_date: "2022-01-06",
+    initial_time: "00:00",
+    final_time: "23:59",
+    alarm: false,
+    reminder: false,
+    description: "",
+    type: "holiday",
+  },
 ];
 
 function setPreSaved() {
