@@ -17,5 +17,6 @@ function start() {
 start();
 
 window.addEventListener("hashchange", navigate);
+document.addEventListener("hashchange", navigate);
 
 export { wrapper, start };
