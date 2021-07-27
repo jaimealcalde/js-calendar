@@ -154,11 +154,17 @@ function getEventYear(eventDate) {
 }
 function getEventMonth(eventDate) {
   let monthEvent = eventDate.split("-")[1];
+  if (monthEvent[0] == 0) {
+    monthEvent = monthEvent[1];
+  }
   return monthEvent;
 }
 
 function getEventDay(eventDate) {
   let dayEvent = eventDate.split("-")[2];
+  if (dayEvent[0] == 0) {
+    dayEvent = dayEvent[1];
+  }
 
   return dayEvent;
 }
@@ -201,6 +207,17 @@ function chargeMonthEvents(newEventsArray) {
           }
         }
         eventArray.sort(compare);
+      } else if (newEvent.between_dates) {
+        newEvent.between_dates.forEach((everyDate) => {
+          if (
+            getEventDay(everyDate) == i &&
+            getEventMonth(everyDate) - 1 == monthObject.date.getMonth() &&
+            getEventYear(everyDate) == monthObject.date.getFullYear()
+          ) {
+            eventArray.unshift(newEvent);
+            console.log(eventArray);
+          }
+        });
       }
     });
 
