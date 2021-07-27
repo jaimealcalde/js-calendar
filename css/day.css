@@ -7,6 +7,32 @@
   --light-yellow: rgb(248, 244, 186);
   --light-pink: rgb(255, 203, 251);
 }
+/* EVENT COLORS */
+.light-orange-event {
+  background-color: var(--light-orange);
+}
+
+.dark-orange-event {
+  background-color: var(--dark-orange);
+}
+
+.light-green-event {
+  background-color: var(--light-green);
+}
+
+.dark-green-event {
+  background-color: var(--dark-green);
+}
+
+.light-blue-event {
+  background-color: var(--light-blue);
+}
+.light-yellow-event {
+  background-color: var(--light-yellow);
+}
+.light-pink-event {
+  background-color: var(--light-pink);
+}
 
 .day-wrapper {
   display: flex;
@@ -54,28 +80,5 @@
   border-bottom: 1px solid black;
 }
 
-.light-orange-event {
-  background-color: var(--light-orange);
-}
-
-.dark-orange-event {
-  background-color: var(--dark-orange);
-}
-
-.light-green-event {
-  background-color: var(--light-green);
-}
-
-.dark-green-event {
-  background-color: var(--dark-green);
-}
-
-.light-blue-event {
-  background-color: var(--light-blue);
-}
-.light-yellow-event {
-  background-color: var(--light-yellow);
-}
-.light-pink-event {
-  background-color: var(--light-pink);
+.nav-title h4 {
 }

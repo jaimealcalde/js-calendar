@@ -6,6 +6,9 @@ import {
   getEventYear,
   getEventTime,
   monthObject,
+  toObjectDate,
+  monthNames,
+  today,
 } from "./month.js";
 import { goToDayView } from "../router.js";
 
@@ -16,15 +19,12 @@ function eventToColor(oneEvent, newEvent) {
   switch (oneEvent.type) {
     case "holiday":
       newEvent.classList.add("light-orange-event");
-      console.log("holiday");
       break;
     case "birthday":
       newEvent.classList.add("light-pink-event");
-      console.log("birthday");
       break;
     case "work":
       newEvent.classList.add("light-yellow-event");
-      console.log("work");
       break;
     case "to-do":
       newEvent.classList.add("light-blue-event");
@@ -39,7 +39,6 @@ function eventToColor(oneEvent, newEvent) {
       newEvent.classList.add("light-green-event");
       break;
     default:
-      console.log("Undefined type");
       break;
   }
 }
@@ -48,7 +47,22 @@ function setDay(e) {
   var clickedDay = e.target.textContent;
   setEventsOnLocal(clickedDay, "day");
   localStorage.setItem("day", JSON.stringify(clickedDay));
+
+  let dateChange = localStorage.getItem("month");
+  dateChange = JSON.parse(dateChange);
+  toObjectDate();
+  monthObject.date.setDate(clickedDay);
+  dateChange = JSON.stringify(monthObject);
+  localStorage.setItem("month", dateChange);
+
   goToDayView();
+}
+
+function printTitle() {
+  let title = document.querySelector(".nav-title h4");
+  title.textContent = `${
+    monthNames[monthObject.date.getMonth()]
+  } ${monthObject.date.getDate()} ${monthObject.date.getFullYear()}`;
 }
 
 function printDay() {
@@ -65,11 +79,6 @@ function printDay() {
   wrapper.appendChild(copyNode);
 
   // GETDAY from Event
-
-  var clickedDay = JSON.parse(localStorage.getItem("day"));
-
-  // GETDAY from Event
-
   var clickedDay = JSON.parse(localStorage.getItem("day"));
 
   loadDayEvents(
@@ -77,7 +86,6 @@ function printDay() {
     clickedDay
   );
   loadDayEvents(JSON.parse(localStorage.getItem("new-event")), clickedDay);
-  setTimeTable();
 
   let nextDay = document.querySelector('[data-action="next-day"]');
   let beforeDay = document.querySelector('[data-action="before-day"]');
@@ -188,14 +196,78 @@ function insertDayEvents(dailyEvents) {
   }
 }
 
+// CAMBIAR FECHA LOCAL A UN DIA MAS. ACTUALIZARLO EN LOCALSTORAGE
+
 function goNextDay() {
-  var clickedDay = monthObject.date.getDate() + 1;
-  console.log("DATE", localStorage.getItem("month"));
-  setEventsOnLocal(clickedDay, "day");
-  localStorage.setItem("day", JSON.stringify(clickedDay));
-  goToDay();
+  let day = localStorage.getItem("day");
+  day = JSON.parse(day);
+  day++;
+
+  let dateChange = localStorage.getItem("month");
+  dateChange = JSON.parse(dateChange);
+  toObjectDate();
+  monthObject.date.setDate(day);
+  dateChange = JSON.stringify(monthObject);
+  localStorage.setItem("month", dateChange);
+  localStorage.setItem("day", monthObject.date.getDate());
+
+  console.log(dateChange);
+  console.log(monthObject);
+
+  dayDisplay();
 }
 
-function goBeforeDay() {}
+function goBeforeDay() {
+  let day = localStorage.getItem("day");
+  day = JSON.parse(day);
+  day--;
 
-export { printDay, setDay, eventToColor };
+  let dateChange = localStorage.getItem("month");
+  dateChange = JSON.parse(dateChange);
+  toObjectDate();
+  monthObject.date.setDate(day);
+  dateChange = JSON.stringify(monthObject);
+  localStorage.setItem("month", dateChange);
+  localStorage.setItem("day", monthObject.date.getDate());
+
+  console.log(dateChange);
+  console.log(monthObject);
+
+  dayDisplay();
+}
+
+function hiddenDayNavButtons() {
+  let limitDate = new Date(
+    monthObject.date.getFullYear(),
+    monthObject.date.getMonth() + 1,
+    0
+  );
+
+  toObjectDate();
+  if (
+    monthObject.date.getMonth() == monthObject.limitMonth &&
+    monthObject.date.getFullYear() == monthObject.limitYearAfter &&
+    monthObject.date.getDate() == limitDate.getDate()
+  ) {
+    document
+      .querySelector('[data-action="next-day"]')
+      .classList.add("invisible");
+  } else if (
+    monthObject.date.getMonth() == monthObject.limitMonth &&
+    monthObject.date.getFullYear() == monthObject.limitYearBefore &&
+    monthObject.date.getDate() == 1
+  ) {
+    document
+      .querySelector('[data-action="before-day"]')
+      .classList.add("invisible");
+  }
+}
+
+function dayDisplay() {
+  printDay();
+  hiddenDayNavButtons();
+  printTitle();
+  setTimeTable();
+}
+
+export { printDay, setDay, eventToColor, dayDisplay };
