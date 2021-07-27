@@ -43,18 +43,17 @@
   display: grid;
   height: 45rem;
   grid-template-columns: 1fr repeat(5, 2fr);
-  grid-template-rows: repeat(145, 1fr);
+  grid-template-rows: repeat(144, 1fr);
+  background-color: rgb(216, 216, 216);
+  border-radius: 25px;
+  margin: 0.5rem 0;
 }
 
-.automargin {
-  margin: auto;
-}
-
-.width100 {
+.day-time {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
-}
-
-.height100 {
   height: 100%;
 }
 
