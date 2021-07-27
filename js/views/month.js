@@ -113,9 +113,9 @@ function setStandardCalendar() {
 		newElement.dataset.action = `${i}`;
 
 		if (i >= 10) {
-			newElement.innerHTML = `<div class="monthday--header"><div class="monthday--header__plus">+</div><div class="monthday--header__num">${i}</div></div><div class="month-event"></div><div class="month-event"></div><div class="month-event"></div>`;
+			newElement.innerHTML = `<div class="monthday--header"><div class="monthday--header__plus">+</div><div class="monthday--header__num">${i}</div></div><div id="event-month"class="month-event"></div><div class="month-event"></div><div class="month-event"></div>`;
 		} else {
-			newElement.innerHTML = `<div class="monthday--header"><div class="monthday--header__plus">+</div><div class="monthday--header__num">0${i}</div></div><div class="month-event"></div><div class="month-event"></div><div class="month-event"></div>`;
+			newElement.innerHTML = `<div class="monthday--header"><div class="monthday--header__plus">+</div><div class="monthday--header__num">0${i}</div></div><div id="event-month"class="month-event"></div><div class="month-event"></div><div class="month-event"></div>`;
 		}
 
 		grid.appendChild(newElement);
@@ -257,8 +257,6 @@ function changeMonth(e) {
 		) {
 		} else {
 			monthObject["date"].setMonth(monthObject["date"].getMonth() + 1);
-			console.log(monthObject.date);
-
 			localStorage.setItem("month", JSON.stringify(monthObject));
 			printMonth();
 			clearNavigationEventListeners();
@@ -281,7 +279,6 @@ function changeMonth(e) {
 			todayRed();
 		}
 	}
-	//guardo la fecha en el obejto mes
 }
 
 function todayRed() {
@@ -291,15 +288,6 @@ function todayRed() {
 	for (let index = 0; index < elementosDia.length; index++) {
 		const days = elementosDia[index];
 
-		console.log(new Date(JSON.parse(localStorage.getItem("month")).date));
-		console.log(new Date(Date.now()));
-
-		console.log(
-			new Date(JSON.parse(localStorage.getItem("month")).date).getMonth()
-		);
-
-		console.log(new Date(Date.now()).getMonth());
-
 		//si año y mes están ok
 		if (
 			new Date(JSON.parse(localStorage.getItem("month")).date).getMonth() ==
@@ -308,7 +296,6 @@ function todayRed() {
 				new Date(Date.now()).getFullYear()
 		) {
 			if (days.dataset.action == new Date().getDate()) {
-				console.log("entre a gotodayheader");
 				days.firstChild.classList.add("goToday-header");
 				days.firstChild.lastChild.classList.add("goToday-num");
 			} else {

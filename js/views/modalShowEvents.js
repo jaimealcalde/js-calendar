@@ -2,21 +2,21 @@
 
 let close = document.getElementById("close");
 
-//add.addEventListener("click", addModal);
+//add.addEventListener("click", showEvent);
 close.addEventListener("click", closeModal);
 
 function selectId(e) {
 	let objectId = e.target.dataset.id;
 	setEventsOnLocal(clickedDay, "objectId");
 	localStorage.setItem("Id", JSON.stringify(objectId));
-	addModal();
+	showEvent();
 }
 
-function addModal() {
+function showEvent() {
 	let modal = document.getElementById("showEventContainer");
 	modal.classList.remove("hidden");
 	modal.classList.add("show");
-	add.removeEventListener("click", addModal);
+	add.removeEventListener("click", showEvent);
 	convert();
 	chooseObject();
 }
@@ -25,7 +25,7 @@ function closeModal() {
 	let modal = document.getElementById("showEventContainer");
 	modal.classList.add("hidden");
 	modal.classList.remove("show");
-	add.addEventListener("click", addModal);
+	add.addEventListener("click", showEvent);
 }
 
 let preSavedEvents;
@@ -79,4 +79,4 @@ function addNew(b, i) {
 	document.getElementById("typeEvent").innerHTML = type + " " + typeContent;
 }
 
-export { addModal, selectId };
+export { showEvent, selectId };

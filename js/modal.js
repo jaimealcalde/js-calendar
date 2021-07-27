@@ -95,6 +95,7 @@ function setDateTime() {
 	setEventEndDate();
 }
 
+//*Crea el objeto del evento y lo guarda en localStorage
 function newEventCreate(e, newEventsArray) {
 	if (!localStorage.getItem("new-event")) {
 		newEventsArray = [];
@@ -167,7 +168,6 @@ function newEventCreate(e, newEventsArray) {
 		console.log("entre aqui porque tiene alarma");
 		arrayAlarmObjectCreate();
 		alarmTimeout(newEventObject);
-		//funcion de alarma q le pase el neweventobject
 	}
 	closeModal();
 }
