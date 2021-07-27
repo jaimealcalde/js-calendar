@@ -106,6 +106,16 @@ function addNew(arrayObjetos, id) {
 	document.getElementById("dateEvent").innerHTML =
 		startDate + " " + startDateContent;
 
+	let endDate = document.getElementById("endDateEvent").textContent;
+	let endDateContent = eventToShow.final_date;
+	document.getElementById("endDateEvent").innerHTML =
+		endDate + " " + endDateContent;
+
+	let endTime = document.getElementById("endTimeEvent").textContent;
+	let endTimeContent = eventToShow.final_time;
+	document.getElementById("endTimeEvent").innerHTML =
+		endTime + " " + endTimeContent;
+
 	let startTime = document.getElementById("timeEvent").textContent;
 	let startTimeContent = eventToShow.initial_time;
 	document.getElementById("timeEvent").innerHTML =
