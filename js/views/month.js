@@ -114,9 +114,9 @@ function setStandardCalendar() {
 		newElement.dataset.action = `${i}`;
 
 		if (i >= 10) {
-			newElement.innerHTML = `<div class="monthday--header"><div class="monthday--header__plus">+</div><div class="monthday--header__num">${i}</div></div><div id="event-month"class="month-event"></div><div class="month-event"></div><div class="month-event"></div>`;
+			newElement.innerHTML = `<div class="monthday--header"><div class="monthday--header__plus">+</div><div class="monthday--header__num">${i}</div></div><div id="event-month"class="month-event"></div><div id="event-month" class="month-event"></div><div id="event-month" class="month-event"></div>`;
 		} else {
-			newElement.innerHTML = `<div class="monthday--header"><div class="monthday--header__plus">+</div><div class="monthday--header__num">0${i}</div></div><div id="event-month"class="month-event"></div><div class="month-event"></div><div class="month-event"></div>`;
+			newElement.innerHTML = `<div class="monthday--header"><div class="monthday--header__plus">+</div><div class="monthday--header__num">0${i}</div></div><div id="event-month"class="month-event"></div><div id="event-month" class="month-event"></div><div id="event-month" class="month-event"></div>`;
 		}
 
 		grid.appendChild(newElement);
