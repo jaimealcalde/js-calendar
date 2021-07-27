@@ -6,7 +6,6 @@ import { setMonth } from "./views/month.js";
 var wrapper = document.getElementById("calendar");
 
 function start() {
-	location.hash = "";
 	setPreSaved();
 	setNewEvents();
 	setCounter();
