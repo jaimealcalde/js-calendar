@@ -144,8 +144,20 @@ function setStandardCalendar() {
 	});
 
 	document.getElementById("goToday").addEventListener("click", gotoDay);
-	chargeMonthEvents(JSON.parse(localStorage.getItem("pre-saved-events")));
-	chargeMonthEvents(JSON.parse(localStorage.getItem("new-event")));
+
+	let arrayEventos = sumEventsArray();
+	chargeMonthEvents(arrayEventos);
+}
+
+function sumEventsArray() {
+	let arrayPreEvents = JSON.parse(localStorage.getItem("pre-saved-events"));
+	let arrayNewEvents = JSON.parse(localStorage.getItem("new-event"));
+	if (arrayNewEvents.length > 0) {
+		for (const events of arrayNewEvents) {
+			arrayPreEvents.push(events);
+		}
+	}
+	return arrayPreEvents;
 }
 
 function getEventYear(eventDate) {
@@ -173,10 +185,10 @@ function getEventTime(eventDate) {
 
 function chargeMonthEvents(newEventsArray) {
 	toObjectDate();
+
 	//Recorre todas las celdas y selecciona los contenedores de los eventos
 	for (let i = 1; i <= monthObject.numOfDays; i++) {
 		var eventArray = [];
-
 		//array de 3 div para publicar eventos
 		var eventCells = document.querySelectorAll(
 			`[data-action="${i}"] > .month-event`
@@ -204,9 +216,11 @@ function chargeMonthEvents(newEventsArray) {
 			}
 		});
 
+		//eventarray es array con eventos a insertar
 		// 0 1 2 recorro los div, inserto los titulos.
 		for (let i = 0; i < 3; i++) {
 			if (eventArray[i] != undefined) {
+				console.log(eventCells[i].textContent);
 				if (eventCells[i].textContent == "") {
 					eventCells[i].dataset.id = eventArray[i].id;
 					eventToColor(eventArray[i], eventCells[i]);
@@ -222,6 +236,7 @@ function chargeMonthEvents(newEventsArray) {
 				}
 			}
 		}
+
 		let plusSelector = document.querySelector(
 			`[data-action="${i}"]  .monthday--header__plus`
 		);
