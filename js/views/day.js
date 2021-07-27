@@ -59,7 +59,7 @@ function setDay(e) {
 }
 
 function printTitle() {
-  let title = document.querySelector(".nav-title h4");
+  let title = document.querySelector("#day-title");
   title.textContent = `${
     monthNames[monthObject.date.getMonth()]
   } ${monthObject.date.getDate()} ${monthObject.date.getFullYear()}`;

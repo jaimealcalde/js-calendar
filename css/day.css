@@ -38,12 +38,6 @@
   display: flex;
   flex-direction: column;
 }
-.day-wrapper__header {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
 
 .day-wrapper__grid {
   display: grid;
