@@ -220,8 +220,6 @@ function chargeMonthEvents(newEventsArray) {
 		);
 		if (eventArray.length < 4) {
 			plusSelector.classList.add("invisible");
-
-			console.log("INVISIBLEEEE");
 		} else if (plusSelector.classList.contains("invisible")) {
 			plusSelector.classList.remove("invisible");
 		}

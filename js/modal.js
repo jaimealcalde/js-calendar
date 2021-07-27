@@ -1,4 +1,4 @@
-import { goToMonth, goToDayView } from "./router.js";
+import { goBack } from "./router.js";
 import {
 	setAlarmTimer,
 	setAlarmLimits,
@@ -7,7 +7,6 @@ import {
 } from "./alarm.js";
 import { doIfChecked, getFullDate, isExpiredEvent } from "./functions.js";
 
-// Get the modal
 let modal = document.getElementById("new-event");
 
 document.getElementById("cancel-btn").addEventListener("click", closeModal);
@@ -18,14 +17,7 @@ document
 
 function closeModal() {
 	modal.style.display = "none";
-	//goBack();
-	if (document.getElementById("monthView")) {
-		console.log("entre aqui cerrar e ir a mes");
-		goToMonth();
-	} else if (document.getElementById("dayView")) {
-		console.log("entre aqui cerrar e ir a dia");
-		goToDayView();
-	}
+	goBack();
 }
 
 function openModal() {
@@ -103,7 +95,6 @@ function setDateTime() {
 	setEventEndDate();
 }
 
-//* CREO EL OBJETO EVENTO Y LO GUARDO EN LOCAL STORAGE
 function newEventCreate(e, newEventsArray) {
 	if (!localStorage.getItem("new-event")) {
 		newEventsArray = [];
@@ -129,7 +120,6 @@ function newEventCreate(e, newEventsArray) {
 	};
 
 	// final date por defecto mismo dia, final time por defecto final del dia.
-
 	if (!document.getElementById("set-event-end-date").checked) {
 		//mismo dia de evento si no se setea end date
 		newEventObject.final_date = newEventObject.initial_date;
@@ -174,7 +164,7 @@ function newEventCreate(e, newEventsArray) {
 	localStorage.setItem("new-event", newEventsString);
 
 	if (document.getElementById("alarm").checked) {
-		console.log("entr aqui poorque tiene alarma");
+		console.log("entre aqui porque tiene alarma");
 		arrayAlarmObjectCreate();
 		alarmPopUp(newEventObject);
 		//funcion de alarma q le pase el neweventobject
@@ -182,4 +172,4 @@ function newEventCreate(e, newEventsArray) {
 	closeModal();
 }
 
-export { openModal, doIfChecked };
+export { openModal };
