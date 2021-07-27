@@ -1,10 +1,7 @@
-
-
 body {
   font-family: Arial, Helvetica, sans-serif;
   width: 90%;
   margin: 3vh auto;
-  min-width: 740px; /*para escritorio*/
 }
 * {
   margin:0;
@@ -20,7 +17,6 @@ h2{
 }
 
 button {
- 
   border: none;
     cursor: pointer;
     width: 100%;
@@ -31,6 +27,86 @@ button:hover {
   opacity: 1;
 }
 
+@media only screen and (min-width: 740px) {
+  body{
+    min-width: 740px; /*para escritorio*/
+  }
+}
 
+@media only screen and (max-width: 740px) {
+  body{
+    max-width: 700px;
+    font-size: 70%;
+  }
+  .buttons-header{
+    font-size: 100%;
+  }
+  h1{
+    font-size: 280%;
+  }
+  .month-event{
+    font-size: 80%;
+  }
+}
 
+@media only screen and (max-width: 480px) {
+  body{
+    max-width: 480px;
+    font-size: 62%;
+  }
+  .go-today-button{
+    font-size: 110%;
+  }
+  .buttons-header{
+    font-size: 100%;
+    padding: 0.9rem;
+  }
+  h1{
+    font-size: 225%;
+  }
+  h4{
+    font-size: 85%;
+  }
+  .month-event{
+    font-size: 80%;
+  }
+  .day-time{
+    font-size: 85%;
+  }
+  textarea{
+    max-width: 80%;
+  }
+}
 
+@media only screen and (max-width: 320px) {
+  body{
+    max-width: 320px;
+    font-size: 60%;
+  }
+  .go-today-button{
+    font-size: 120%;
+  }
+  .buttons-header{
+    font-size: 100%;
+    width: 80%;
+    padding: 0.7rem;
+  }
+  h1{
+    font-size: 200%;
+  }
+  h4{
+    font-size: 85%;
+  }
+  .month-event{
+    font-size: 80%;
+  }
+  .day-time{
+    font-size: 70%;
+  }
+  label{
+    flex-direction: column;
+  }
+  textarea{
+    max-width: 90%;
+  }
+}
