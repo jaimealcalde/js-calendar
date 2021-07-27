@@ -92,7 +92,6 @@ function addNew(arrayObjetos, id) {
 		const element = arrayObjetos[index];
 
 		if (element.id == id) {
-			console.log(element.id, id);
 			eventToShow = element;
 		}
 	}

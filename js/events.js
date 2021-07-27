@@ -216,13 +216,10 @@ function chooseObject() {
 	let key;
 	const test = exp.test(objectId);
 
-	console.log(test);
 	if (test) {
-		console.log("estoy en pre");
 		key = "pre-saved-events";
 		events = JSON.parse(localStorage.getItem(key));
 	} else {
-		console.log("estoy en new-event");
 		key = "new-event";
 		events = JSON.parse(localStorage.getItem(key));
 	}
@@ -237,25 +234,16 @@ function deleteEvent() {
 	let key = variables[1];
 	let events = variables[0];
 
-	console.log(events);
-	console.log(key);
-
 	for (const iterator of events) {
-		console.log(iterator.id, objectId);
 		if (iterator.id == objectId) {
-			console.log("entre a borrar");
 			if (iterator.alarm) {
 				deleteAlarm(objectId);
 			}
 			indexEvent = events.indexOf(iterator); //calculo en donde esta ese objeto
-			console.log(indexEvent, "index del evento");
-			events.splice(indexEvent, 1);
-			console.log(events, "evento luego del splice");
+			events.splice(indexEvent, 1); //borro el evento de ese array
 		}
 	}
-	//borro el evento de ese array
-
-	console.log("guardando en local", events, key);
+	console.log("guardando en local storage nuevo array de eventos", events, key);
 	localStorage.setItem(key, JSON.stringify(events)); //lo guardo en localstorage
 	closeModal();
 }
