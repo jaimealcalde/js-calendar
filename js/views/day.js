@@ -120,6 +120,21 @@ function loadDayEvents(newEvent, clickedDay) {
 
   eventsArray.sort(compare);
 
+  newEvent.forEach((clickedDay) => {
+    if (clickedDay.between_dates) {
+      clickedDay.between_dates.forEach((everyDate) => {
+        if (
+          getEventDay(everyDate) == clickedDay &&
+          getEventMonth(everyDate) - 1 == monthObject.date.getMonth() &&
+          getEventYear(everyDate) == monthObject.date.getFullYear()
+        ) {
+          eventsArray.unshift(clickedDay);
+          console.log(eventArray);
+        }
+      });
+    }
+  });
+
   insertDayEvents(eventsArray);
 }
 
@@ -166,11 +181,23 @@ function insertDayEvents(dailyEvents) {
       newEvent.style.gridColumnStart = i + 2;
       newEvent.style.gridColumnEnd = i + 2;
 
-      newEvent.style.gridRowStart =
-        getEventTime(dailyEvents[i].initial_time) / 5 + 1;
-      newEvent.style.gridRowEnd =
-        Math.round(getEventTime(dailyEvents[i].final_time) / 5) + 1;
-
+      if (dailyEvents[i].between_dates) {
+        newEvent.style.gridRowStart = 1;
+        if (
+          dailyEvents[i].between_dates[dailyEvents[i].between_dates.length] -
+            1 ==
+          dailyEvents[i].final_date
+        ) {
+          newEvent.style.gridRowEnd =
+            Math.round(getEventTime(dailyEvents[i].final_time) / 5) + 1;
+        }
+        newEvent.style.gridRowEnd = 288;
+      } else {
+        newEvent.style.gridRowStart =
+          getEventTime(dailyEvents[i].initial_time) / 5 + 1;
+        newEvent.style.gridRowEnd =
+          Math.round(getEventTime(dailyEvents[i].final_time) / 5) + 1;
+      }
       if (dailyEvents[i].title.length > 15) {
         let shortTitle = dailyEvents[i].title.slice(0, 15);
         shortTitle = shortTitle + "...";

@@ -207,7 +207,10 @@ function chargeMonthEvents(newEventsArray) {
           }
         }
         eventArray.sort(compare);
-      } else if (newEvent.between_dates) {
+      }
+    });
+    newEventsArray.forEach((newEvent) => {
+      if (newEvent.between_dates) {
         newEvent.between_dates.forEach((everyDate) => {
           if (
             getEventDay(everyDate) == i &&
