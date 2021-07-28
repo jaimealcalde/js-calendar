@@ -19,13 +19,9 @@ function modalAlarma(id) {
 		if (iterator.id == id) {
 			console.log("guardando-evento");
 			localStorage.setItem("alarm-id-playing", iterator.id);
-			document.getElementById("alarm-message").innerHTML =
-				"Alarma del evento " +
-				iterator.title +
-				"que empieza el: " +
-				iterator.initial_date +
-				" a las: " +
-				iterator.initial_time;
+			document.getElementById("alarm-message").innerHTML = iterator.title;
+			document.getElementById("starts").innerHTML =
+				iterator.initial_date + " , " + iterator.initial_time;
 		}
 	}
 

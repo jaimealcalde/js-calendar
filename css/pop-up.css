@@ -69,19 +69,18 @@
 
   }
 
-  
-  button.go-to-event{
+.h3-alarm{
+color:red;
+}
 
+  button.go-to-event{
     background-color: #2a2d32;
     border: none;
     border-radius: 5px;
     padding: 1rem;
     font-size: 1.1rem;
-
     color: grey;
-    
     width: 40%;
-  
   }
 
   .pop-up-buttons{
