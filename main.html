@@ -227,15 +227,19 @@
 		<div id="cookiesPopup" class="pop-up-container">
 			<div class="cookiesContent">
 				<button id="close-pop-up" class="close-pop-up">✖</button>
-				<img src="img/clock-icon.png" alt="alarm-img" />
+				<img class="img-alarm" src="img/clock-icon.png" alt="alarm-img" />
 				<h3 class="h3-alarm p-pop-up">Hey!</h3>
 				<p class="p-pop-up"><b>This is your reminder for the event:</b></p>
 				<p class="p-pop-up" id="alarm-message"></p>
 				<p class="p-pop-up"><b>That starts at:</b></p>
 				<p class="p-pop-up" id="starts"></p>
 				<div class="pop-up-buttons">
-					<button id="accept-button-alarm" class="accept">That's fine!</button>
-					<button id="goEvent" class="go-to-event">Go to Event!</button>
+					<button id="accept-button-alarm" class="alarm-button go-accept">
+						That's fine!
+					</button>
+					<button id="goEvent" class="alarm-button go-to-event">
+						Go to Event!
+					</button>
 				</div>
 				<audio>
 					<source src="audio/alarm1.mp3" type="audio/mpeg" />
@@ -249,15 +253,25 @@
 		<div id="reminderPopup" class="reminder-container">
 			<div class="reminderContent">
 				<button id="close-reminder" class="close-reminder">✖</button>
-				<img src="img/calendar-icon.png" alt="calendar-img" />
+				<img
+					class="img-reminder"
+					src="img/calendar-icon.png"
+					alt="calendar-img"
+				/>
 				<h3 class="h3-alarm p-reminder">Expired</h3>
 				<p class="p-reminder"><b>This event has already started:</b></p>
 				<p class="p-reminder" id="reminder-message"></p>
 				<div class="reminder-buttons">
-					<button id="accept-button-reminder" class="accept-button-reminder">
+					<button
+						id="accept-button-reminder"
+						class="accept-button-reminder reminder-btn"
+					>
 						Thanks!
 					</button>
-					<button id="goToEventReminder" class="go-to-event">
+					<button
+						id="goToEventReminder"
+						class="go-to-event-reminder reminder-btn"
+					>
 						Go to Event!
 					</button>
 				</div>
