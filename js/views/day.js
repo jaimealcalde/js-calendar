@@ -5,7 +5,6 @@ import {
 	getEventMonth,
 	getEventYear,
 	getEventTime,
-	monthObject,
 	toObjectDate,
 	monthNames,
 	clearNavigationEventListeners,
@@ -62,8 +61,8 @@ function setDay(e) {
 function printTitle() {
 	let title = document.querySelector("#day-title");
 	title.textContent = `${
-		monthNames[monthObject.date.getMonth()]
-	} ${monthObject.date.getDate()} ${monthObject.date.getFullYear()}`;
+		monthNames[monthObject.getMonth()]
+	} ${monthObject.getDate()} ${monthObject.getFullYear()}`;
 
 	// Activate go to month button
 	let toMonthButton = document.getElementById("display-month");
@@ -122,13 +121,17 @@ function removeDayEventListeners() {
 }
 
 function loadDayEvents(newEvent, clickedDay) {
+	let monthObject = JSON.parse(localStorage.getItem("month"));
+
 	let eventsArray = [];
 	newEvent.forEach((singleEvent) => {
+		let monthObject = new Date(JSON.parse(localStorage.getItem("month")).date);
+		console.log(monthObject);
 		let monthEvent = getEventMonth(singleEvent.initial_date) - 1;
 		let monthEventFinal = getEventMonth(singleEvent.final_date) - 1;
 		let yearEvent = getEventYear(singleEvent.initial_date);
-		let monthDisplayedOnCalendar = monthObject.date.getMonth();
-		let yearDisplayed = monthObject.date.getFullYear();
+		let monthDisplayedOnCalendar = monthObject.getMonth();
+		let yearDisplayed = monthObject.getFullYear();
 
 		if (monthEvent == monthDisplayedOnCalendar && yearEvent == yearDisplayed) {
 			//todos los casos en que el evento debe ser agregado
@@ -295,27 +298,28 @@ function goBeforeDay() {
 
 	dayDisplay();
 }
-
+let monthObject = new Date(JSON.parse(localStorage.getItem("month")).date);
 function hiddenDayNavButtons() {
+	let monthObject = new Date(JSON.parse(localStorage.getItem("month")).date);
 	let limitDate = new Date(
-		monthObject.date.getFullYear(),
-		monthObject.date.getMonth() + 1,
+		monthObject.getFullYear(),
+		monthObject.getMonth() + 1,
 		0
 	);
 
 	toObjectDate();
 	if (
-		monthObject.date.getMonth() == monthObject.limitMonth &&
-		monthObject.date.getFullYear() == monthObject.limitYearAfter &&
-		monthObject.date.getDate() == limitDate.getDate()
+		monthObject.getMonth() == monthObject.limitMonth &&
+		monthObject.getFullYear() == monthObject.limitYearAfter &&
+		monthObject.getDate() == limitDate.getDate()
 	) {
 		document
 			.querySelector('[data-action="next-day"]')
 			.classList.add("invisible");
 	} else if (
-		monthObject.date.getMonth() == monthObject.limitMonth &&
-		monthObject.date.getFullYear() == monthObject.limitYearBefore &&
-		monthObject.date.getDate() == 1
+		monthObject.getMonth() == monthObject.limitMonth &&
+		monthObject.getFullYear() == monthObject.limitYearBefore &&
+		monthObject.getDate() == 1
 	) {
 		document
 			.querySelector('[data-action="before-day"]')

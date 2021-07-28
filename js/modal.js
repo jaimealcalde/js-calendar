@@ -41,9 +41,9 @@ function enterKeyTyped(e) {
 }
 
 function openModal() {
-	document
-		.getElementById("open-modal")
-		.removeEventListener("click", goToCreateEvent);
+	//document
+	//.getElementById("open-modal")
+	//.removeEventListener("click", goToCreateEvent);
 
 	window.removeEventListener("keydown", pressEnter);
 
