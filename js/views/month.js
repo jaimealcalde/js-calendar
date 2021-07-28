@@ -301,6 +301,7 @@ function addEventListenerDays() {
 	for (const eventos of eventosMes) {
 		eventos.addEventListener("click", selectId);
 	}
+	window.addEventListener("keydown", changeMonth);
 }
 //erase navigationEventSLiteners
 function clearNavigationEventListeners() {
@@ -322,10 +323,13 @@ function clearNavigationEventListeners() {
 			eventos.removeEventListener("click", selectId);
 		}
 	}
+
+	window.removeEventListener("keydown", changeMonth);
 }
 
 function changeMonth(e) {
-	if (e.target.dataset.action == "next-button") {
+	if (e.target.dataset.action == "next-button" || e.key == "ArrowRight") {
+		e.preventDefault();
 		toObjectDate();
 		if (
 			monthObject.date.getFullYear() >= monthObject.limitYearAfter &&
@@ -341,7 +345,11 @@ function changeMonth(e) {
 			todayRed();
 			addEventListenerDays();
 		}
-	} else if (e.target.dataset.action == "before-button") {
+	} else if (
+		e.target.dataset.action == "before-button" ||
+		e.key == "ArrowLeft"
+	) {
+		e.preventDefault();
 		if (
 			monthObject.date.getFullYear() <= monthObject.limitYearBefore &&
 			monthObject.date.getMonth() <= monthObject.limitMonth
