@@ -231,7 +231,6 @@ function chargeMonthEvents(newEventsArray) {
 				}
 
 				eventArray.sort(compare);
-				console.log(eventArray);
 			}
 		});
 		/* newEventsArray.forEach((newEvent) => {

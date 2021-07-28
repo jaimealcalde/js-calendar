@@ -68,6 +68,14 @@ function setEventDateLimits() {
 		.getElementById("event-start")
 		.setAttribute("max", getFullDate(new Date(Date.now()), 1, 0, 0));
 
+	document
+		.getElementById("event-end-date")
+		.setAttribute("min", getFullDate(new Date(Date.now()), 0, 0, 0));
+
+	document
+		.getElementById("event-end-date")
+		.setAttribute("max", getFullDate(new Date(Date.now()), 1, 0, 0));
+
 	document.getElementById("event-start").value = getFullDate(
 		new Date(Date.now()),
 		0,
