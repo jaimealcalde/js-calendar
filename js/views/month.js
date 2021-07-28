@@ -398,8 +398,8 @@ function monthDisplay() {
 	clearNavigationEventListeners();
 	printMonth();
 	setLimitDates();
-	hiddenMonthButtons();
 	setStandardCalendar();
+	hiddenMonthButtons();
 	todayRed();
 	addEventListenerDays();
 }
