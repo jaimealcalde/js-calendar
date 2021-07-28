@@ -250,10 +250,16 @@
 			<div class="reminderContent">
 				<button id="close-reminder" class="close-reminder">✖</button>
 				<img src="img/calendar-icon.png" alt="calendar-img" />
+				<h3 class="h3-alarm p-reminder">Expired</h3>
+				<p class="p-reminder"><b>This event has already started:</b></p>
 				<p class="p-reminder" id="reminder-message"></p>
 				<div class="reminder-buttons">
-					<button class="accept">Thanks!</button>
-					<button id="goToEvent" class="go-to-event">Go to Event!</button>
+					<button id="accept-button-reminder" class="accept-button-reminder">
+						Thanks!
+					</button>
+					<button id="goToEventReminder" class="go-to-event">
+						Go to Event!
+					</button>
 				</div>
 				<audio>
 					<source src="audio/alarm2.mp3" type="audio/mpeg" />

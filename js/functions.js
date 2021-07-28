@@ -1,5 +1,6 @@
 import { start } from "./main.js";
 import { gotoDay } from "./views/month.js";
+import { modalReminder } from "./views/reminder-pop-up.js";
 
 function doubleDigits(someNumber) {
 	if (someNumber < 10) {
@@ -94,6 +95,7 @@ function isExpiredEvent(evento) {
 	return evento;
 }
 
+//* When event is expired
 function timeIsOut(evento) {
 	let eventsArray = JSON.parse(localStorage.getItem("new-event"));
 
@@ -102,11 +104,11 @@ function timeIsOut(evento) {
 			iterator.is_expired = true;
 			clearTimeout(iterator.timeoutExpiredID);
 			iterator.timeoutExpiredID = "";
-			//*TODO cambiar el color cuando esta expirado
 		}
 	}
 
 	localStorage.setItem("new-event", JSON.stringify(eventsArray));
+	modalReminder(evento.id);
 }
 
 function resetCalendar() {

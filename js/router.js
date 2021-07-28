@@ -13,7 +13,7 @@ function navigate() {
 		openModal();
 	} else if (location.hash == "#show-event") {
 		showEvent();
-	} else if (location.hash == "#show-event") {
+	} else if (location.hash == "#edit-event") {
 		editEvent();
 	}
 }
