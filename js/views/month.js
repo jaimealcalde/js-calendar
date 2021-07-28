@@ -151,7 +151,6 @@ function setStandardCalendar() {
 }
 
 function pressSpace(e) {
-	e.preventDefault();
 	if (e.key == " ") {
 		gotoDay();
 	}
@@ -339,7 +338,6 @@ function clearNavigationEventListeners() {
 
 function changeMonth(e) {
 	if (e.target.dataset.action == "next-button" || e.key == "ArrowRight") {
-		e.preventDefault();
 		toObjectDate();
 		if (
 			monthObject.date.getFullYear() >= monthObject.limitYearAfter &&
@@ -359,7 +357,6 @@ function changeMonth(e) {
 		e.target.dataset.action == "before-button" ||
 		e.key == "ArrowLeft"
 	) {
-		e.preventDefault();
 		if (
 			monthObject.date.getFullYear() <= monthObject.limitYearBefore &&
 			monthObject.date.getMonth() <= monthObject.limitMonth
