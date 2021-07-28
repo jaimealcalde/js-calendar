@@ -1,11 +1,12 @@
 import { deleteAlarm } from "../alarm.js";
 import { goBack, goToShowEvent } from "../router.js";
+import { openEvent } from "./modalShowEvents.js";
 
 document.getElementById("close-pop-up").addEventListener("click", closePopUp);
 document
 	.getElementById("accept-button-alarm")
 	.addEventListener("click", closePopUp);
-document.getElementById("goEvent").addEventListener("click", goToShowEvent);
+document.getElementById("goEvent").addEventListener("click", showEventAlarm);
 let popup = document.getElementById("cookiesPopup");
 
 function modalAlarma(id) {
@@ -16,6 +17,8 @@ function modalAlarma(id) {
 
 	for (const iterator of eventsArray) {
 		if (iterator.id == id) {
+			console.log("guardando-evento");
+			localStorage.setItem("alarm-id-playing", iterator.id);
 			document.getElementById("alarm-message").innerHTML =
 				"Alarma del evento " +
 				iterator.title +
@@ -32,6 +35,15 @@ function modalAlarma(id) {
 function closePopUp() {
 	popup.style.display = "none";
 	goBack();
+}
+
+function showEventAlarm() {
+	let id = JSON.parse(localStorage.getItem("alarm-id-playing"));
+
+	//Set item localStorage
+	localStorage.setItem("objectId", id);
+	popup.style.display = "none";
+	openEvent();
 }
 
 export { modalAlarma };

@@ -59,13 +59,13 @@ function alarmTimeout(evento) {
 					element.id
 				);
 				//puse 9000 que es 9 segs por probar
+				/* 	element["timeoutID"] = setTimeout(function () {
+					modalAlarma(element.id);
+				}, 6000); */
+
 				element["timeoutID"] = setTimeout(function () {
 					modalAlarma(element.id);
-				}, 6000);
-
-				/* element["timeoutID"] = setTimeout(function () {
-					modalAlarma(element.id);
-				}, alarmTimeToGo); */
+				}, alarmTimeToGo);
 			}
 		}
 		localStorage.setItem("alarm-events", JSON.stringify(alarms));
@@ -88,6 +88,7 @@ function deleteAlarm(eventoId) {
 	alarms.splice(indexAlarm, 1); //borro la alarma de ese array
 
 	localStorage.setItem("alarm-events", JSON.stringify(alarms)); //lo guardo en localstorage
+
 	expiredAlarm(eventoId);
 }
 
@@ -102,6 +103,7 @@ function expiredAlarm(id) {
 	}
 
 	localStorage.setItem("new-event", JSON.stringify(eventsArray));
+	//localStorage.removeItem("alarm-id-playing");
 	//EVENT LISTENER de que si algo esta expired que se ponga oscuro gris.
 }
 
