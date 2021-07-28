@@ -206,6 +206,7 @@ function setNewEvents() {
 }
 
 let objectId = JSON.parse(localStorage.getItem("objectId"));
+
 function editEvent() {
 	//borrar todo lo que hay antes en el modal y luego cargar con el value los valores del objeto
 	//Carga el modal de new event con los values del objeto

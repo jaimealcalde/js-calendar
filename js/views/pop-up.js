@@ -1,8 +1,11 @@
 import { deleteAlarm } from "../alarm.js";
-import { goBack, goToEditEvent } from "../router.js";
+import { goBack, goToShowEvent } from "../router.js";
 
 document.getElementById("close-pop-up").addEventListener("click", closePopUp);
-document.getElementById("goEvent").addEventListener("click", goToEditEvent);
+document
+	.getElementById("accept-button-alarm")
+	.addEventListener("click", closePopUp);
+document.getElementById("goEvent").addEventListener("click", goToShowEvent);
 let popup = document.getElementById("cookiesPopup");
 
 function modalAlarma(id) {
