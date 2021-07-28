@@ -18,8 +18,8 @@ function closeModal() {
 	document.getElementById("modal-title").innerHTML = "New Event";
 	document.getElementById("title").value = "New event";
 	document.getElementById("set-all-day-event").checked = true;
-	document.getElementById("event-start").value = "";
-	document.getElementById("event-end-date").value = "";
+	document.getElementById("event-start").value = "2021-07-31";
+	document.getElementById("event-end-date").value = "2021-07-31";
 	document.getElementById("event-start-time").value = "00:00";
 	document.getElementById("event-end-time").value = "23:59";
 	document.getElementById("alarm").checked = false;
