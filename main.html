@@ -20,7 +20,10 @@
 					<p>Set the details for the event</p>
 
 					<div class="containter__vertical-form">
-						<label>Title: <input id="title" type="text" value="My first Event"required /></label>
+						<label
+							>Title:
+							<input id="title" type="text" value="My first Event" required
+						/></label>
 
 						<label for="event-start"
 							>Start date:<input
@@ -152,77 +155,109 @@
 		<div id="showEventContainer" class="modal">
 			<span id="cross-show-container" class="close" title="Close Modal">×</span>
 			<div class="modal-content">
-			<div class="container">
-				<div class="show-event-header">
-				<h2>Event</h2>
-				<p>See the details for the event</p>
-			</div>
-			<section class="event-content">
-				<div id="title">
-					<h4 class="new-event-h4">Title:</h4>
-					<p id="titleEvent"></p>
-				</div>
-				<div id="initialDate">
-					<h4 class="new-event-h4">Start Date:</h4>
-					<p id="dateEvent"></p>
-				</div>
-				<div id="startTime">
-					<h4 class="new-event-h4">Start Time:</h4>
-					<p id="timeEvent"></p>
-				</div>
-				<div id="finalDate">
-					<h4 class="new-event-h4">End Date:</h4>
-					<p id="endDateEvent"></p>
-				</div>
-				<div id="finalTime">
-					<h4 class="new-event-h4">End Time:</h4>
-					<p id="endTimeEvent"></p>
-				</div>
-				<div id="alarm">
-					<h4 class="new-event-h4">Alarm:</h4>
-					<p id="alarmEvent"></p>
-				</div>
-				<div id="expires">
-					<h4 class="new-event-h4">Expiration Reminder:</h4>
-					<p id="expiresEvent"></p>
-				</div>
-				<div id="note">
-					<h4 class="new-event-h4">Details:</h4>
-					<p id="noteEvent"></p>
-				</div>
-				<div id="Type">
-					<h4 class="new-event-h3">Event Type:</h4>
-					<p id="typeEvent"></p>
-				</div>
-			</section>
-				<div class="show-event-buttons-container">
-					<button id="cancel-event" class="show-event-button show-event-cancel-btn">Cancel</button>
-					<button id="edit-event" class="show-event-button show-event-edit-btn">Edit</button>
-					<button id="delete-event"class="show-event-button show-event-delete-btn">Delete</button>
+				<div class="container">
+					<div class="show-event-header">
+						<h2>Event</h2>
+						<p>See the details for the event</p>
+					</div>
+					<section class="event-content">
+						<div id="title">
+							<h4 class="new-event-h4">Title:</h4>
+							<p id="titleEvent"></p>
+						</div>
+						<div id="initialDate">
+							<h4 class="new-event-h4">Start Date:</h4>
+							<p id="dateEvent"></p>
+						</div>
+						<div id="startTime">
+							<h4 class="new-event-h4">Start Time:</h4>
+							<p id="timeEvent"></p>
+						</div>
+						<div id="finalDate">
+							<h4 class="new-event-h4">End Date:</h4>
+							<p id="endDateEvent"></p>
+						</div>
+						<div id="finalTime">
+							<h4 class="new-event-h4">End Time:</h4>
+							<p id="endTimeEvent"></p>
+						</div>
+						<div id="alarm">
+							<h4 class="new-event-h4">Alarm:</h4>
+							<p id="alarmEvent"></p>
+						</div>
+						<div id="expires">
+							<h4 class="new-event-h4">Expiration Reminder:</h4>
+							<p id="expiresEvent"></p>
+						</div>
+						<div id="note">
+							<h4 class="new-event-h4">Details:</h4>
+							<p id="noteEvent"></p>
+						</div>
+						<div id="Type">
+							<h4 class="new-event-h3">Event Type:</h4>
+							<p id="typeEvent"></p>
+						</div>
+					</section>
+					<div class="show-event-buttons-container">
+						<button
+							id="cancel-event"
+							class="show-event-button show-event-cancel-btn"
+						>
+							Cancel
+						</button>
+						<button
+							id="edit-event"
+							class="show-event-button show-event-edit-btn"
+						>
+							Edit
+						</button>
+						<button
+							id="delete-event"
+							class="show-event-button show-event-delete-btn"
+						>
+							Delete
+						</button>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 
-		<!--POP UP-->
+		<!--POP UP ALARMA -->
 
 		<div id="cookiesPopup" class="pop-up-container">
 			<div class="cookiesContent">
 				<button id="close-pop-up" class="close-pop-up">✖</button>
-				<img
-					src="img/clock-icon.png"
-					alt="alarm-img"
-				/>
+				<img src="img/clock-icon.png" alt="alarm-img" />
 				<p class="p-pop-up">Hey!</p>
 				<p class="p-pop-up" id="alarm-message"></p>
 				<div class="pop-up-buttons">
-				<button class="accept">That's fine!</button>
-				<button id="goEvent" class="go-to-event">Go to Event!</button>
-			</div>
+					<button class="accept">That's fine!</button>
+					<button id="goEvent" class="go-to-event">Go to Event!</button>
+				</div>
 				<audio>
-					<source src="audio/alarm1.mp3" type="audio/mpeg">
-					<source src="audio/alarm1.ogg" type="audio/ogg">
+					<source src="audio/alarm1.mp3" type="audio/mpeg" />
+					<source src="audio/alarm1.ogg" type="audio/ogg" />
 				</audio>
+			</div>
+		</div>
+
+		<!--POP UP REMINDER -->
+
+		<div id="reminderPopup" class="reminder-container">
+			<div class="reminderContent">
+				<button id="close-reminder" class="close-reminder">✖</button>
+				<img src="img/clock-icon.png" alt="alarm-img" />
+				<p class="p-reminder">Hey!</p>
+				<p class="p-reminder" id="reminder-message"></p>
+				<div class="reminder-buttons">
+					<button class="accept">Thanks!</button>
+					<button id="goToEvent" class="go-to-event">Go to Event!</button>
+				</div>
+				<audio>
+					<source src="audio/alarm2.mp3" type="audio/mpeg" />
+					<source src="audio/alarm2.ogg" type="audio/ogg" />
+				</audio>
+			</div>
 		</div>
 	</body>
 </html>
