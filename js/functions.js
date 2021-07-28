@@ -1,4 +1,5 @@
 import { start } from "./main.js";
+import { goToMonth } from "./router.js";
 import { gotoDay } from "./views/month.js";
 import { modalReminder } from "./views/reminder-pop-up.js";
 
@@ -114,7 +115,7 @@ function timeIsOut(evento) {
 function resetCalendar() {
 	localStorage.clear();
 	start();
-	gotoDay();
+	goToMonth();
 }
 
 export {

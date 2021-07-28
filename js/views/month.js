@@ -203,14 +203,25 @@ function chargeMonthEvents(newEventsArray) {
 		//los que coincida el mes con el mes corriente
 		//y os pongo dentro del evento array
 		newEventsArray.forEach((newEvent) => {
-			if (
-				getEventDay(newEvent.initial_date) == i &&
-				getEventMonth(newEvent.initial_date) - 1 ==
-					monthObject.date.getMonth() &&
-				getEventYear(newEvent.initial_date) == monthObject.date.getFullYear()
-			) {
-				eventArray.push(newEvent);
+			// i es el dia
 
+			let monthEvent = getEventMonth(newEvent.initial_date) - 1;
+			let yearEvent = getEventYear(newEvent.initial_date);
+			let monthDisplayedOnCalendar = monthObject.date.getMonth();
+			let yearDisplayed = monthObject.date.getFullYear();
+
+			if (
+				monthEvent == monthDisplayedOnCalendar &&
+				yearEvent == yearDisplayed
+			) {
+				//todos los casos en que el evento debe ser agregado
+
+				let dayEvent = getEventDay(newEvent.initial_date);
+				let finalDayEvent = getEventDay(newEvent.final_date);
+
+				if (dayEvent <= i && finalDayEvent >= i) {
+					eventArray.push(newEvent);
+				}
 				function compare(a, b) {
 					if (getEventTime(a.initial_time) == getEventTime(b.initial_time)) {
 						return getEventTime(a.final_time) - getEventTime(b.final_time);
@@ -218,10 +229,12 @@ function chargeMonthEvents(newEventsArray) {
 						return getEventTime(a.initial_time) - getEventTime(b.initial_time);
 					}
 				}
+
 				eventArray.sort(compare);
+				console.log(eventArray);
 			}
 		});
-		newEventsArray.forEach((newEvent) => {
+		/* newEventsArray.forEach((newEvent) => {
 			if (newEvent.between_dates) {
 				newEvent.between_dates.forEach((everyDate) => {
 					if (
@@ -233,7 +246,7 @@ function chargeMonthEvents(newEventsArray) {
 					}
 				});
 			}
-		});
+		}); */
 
 		//eventarray es array con eventos a insertar
 		// 0 1 2 recorro los div, inserto los titulos.
