@@ -254,7 +254,6 @@ function insertDayEvents(dailyEvents) {
 // CAMBIAR FECHA LOCAL A UN DIA MAS. ACTUALIZARLO EN LOCALSTORAGE
 
 function keyDownOption(e) {
-	e.preventDefault();
 	switch (e.key) {
 		case "ArrowLeft":
 			goBeforeDay();

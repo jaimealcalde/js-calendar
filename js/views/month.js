@@ -1,7 +1,7 @@
 import { wrapper } from "../main.js";
 import { templateMonth } from "./templates.js";
 import { printHeader } from "./header.js";
-import { setDay, eventToColor } from "./day.js";
+import { setDay, eventToColor, removeDayEventListeners } from "./day.js";
 import { setEventsOnLocal } from "../functions.js";
 import { selectId } from "./modalShowEvents.js";
 
@@ -403,6 +403,9 @@ function todayRed() {
 
 function monthDisplay() {
 	clearNavigationEventListeners();
+	if (document.getElementById("dayView")) {
+		removeDayEventListeners();
+	}
 	printMonth();
 	setLimitDates();
 	setStandardCalendar();

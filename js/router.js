@@ -1,6 +1,6 @@
 import { monthDisplay } from "./views/month.js";
 import { openModal } from "./modal.js";
-import { dayDisplay, removeDayEventListeners } from "./views/day.js";
+import { dayDisplay } from "./views/day.js";
 import { showEvent } from "./views/modalShowEvents.js";
 import { editEvent } from "./events.js";
 
@@ -13,7 +13,7 @@ function navigate() {
 		openModal();
 	} else if (location.hash == "#show-event") {
 		showEvent();
-	} else if (location.hash == "#edit-event") {
+	} else if (location.hash == "#fix-event") {
 		editEvent();
 	}
 }
@@ -39,7 +39,7 @@ function goBack() {
 }
 
 function goToEditEvent() {
-	location.hash = "edit-event";
+	location.hash = "fix-event";
 }
 
 function goToShowEvent() {
