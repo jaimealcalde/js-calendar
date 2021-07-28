@@ -144,9 +144,17 @@ function setStandardCalendar() {
 	});
 
 	document.getElementById("goToday").addEventListener("click", gotoDay);
+	window.addEventListener("keydown", pressSpace);
 
 	let arrayEventos = sumEventsArray();
 	chargeMonthEvents(arrayEventos);
+}
+
+function pressSpace(e) {
+	e.preventDefault();
+	if (e.key == " ") {
+		gotoDay();
+	}
 }
 
 function sumEventsArray() {
@@ -323,6 +331,8 @@ function clearNavigationEventListeners() {
 			eventos.removeEventListener("click", selectId);
 		}
 	}
+
+	window.removeEventListener("keydown", pressSpace);
 
 	window.removeEventListener("keydown", changeMonth);
 }
