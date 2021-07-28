@@ -430,4 +430,5 @@ export {
 	monthNames,
 	today,
 	sumEventsArray,
+	clearNavigationEventListeners,
 };

@@ -1,6 +1,6 @@
 import { monthDisplay } from "./views/month.js";
 import { openModal } from "./modal.js";
-import { dayDisplay, printDay } from "./views/day.js";
+import { dayDisplay, removeDayEventListeners } from "./views/day.js";
 import { showEvent } from "./views/modalShowEvents.js";
 import { editEvent } from "./events.js";
 
@@ -18,8 +18,7 @@ function navigate() {
 	}
 }
 
-function goToCreateEvent(e) {
-	e.preventDefault();
+function goToCreateEvent() {
 	location.hash = "new-event";
 }
 

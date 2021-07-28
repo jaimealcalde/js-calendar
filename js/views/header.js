@@ -23,6 +23,7 @@ function printHeader() {
 		.getElementById("open-modal")
 		.addEventListener("click", goToCreateEvent);
 
+	window.addEventListener("keydown", pressEnter);
 	//button reset
 
 	document
@@ -30,4 +31,11 @@ function printHeader() {
 		.addEventListener("click", resetCalendar);
 }
 
-export { printHeader };
+function pressEnter(e) {
+	e.preventDefault();
+	if (e.key == "Enter") {
+		goToCreateEvent();
+	}
+}
+
+export { printHeader, goToCreateEvent, pressEnter };

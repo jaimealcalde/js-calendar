@@ -1,5 +1,4 @@
 var templateMonth = `<template id="month">
-
 		<div id="monthView" class="month-wrapper">
 			<nav class="month-header">
 				<div data-action="before-button"class="nav-button"><img data-action="before-button" class="arrow-nav-left-img"

@@ -8,11 +8,11 @@ import {
 	monthObject,
 	toObjectDate,
 	monthNames,
-	today,
+	clearNavigationEventListeners,
 	sumEventsArray,
 } from "./month.js";
 import { goToDayView, goToMonth } from "../router.js";
-import { selectId } from "./modalShowEvents.js";
+import { closeModal, selectId } from "./modalShowEvents.js";
 import { setEventsOnLocal } from "../functions.js";
 import { printHeader } from "./header.js";
 
@@ -71,6 +71,9 @@ function printTitle() {
 }
 
 function printDay() {
+	clearNavigationEventListeners();
+	window.addEventListener("keydown", keyDownOption);
+
 	wrapper.innerHTML = "";
 	printHeader();
 	let templateThisDay = templateDay;
@@ -89,18 +92,40 @@ function printDay() {
 	let arrayEventos = sumEventsArray();
 
 	loadDayEvents(arrayEventos, clickedDay);
-
 	let nextDay = document.querySelector('[data-action="next-day"]');
 	let beforeDay = document.querySelector('[data-action="before-day"]');
-
 	nextDay.addEventListener("click", goNextDay);
 	beforeDay.addEventListener("click", goBeforeDay);
+}
+
+function removeDayEventListeners() {
+	let nextDay = document.querySelector('[data-action="next-day"]');
+	let beforeDay = document.querySelector('[data-action="before-day"]');
+	nextDay.removeEventListener("click", goNextDay);
+	beforeDay.removeEventListener("click", goBeforeDay);
+	window.removeEventListener("keydown", keyDownOption);
+	let newEvent = document.querySelectorAll(".event-title");
+	if (newEvent) {
+		for (const iterator of newEvent) {
+			iterator.removeEventListener("click", selectId);
+		}
+	}
+	let backgroundFill = document.querySelectorAll(".event-background");
+	if (backgroundFill) {
+		for (const iterator of backgroundFill) {
+			iterator.removeEventListener("click", selectId);
+		}
+	}
+
+	let toMonthButton = document.getElementById("display-month");
+	toMonthButton.removeEventListener("click", goToMonth);
 }
 
 function loadDayEvents(newEvent, clickedDay) {
 	let eventsArray = [];
 	newEvent.forEach((singleEvent) => {
 		let monthEvent = getEventMonth(singleEvent.initial_date) - 1;
+		let monthEventFinal = getEventMonth(singleEvent.final_date) - 1;
 		let yearEvent = getEventYear(singleEvent.initial_date);
 		let monthDisplayedOnCalendar = monthObject.date.getMonth();
 		let yearDisplayed = monthObject.date.getFullYear();
@@ -109,7 +134,12 @@ function loadDayEvents(newEvent, clickedDay) {
 			//todos los casos en que el evento debe ser agregado
 
 			let dayEvent = getEventDay(singleEvent.initial_date);
-			let finalDayEvent = getEventDay(singleEvent.final_date);
+			let finalDayEvent;
+			if (monthEventFinal > monthDisplayedOnCalendar) {
+				finalDayEvent = monthObject.numOfDays;
+			} else {
+				finalDayEvent = getEventDay(singleEvent.final_date);
+			}
 
 			if (dayEvent <= clickedDay && finalDayEvent >= clickedDay) {
 				eventsArray.push(singleEvent);
@@ -125,21 +155,6 @@ function loadDayEvents(newEvent, clickedDay) {
 	}
 
 	eventsArray.sort(compare);
-
-	/* newEvent.forEach((clickedDay) => {
-		if (clickedDay.between_dates) {
-			clickedDay.between_dates.forEach((everyDate) => {
-				if (
-					getEventDay(everyDate) == clickedDay &&
-					getEventMonth(everyDate) - 1 == monthObject.date.getMonth() &&
-					getEventYear(everyDate) == monthObject.date.getFullYear()
-				) {
-					eventsArray.unshift(clickedDay);
-					console.log(eventArray);
-				}
-			});
-		}
-	}); */
 
 	insertDayEvents(eventsArray);
 }
@@ -235,6 +250,20 @@ function insertDayEvents(dailyEvents) {
 
 // CAMBIAR FECHA LOCAL A UN DIA MAS. ACTUALIZARLO EN LOCALSTORAGE
 
+function keyDownOption(e) {
+	e.preventDefault();
+	switch (e.key) {
+		case "ArrowLeft":
+			goBeforeDay();
+			break;
+		case "ArrowRight":
+			goNextDay();
+			break;
+		default:
+			break;
+	}
+}
+
 function goNextDay() {
 	let day = localStorage.getItem("day");
 	day = JSON.parse(day);
@@ -301,4 +330,4 @@ function dayDisplay() {
 	setTimeTable();
 }
 
-export { printDay, setDay, eventToColor, dayDisplay };
+export { printDay, setDay, eventToColor, dayDisplay, removeDayEventListeners };

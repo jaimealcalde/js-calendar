@@ -8,16 +8,13 @@ import {
 import { doIfChecked, getFullDate, isExpiredEvent } from "./functions.js";
 import { deleteEvent, returnObject } from "./events.js";
 
-let modal = document.getElementById("new-event");
+import { goToCreateEvent, pressEnter } from "./views/header.js";
 
-document.getElementById("cancel-btn").addEventListener("click", closeModal);
-document.getElementById("cross").addEventListener("click", closeModal);
-document
-	.getElementById("modal-form")
-	.addEventListener("submit", newEventCreate);
+let modal = document.getElementById("new-event");
 
 function closeModal() {
 	modal.style.display = "none";
+	removeListenersModal();
 	document.getElementById("modal-title").innerHTML = "New Event";
 	document.getElementById("title").value = "New event";
 	document.getElementById("set-all-day-event").checked = true;
@@ -35,9 +32,31 @@ function closeModal() {
 	goBack();
 }
 
+function enterKeyTyped(e) {
+	if (e.key == "Enter") {
+		newEventCreate(e);
+	} else if (e.key == "Escape") {
+		closeModal();
+	}
+}
+
 function openModal() {
+	document
+		.getElementById("open-modal")
+		.removeEventListener("click", goToCreateEvent);
+
+	window.removeEventListener("keydown", pressEnter);
+
 	modal.style.display = "block";
 	setEventDateLimits();
+
+	window.addEventListener("keydown", enterKeyTyped);
+
+	document.getElementById("cancel-btn").addEventListener("click", closeModal);
+	document.getElementById("cross").addEventListener("click", closeModal);
+	document
+		.getElementById("modal-form")
+		.addEventListener("submit", newEventCreate);
 	document
 		.querySelector("input[name=set-all-day-event]")
 		.addEventListener("change", setDateTime);
@@ -59,6 +78,35 @@ function openModal() {
 		.addEventListener("change", setAlarmLimits);
 }
 
+function removeListenersModal() {
+	document
+		.getElementById("cancel-btn")
+		.removeEventListener("click", closeModal);
+	document.getElementById("cross").removeEventListener("click", closeModal);
+	document
+		.getElementById("modal-form")
+		.removeEventListener("submit", newEventCreate);
+	document
+		.querySelector("input[name=set-all-day-event]")
+		.removeEventListener("change", setDateTime);
+	document
+		.querySelector("input[name=set-event-end-date]")
+		.removeEventListener("change", setEventEndDate);
+	document
+		.querySelector("input[name=set-event-end-time]")
+		.removeEventListener("change", setEventEndTime);
+	setAlarmLimits();
+	document
+		.querySelector("input[name=alarm]")
+		.removeEventListener("change", setAlarmTimer);
+	document
+		.getElementById("event-start")
+		.removeEventListener("change", setAlarmLimits);
+	document
+		.getElementById("event-start-time")
+		.removeEventListener("change", setAlarmLimits);
+}
+
 function setEventDateLimits() {
 	//seteo el de dia tmb, limita un año
 	document
@@ -66,14 +114,6 @@ function setEventDateLimits() {
 		.setAttribute("min", getFullDate(new Date(Date.now()), 0, 0, 0));
 	document
 		.getElementById("event-start")
-		.setAttribute("max", getFullDate(new Date(Date.now()), 1, 0, 0));
-
-	document
-		.getElementById("event-end-date")
-		.setAttribute("min", getFullDate(new Date(Date.now()), 0, 0, 0));
-
-	document
-		.getElementById("event-end-date")
 		.setAttribute("max", getFullDate(new Date(Date.now()), 1, 0, 0));
 
 	document.getElementById("event-start").value = getFullDate(
@@ -90,6 +130,14 @@ function setEventEndDate() {
 		["input[name=event-end-date]", "label[for=event-end-date]"],
 		true
 	);
+
+	document
+		.getElementById("event-end-date")
+		.setAttribute("min", document.getElementById("event-start").value);
+
+	document
+		.getElementById("event-end-date")
+		.setAttribute("max", getFullDate(new Date(Date.now()), 1, 0, 0));
 }
 
 function setEventEndTime() {
@@ -119,9 +167,10 @@ function setDateTime() {
 }
 
 //*Crea el objeto del evento y lo guarda en localStorage
-function newEventCreate(e, newEventsArray) {
+function newEventCreate(e) {
 	e.preventDefault();
 	let newEventObject;
+	let newEventsArray;
 	//Si estoy editando
 	if (JSON.parse(localStorage.getItem("edit-flag"))) {
 		newEventObject = returnObject(JSON.parse(localStorage.getItem("objectId")));
