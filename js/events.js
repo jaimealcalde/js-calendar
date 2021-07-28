@@ -2,6 +2,8 @@
 
 import { deleteAlarm } from "./alarm.js";
 import { setEventsOnLocal } from "./functions.js";
+import { openModal } from "./modal.js";
+import { goToEditEvent } from "./router.js";
 import { closeModal } from "./views/modalShowEvents.js";
 
 let eventsArray = [
@@ -205,7 +207,43 @@ function setNewEvents() {
 
 let objectId = JSON.parse(localStorage.getItem("objectId"));
 function editEvent() {
+	//borrar todo lo que hay antes en el modal y luego cargar con el value los valores del objeto
 	//Carga el modal de new event con los values del objeto
+
+	closeModal();
+	localStorage.setItem("edit-flag", "true");
+	//*TODO modifico los input del modal de crear evento y el titulo. AL final cuando hago submit tengo que volverlo al original
+	let eventoAmod = returnObject(objectId);
+	document.getElementById("modal-title").innerHTML = "Edit Event";
+	document.getElementById("title").value = eventoAmod.title;
+	document.getElementById("set-all-day-event").checked = eventoAmod.allday;
+	document.getElementById("event-start").value = eventoAmod.initial_date;
+	document.getElementById("event-end-date").value = eventoAmod.final_date;
+	document.getElementById("event-start-time").value = eventoAmod.initial_time;
+	document.getElementById("event-end-time").value = eventoAmod.final_time;
+	document.getElementById("alarm").checked = eventoAmod.alarm;
+	document.getElementById("alarm-start").value = eventoAmod.alarm_date;
+	document.getElementById("expired").checked = eventoAmod.reminder;
+	document.getElementById("notes").value = eventoAmod.description;
+	document.getElementById("event-type").value = eventoAmod.type;
+	openModal();
+	goToEditEvent();
+}
+
+function returnObject(id) {
+	objectId = JSON.parse(localStorage.getItem("objectId"));
+	//borra el evento segun su id de la lista de eventos y sus alarmas si tiene
+	let variables = chooseObject();
+	let eventoElegido;
+	let events = variables[0];
+
+	for (const iterator of events) {
+		if (iterator.id == objectId) {
+			eventoElegido = iterator;
+		}
+	}
+
+	return eventoElegido;
 }
 
 let exp = /^[a-z]+$/i;
@@ -227,6 +265,7 @@ function chooseObject() {
 }
 
 function deleteEvent() {
+	localStorage.setItem("edit-flag", "false");
 	objectId = JSON.parse(localStorage.getItem("objectId"));
 	//borra el evento segun su id de la lista de eventos y sus alarmas si tiene
 	let variables = chooseObject();
@@ -244,8 +283,9 @@ function deleteEvent() {
 		}
 	}
 	console.log("guardando en local storage nuevo array de eventos", events, key);
+	localStorage.removeItem(key);
 	localStorage.setItem(key, JSON.stringify(events)); //lo guardo en localstorage
 	closeModal();
 }
 
-export { setPreSaved, setNewEvents, editEvent, deleteEvent };
+export { setPreSaved, setNewEvents, editEvent, deleteEvent, returnObject };

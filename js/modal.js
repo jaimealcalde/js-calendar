@@ -6,6 +6,7 @@ import {
 	alarmTimeout,
 } from "./alarm.js";
 import { doIfChecked, getFullDate, isExpiredEvent } from "./functions.js";
+import { deleteEvent, returnObject } from "./events.js";
 
 let modal = document.getElementById("new-event");
 
@@ -17,6 +18,20 @@ document
 
 function closeModal() {
 	modal.style.display = "none";
+	document.getElementById("modal-title").innerHTML = "New Event";
+	document.getElementById("title").value = "New event";
+	document.getElementById("set-all-day-event").checked = true;
+	document.getElementById("event-start").value = "";
+	document.getElementById("event-end-date").value = "";
+	document.getElementById("event-start-time").value = "00:00";
+	document.getElementById("event-end-time").value = "23:59";
+	document.getElementById("alarm").checked = false;
+	document.getElementById("alarm-start").value = "";
+	document.getElementById("expired").checked = false;
+	document.getElementById("notes").value =
+		"Enter a description of the event. Come on !";
+	document.getElementById("event-type").value = "holiday";
+	localStorage.setItem("edit-flag", "false");
 	goBack();
 }
 
@@ -97,28 +112,57 @@ function setDateTime() {
 
 //*Crea el objeto del evento y lo guarda en localStorage
 function newEventCreate(e, newEventsArray) {
+	e.preventDefault();
+	let newEventObject;
+	//Si estoy editando
+	if (JSON.parse(localStorage.getItem("edit-flag"))) {
+		newEventObject = returnObject(JSON.parse(localStorage.getItem("objectId")));
+		deleteEvent();
+		//editarlo y volverlo a guardar en local storage
+		newEventObject.id = localStorage.getItem("idcounter");
+		newEventObject.allday =
+			document.getElementById("set-all-day-event").checked;
+		newEventObject.title = document.getElementById("title").value;
+		newEventObject.initial_date = document.getElementById("event-start").value;
+		newEventObject.final_date = document.getElementById("event-end-date").value;
+		newEventObject.initial_time =
+			document.getElementById("event-start-time").value;
+		newEventObject.final_time = document.getElementById("event-end-time").value;
+		newEventObject.alarm = document.getElementById("alarm").checked;
+		newEventObject.alarm_date = document.getElementById("alarm-start").value;
+		newEventObject.reminder = document.getElementById("expired").checked;
+		newEventObject.description = document.getElementById("notes").value;
+		newEventObject.type = document.getElementById("event-type").value;
+	} else {
+		// si no estoy editando
+
+		newEventObject = {
+			id: localStorage.getItem("idcounter"),
+			allday: document.getElementById("set-all-day-event").checked,
+			title: document.getElementById("title").value,
+			initial_date: document.getElementById("event-start").value,
+			final_date: document.getElementById("event-end-date").value,
+			initial_time: document.getElementById("event-start-time").value,
+			final_time: document.getElementById("event-end-time").value,
+			alarm: document.getElementById("alarm").checked,
+			alarm_date: document.getElementById("alarm-start").value,
+			reminder: document.getElementById("expired").checked,
+			description: document.getElementById("notes").value,
+			type: document.getElementById("event-type").value,
+		};
+
+		//new counter number
+		let idcounter = parseInt(localStorage.getItem("idcounter"));
+		let idcounterNext = idcounter + 1;
+		idcounterNext = idcounterNext.toString();
+		localStorage.setItem("idcounter", idcounterNext);
+	}
+
 	if (!localStorage.getItem("new-event")) {
 		newEventsArray = [];
 	} else {
 		newEventsArray = JSON.parse(localStorage.getItem("new-event"));
 	}
-
-	e.preventDefault();
-
-	let newEventObject = {
-		id: localStorage.getItem("idcounter"),
-		allday: document.getElementById("set-all-day-event").checked,
-		title: document.getElementById("title").value,
-		initial_date: document.getElementById("event-start").value,
-		final_date: document.getElementById("event-end-date").value,
-		initial_time: document.getElementById("event-start-time").value,
-		final_time: document.getElementById("event-end-time").value,
-		alarm: document.getElementById("alarm").checked,
-		alarm_date: document.getElementById("alarm-start").value,
-		reminder: document.getElementById("expired").checked,
-		description: document.getElementById("notes").value,
-		type: document.getElementById("event-type").value,
-	};
 
 	// final date por defecto mismo dia, final time por defecto final del dia.
 	if (!document.getElementById("set-event-end-date").checked) {
@@ -126,7 +170,7 @@ function newEventCreate(e, newEventsArray) {
 		newEventObject.final_date = newEventObject.initial_date;
 	}
 
-	//evento de una hora si no se setea la end time
+	//evento de una hora si no se setea la end time y de todo el dia hasta las 23:59
 	let finalHour;
 	let finalMins = newEventObject.initial_time.split(":")[1];
 	if (!document.getElementById("set-event-end-time").checked) {
@@ -144,15 +188,8 @@ function newEventCreate(e, newEventsArray) {
 				finalHour = finalHour.toString();
 			}
 		}
-
 		newEventObject.final_time = finalHour + ":" + finalMins;
 	}
-
-	//new counter number
-	let idcounter = parseInt(localStorage.getItem("idcounter"));
-	let idcounterNext = idcounter + 1;
-	idcounterNext = idcounterNext.toString();
-	localStorage.setItem("idcounter", idcounterNext);
 
 	//push the object with the expired property into to the array into the localstorage
 	if (document.getElementById("expired").checked) {

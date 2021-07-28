@@ -48,6 +48,10 @@ function borrarContenidoModal() {
 
 	document.getElementById("dateEvent").innerHTML = "";
 
+	document.getElementById("endDateEvent").innerHTML = "";
+
+	document.getElementById("endTimeEvent").innerHTML = "";
+
 	document.getElementById("timeEvent").innerHTML = "";
 
 	document.getElementById("alarmEvent").innerHTML = "";
@@ -61,6 +65,7 @@ function borrarContenidoModal() {
 
 function closeModal() {
 	modal.style.display = "none";
+	localStorage.setItem("edit-flag", "false");
 	borrarContenidoModal();
 	removeEventListenerShowEvent();
 	goBack();
