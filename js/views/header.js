@@ -32,7 +32,6 @@ function printHeader() {
 }
 
 function pressEnter(e) {
-	e.preventDefault();
 	if (e.key == "Enter") {
 		goToCreateEvent();
 	}
