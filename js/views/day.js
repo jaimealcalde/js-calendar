@@ -51,7 +51,7 @@ function setDay(e) {
 	let dateChange = localStorage.getItem("month");
 	dateChange = JSON.parse(dateChange);
 	toObjectDate();
-	monthObject.date.setDate(clickedDay);
+	monthObject.setDate(clickedDay);
 	dateChange = JSON.stringify(monthObject);
 	localStorage.setItem("month", dateChange);
 
