@@ -407,8 +407,8 @@ function monthDisplay() {
 		removeDayEventListeners();
 	}
 	printMonth();
-	setLimitDates();
 	setStandardCalendar();
+	setLimitDates();
 	hiddenMonthButtons();
 	todayRed();
 	addEventListenerDays();
