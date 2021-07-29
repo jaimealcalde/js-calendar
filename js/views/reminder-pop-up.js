@@ -12,6 +12,7 @@ document
 let reminder = document.getElementById("reminderPopup");
 
 function modalReminder(id) {
+	console.log("Reminder pop-up");
 	reminder.style.display = "block";
 	document.getElementsByTagName("audio")[0].play();
 

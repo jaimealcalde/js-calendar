@@ -20,6 +20,10 @@ function setAlarmLimits() {
 	//format de set alarm: 2021-07-23T22:57
 	let minAlarmTime = getFullDate(new Date(Date.now()), 0, 0, 0);
 	let minAlarmTimeHoursBadFormat;
+	/* minAlarmTimeHoursBadFormat = new Date(Date.now())
+		.toLocaleString()
+		.split(",")[1]
+		.split(" "); */
 
 	if (new Date(Date.now()).toLocaleString().includes(",")) {
 		minAlarmTimeHoursBadFormat = new Date(Date.now())
@@ -44,9 +48,11 @@ function setAlarmLimits() {
 
 function alarmTimeout(evento) {
 	let alarms = JSON.parse(localStorage.getItem("alarm-events"));
+	console.log("entre en alarm timeout");
 
 	//estoy recorriendo las alarmas ya presetedas
 	for (const element of alarms) {
+		console.log("estoy recorriendo las alarmas preseteadas");
 		if (element.id == evento.id) {
 			let alarmTimeToGo;
 			//if (element.alarm_date) {

@@ -32,9 +32,9 @@ function goToDayView() {
 
 function goBack() {
 	if (document.getElementById("monthView")) {
-		goToMonth();
+		location.hash = "";
 	} else if (document.getElementById("dayView")) {
-		goToDayView();
+		location.hash = "day";
 	}
 }
 

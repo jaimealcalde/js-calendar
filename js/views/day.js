@@ -45,13 +45,15 @@ function eventToColor(oneEvent, newEvent) {
 }
 
 function setDay(e) {
+	let monthObject = JSON.parse(localStorage.getItem("month"));
+	toObjectDate();
 	var clickedDay = e.target.textContent;
 	setEventsOnLocal(clickedDay, "day");
 	localStorage.setItem("day", JSON.stringify(clickedDay));
 
 	let dateChange = localStorage.getItem("month");
 	dateChange = JSON.parse(dateChange);
-	toObjectDate();
+
 	monthObject.setDate(clickedDay);
 	dateChange = JSON.stringify(monthObject);
 	localStorage.setItem("month", dateChange);
@@ -60,6 +62,8 @@ function setDay(e) {
 }
 
 function printTitle() {
+	let monthObject = JSON.parse(localStorage.getItem("month"));
+	toObjectDate();
 	let title = document.querySelector("#day-title");
 	title.textContent = `${
 		monthNames[monthObject.getMonth()]
@@ -122,8 +126,8 @@ function removeDayEventListeners() {
 }
 
 function loadDayEvents(newEvent, clickedDay) {
-	monthObject = JSON.parse(localStorage.getItem("month"));
-
+	let monthObject = JSON.parse(localStorage.getItem("month"));
+	toObjectDate();
 	let eventsArray = [];
 	newEvent.forEach((singleEvent) => {
 		monthObject = new Date(JSON.parse(localStorage.getItem("month")).date);
@@ -300,7 +304,8 @@ function goBeforeDay() {
 }
 //monthObject = new Date(JSON.parse(localStorage.getItem("month")).date);
 function hiddenDayNavButtons() {
-	monthObject = new Date(JSON.parse(localStorage.getItem("month")).date);
+	let monthObject = JSON.parse(localStorage.getItem("month"));
+	toObjectDate();
 	let limitDate = new Date(
 		monthObject.getFullYear(),
 		monthObject.getMonth() + 1,

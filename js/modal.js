@@ -168,6 +168,7 @@ function setDateTime() {
 
 //*Crea el objeto del evento y lo guarda en localStorage
 function newEventCreate(e) {
+	e.preventDefault();
 	let newEventObject;
 	let newEventsArray;
 	//Si estoy editando
@@ -248,7 +249,10 @@ function newEventCreate(e) {
 	}
 
 	//push the object with the expired property into to the array into the localstorage
+	console.log("reminder of the event needed");
+	console.log(document.getElementById("expired").checked);
 	if (document.getElementById("expired").checked) {
+		console.log("seteando en localStorage");
 		newEventsArray.push(isExpiredEvent(newEventObject));
 	} else {
 		newEventsArray.push(newEventObject);
@@ -257,6 +261,8 @@ function newEventCreate(e) {
 	let newEventsString = JSON.stringify(newEventsArray);
 	localStorage.setItem("new-event", newEventsString);
 
+	console.log("voy a ver si esta checked la alarma");
+	console.log(document.getElementById("alarm").checked);
 	if (document.getElementById("alarm").checked) {
 		arrayAlarmObjectCreate();
 		alarmTimeout(newEventObject);
