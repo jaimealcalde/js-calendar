@@ -6,7 +6,6 @@ import { setEventsOnLocal } from "../functions.js";
 import { selectId } from "./modalShowEvents.js";
 
 function printMonth() {
-	//TODO borar contendio y borrar event listener
 	wrapper.innerHTML = "";
 	printHeader();
 	//insert the template HTML in the main.html div calendar
@@ -41,19 +40,19 @@ let monthNames = [
 	"November",
 	"December",
 ];
-function setMonth() {
+function setTodayMonth() {
 	var monthObject = { date: new Date(Date.now()) };
 	setEventsOnLocal(monthObject, "month");
 }
 
 let monthObject = JSON.parse(localStorage.getItem("month"));
-
 function toObjectDate() {
 	if (monthObject) {
 		if (typeof monthObject.date == "string") {
 			let date = monthObject.date.split("T")[0];
 			monthObject["date"] = new Date(date);
 		}
+		//localStorage.setItem("month", JSON.stringify(monthObject));
 	}
 }
 
@@ -65,7 +64,11 @@ function setLimitDates() {
 }
 
 function setStandardCalendar() {
+	monthObject = JSON.parse(localStorage.getItem("month"));
 	toObjectDate();
+	console.log(localStorage.getItem("month"));
+	console.log(monthObject);
+
 	// Create a new Date with the actual month by default. Change the day of the month to the 1st day,
 	//and GET THE FIRST DAY OF THE MONTH
 
@@ -434,7 +437,7 @@ export {
 	getEventYear,
 	getEventTime,
 	gotoDay,
-	setMonth,
+	setTodayMonth,
 	monthObject,
 	toObjectDate,
 	monthNames,
