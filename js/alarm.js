@@ -65,7 +65,7 @@ function alarmTimeout(evento) {
 				/* 	element["timeoutID"] = setTimeout(function () {
 					modalAlarma(element.id);
 				}, 6000); */
-
+				console.log("por setear alarma para el elemnto", element);
 				element["timeoutID"] = setTimeout(function () {
 					modalAlarma(element.id);
 				}, alarmTimeToGo);

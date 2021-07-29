@@ -11,6 +11,7 @@ let popup = document.getElementById("cookiesPopup");
 
 function modalAlarma(id) {
 	popup.style.display = "block";
+	console.log("alarm sonando for elemnt", id);
 	document.getElementsByTagName("audio")[0].play();
 
 	let eventsArray = JSON.parse(localStorage.getItem("new-event"));
