@@ -1,6 +1,6 @@
 import { start } from "./main.js";
 import { goToMonth } from "./router.js";
-import { gotoDay } from "./views/month.js";
+import { gotoDay, monthDisplay } from "./views/month.js";
 import { modalReminder } from "./views/reminder-pop-up.js";
 
 function doubleDigits(someNumber) {
@@ -115,7 +115,7 @@ function timeIsOut(evento) {
 function resetCalendar() {
 	localStorage.clear();
 	start();
-	goToMonth();
+	monthDisplay();
 }
 
 export {

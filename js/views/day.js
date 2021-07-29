@@ -7,6 +7,7 @@ import {
 	getEventTime,
 	toObjectDate,
 	monthNames,
+	monthObject,
 	clearNavigationEventListeners,
 	sumEventsArray,
 } from "./month.js";
@@ -121,11 +122,11 @@ function removeDayEventListeners() {
 }
 
 function loadDayEvents(newEvent, clickedDay) {
-	let monthObject = JSON.parse(localStorage.getItem("month"));
+	monthObject = JSON.parse(localStorage.getItem("month"));
 
 	let eventsArray = [];
 	newEvent.forEach((singleEvent) => {
-		let monthObject = new Date(JSON.parse(localStorage.getItem("month")).date);
+		monthObject = new Date(JSON.parse(localStorage.getItem("month")).date);
 		console.log(monthObject);
 		let monthEvent = getEventMonth(singleEvent.initial_date) - 1;
 		let monthEventFinal = getEventMonth(singleEvent.final_date) - 1;
@@ -297,9 +298,9 @@ function goBeforeDay() {
 
 	dayDisplay();
 }
-let monthObject = new Date(JSON.parse(localStorage.getItem("month")).date);
+//monthObject = new Date(JSON.parse(localStorage.getItem("month")).date);
 function hiddenDayNavButtons() {
-	let monthObject = new Date(JSON.parse(localStorage.getItem("month")).date);
+	monthObject = new Date(JSON.parse(localStorage.getItem("month")).date);
 	let limitDate = new Date(
 		monthObject.getFullYear(),
 		monthObject.getMonth() + 1,
