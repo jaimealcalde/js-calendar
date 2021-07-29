@@ -5,9 +5,9 @@ import {
 	getEventMonth,
 	getEventYear,
 	getEventTime,
+	monthObject,
 	toObjectDate,
 	monthNames,
-	monthObject,
 	clearNavigationEventListeners,
 	sumEventsArray,
 } from "./month.js";
@@ -45,16 +45,14 @@ function eventToColor(oneEvent, newEvent) {
 }
 
 function setDay(e) {
-	let monthObject = JSON.parse(localStorage.getItem("month"));
-	toObjectDate();
 	var clickedDay = e.target.textContent;
 	setEventsOnLocal(clickedDay, "day");
 	localStorage.setItem("day", JSON.stringify(clickedDay));
 
 	let dateChange = localStorage.getItem("month");
 	dateChange = JSON.parse(dateChange);
-
-	monthObject.setDate(clickedDay);
+	toObjectDate();
+	monthObject.date.setDate(clickedDay);
 	dateChange = JSON.stringify(monthObject);
 	localStorage.setItem("month", dateChange);
 
@@ -62,12 +60,10 @@ function setDay(e) {
 }
 
 function printTitle() {
-	let monthObject = JSON.parse(localStorage.getItem("month"));
-	toObjectDate();
 	let title = document.querySelector("#day-title");
 	title.textContent = `${
-		monthNames[monthObject.getMonth()]
-	} ${monthObject.getDate()} ${monthObject.getFullYear()}`;
+		monthNames[monthObject.date.getMonth()]
+	} ${monthObject.date.getDate()} ${monthObject.date.getFullYear()}`;
 
 	// Activate go to month button
 	let toMonthButton = document.getElementById("display-month");
@@ -126,17 +122,13 @@ function removeDayEventListeners() {
 }
 
 function loadDayEvents(newEvent, clickedDay) {
-	let monthObject = JSON.parse(localStorage.getItem("month"));
-	toObjectDate();
 	let eventsArray = [];
 	newEvent.forEach((singleEvent) => {
-		monthObject = new Date(JSON.parse(localStorage.getItem("month")).date);
-		console.log(monthObject);
 		let monthEvent = getEventMonth(singleEvent.initial_date) - 1;
 		let monthEventFinal = getEventMonth(singleEvent.final_date) - 1;
 		let yearEvent = getEventYear(singleEvent.initial_date);
-		let monthDisplayedOnCalendar = monthObject.getMonth();
-		let yearDisplayed = monthObject.getFullYear();
+		let monthDisplayedOnCalendar = monthObject.date.getMonth();
+		let yearDisplayed = monthObject.date.getFullYear();
 
 		if (monthEvent == monthDisplayedOnCalendar && yearEvent == yearDisplayed) {
 			//todos los casos en que el evento debe ser agregado
@@ -302,29 +294,27 @@ function goBeforeDay() {
 
 	dayDisplay();
 }
-//monthObject = new Date(JSON.parse(localStorage.getItem("month")).date);
+
 function hiddenDayNavButtons() {
-	let monthObject = JSON.parse(localStorage.getItem("month"));
-	toObjectDate();
 	let limitDate = new Date(
-		monthObject.getFullYear(),
-		monthObject.getMonth() + 1,
+		monthObject.date.getFullYear(),
+		monthObject.date.getMonth() + 1,
 		0
 	);
 
 	toObjectDate();
 	if (
-		monthObject.getMonth() == monthObject.limitMonth &&
-		monthObject.getFullYear() == monthObject.limitYearAfter &&
-		monthObject.getDate() == limitDate.getDate()
+		monthObject.date.getMonth() == monthObject.limitMonth &&
+		monthObject.date.getFullYear() == monthObject.limitYearAfter &&
+		monthObject.date.getDate() == limitDate.getDate()
 	) {
 		document
 			.querySelector('[data-action="next-day"]')
 			.classList.add("invisible");
 	} else if (
-		monthObject.getMonth() == monthObject.limitMonth &&
-		monthObject.getFullYear() == monthObject.limitYearBefore &&
-		monthObject.getDate() == 1
+		monthObject.date.getMonth() == monthObject.limitMonth &&
+		monthObject.date.getFullYear() == monthObject.limitYearBefore &&
+		monthObject.date.getDate() == 1
 	) {
 		document
 			.querySelector('[data-action="before-day"]')
