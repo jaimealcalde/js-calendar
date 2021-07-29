@@ -113,6 +113,7 @@ function timeIsOut(evento) {
 }
 
 function resetCalendar() {
+	localStorage.clear();
 	start();
 	goToMonth();
 }
