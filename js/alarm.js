@@ -19,15 +19,18 @@ function setAlarmLimits() {
 
 	//format de set alarm: 2021-07-23T22:57
 	let minAlarmTime = getFullDate(new Date(Date.now()), 0, 0, 0);
+	let minAlarmTimeHoursBadFormat;
 
-	let minAlarmTimeHoursBadFormat = new Date(Date.now())
-		.toLocaleString()
-		.split(",")[1]
-		.split(" ");
-
-	//Así funciona en Mac
-	//.split(",")[1];
-	//.split(" ");
+	if (new Date(Date.now()).toLocaleString().includes(",")) {
+		minAlarmTimeHoursBadFormat = new Date(Date.now())
+			.toLocaleString()
+			.split(",")[1]
+			.split(" ");
+	} else {
+		minAlarmTimeHoursBadFormat = new Date(Date.now())
+			.toLocaleString()
+			.split(" ")[1];
+	}
 
 	//Separo hora de minutos
 	minAlarmTimeHoursBadFormat = minAlarmTimeHoursBadFormat[1].split(":");
