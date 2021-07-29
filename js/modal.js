@@ -168,6 +168,7 @@ function setDateTime() {
 
 //*Crea el objeto del evento y lo guarda en localStorage
 function newEventCreate(e) {
+	e.preventDefault();
 	let newEventObject;
 	let newEventsArray;
 	//Si estoy editando
